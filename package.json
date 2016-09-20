@@ -2,7 +2,7 @@
   "name": "coders",
   "version": "1.0.0",
   "description": "An online learning single page web application about programming.",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -17,8 +17,10 @@
   },
   "homepage": "https://github.com/bilarslan/coders#readme",
   "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.15.2",
     "express": "^4.14.0",
+    "jsonwebtoken": "^7.1.9",
     "morgan": "^1.7.0",
     "mysql": "^2.11.1",
     "sequelize": "^3.24.3"
