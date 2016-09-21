@@ -15,13 +15,15 @@ app.use(bodyParser.json());
 
 app.use('/auth', auth);
 
-app.get('*', function(req, res){
+app.get('*', function(req, res) {
     res.send('Hello world!');
 });
 
-db.sequelize.sync({force: true}).then(function(){
-  console.log('Database is connected succesfully..');
-    app.listen(3000, function(){
-      console.log('Server is listening at 3000!');
+db.sequelize.sync({
+    force: true
+}).then(function() {
+    console.log('Database is connected succesfully..');
+    app.listen(3000, function() {
+        console.log('Server is listening at 3000!');
     });
 });
