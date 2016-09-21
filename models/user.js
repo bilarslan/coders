@@ -1,4 +1,5 @@
 var bcrypt = require('bcrypt-nodejs');
+var jwt = require('jsonwebtoken');
 
 module.exports = function(sequelize, DataTypes) {
     var user = sequelize.define('user', {
@@ -55,6 +56,17 @@ module.exports = function(sequelize, DataTypes) {
                     registerData: user.createdAt
                 }
                 return _user;
+            },
+            generateToken: function() {
+                var id = this.get('id');
+                var username = this.get('username');
+                var token = jwt.sign({
+                    id: id,
+                    username: username
+                }, "secretkey", {
+                    expiresIn: 60 * 24
+                });
+                return token;
             }
         }
     });
