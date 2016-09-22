@@ -4,20 +4,25 @@ var bodyParser = require('body-parser');
 var morgan = require('morgan');
 var app = express();
 
+var mid = {
+    reqAuth: function(req, res, next) {
+        console.log('Hey!');
+        next();
+    }
+}
+
 //Database
 var db = require('./db');
 
 //Routes
 var auth = require('./routes/auth')(app, express);
+var main = require('./routes/main')(app, express);
 
 app.use(morgan('dev'));
 app.use(bodyParser.json());
 
 app.use('/auth', auth);
-
-app.get('*', function(req, res) {
-    res.send('Hello world!');
-});
+app.use('/api', main);
 
 db.sequelize.sync({
     force: true
