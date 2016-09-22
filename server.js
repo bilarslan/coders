@@ -4,13 +4,6 @@ var bodyParser = require('body-parser');
 var morgan = require('morgan');
 var app = express();
 
-var mid = {
-    reqAuth: function(req, res, next) {
-        console.log('Hey!');
-        next();
-    }
-}
-
 //Database
 var db = require('./db');
 
@@ -21,6 +14,7 @@ var main = require('./routes/main')(app, express);
 app.use(morgan('dev'));
 app.use(bodyParser.json());
 
+app.use(express.static(__dirname + '/public'));
 app.use('/auth', auth);
 app.use('/api', main);
 
