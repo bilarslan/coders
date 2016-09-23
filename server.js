@@ -19,7 +19,7 @@ app.use('/auth', auth);
 app.use('/api', main);
 
 db.sequelize.sync({
-    force: true
+    force: false
 }).then(function() {
     console.log('Database is connected succesfully..');
     app.listen(3000, function() {

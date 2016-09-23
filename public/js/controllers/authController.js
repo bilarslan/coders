@@ -13,3 +13,15 @@ authController.controller('signInController', ['$scope', '$location', 'auth', fu
         });
     }
 }]);
+
+authController.controller('signUpController', ['$scope', '$location', 'auth', function($scope, $location, auth) {
+
+    $scope.name = '';
+    $scope.username = '';
+    $scope.email = '';
+    $scope.password = '';
+
+    $scope.signUp = function() {
+        console.log($scope.name + ' ' + $scope.username + ' ' + $scope.email + ' ' + $scope.password);
+    }
+}]);
