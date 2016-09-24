@@ -13,12 +13,19 @@
     <script type="text/javascript" src="./js/services/authService.js"></script>
     <!-- Controllers -->
     <script type="text/javascript" src="./js/controllers/authController.js"></script>
+    <script type="text/javascript" src="./js/controllers/mainController.js"></script>
     <!-- JS -->
     <script type="text/javascript" src="./js/coders-app-routes.js"></script>
     <script type="text/javascript" src="./js/coders-app.js"></script>
 </head>
 
 <body>
+    <div ng-controller="navController">
+        <div ng-show="loggedIn">
+            <p>Hey, {{username}}!</p>
+            <button ng-click="signOut()">Sign Out!</button>
+        </div>
+    </div>
     <div ng-view></div>
 </body>
 

@@ -3,6 +3,21 @@ var authService = angular.module('authService', []);
 authService.factory('auth', ['$http', '$q', 'authToken', function($http, $q, authToken) {
     var authFactory = {};
 
+    authFactory.signUp = function(name, username, email, password) {
+        return $http.post('/auth/signup', {
+            name: name,
+            username: username,
+            email: email,
+            password: password
+        }).success(function(response) {
+            authToken.setToken(response.token);
+            return response;
+        }).error(function(err) {
+            console.log(err);
+        });
+    }
+
+
     authFactory.signIn = function(username, password) {
         return $http.post('/auth/signin', {
             username: username,
@@ -10,8 +25,8 @@ authService.factory('auth', ['$http', '$q', 'authToken', function($http, $q, aut
         }).success(function(response) {
             authToken.setToken(response.token);
             return response;
-        }).error(function(error) {
-            console.log(error);
+        }).error(function(err) {
+            console.log(err);
         });
     }
 
@@ -24,6 +39,16 @@ authService.factory('auth', ['$http', '$q', 'authToken', function($http, $q, aut
             return true;
         } else {
             return false;
+        }
+    }
+
+    authFactory.getUser = function() {
+        if (authToken.getToken()) {
+            return $http.get('/auth/me');
+        } else {
+            return $q.reject({
+                error: 'User has no token'
+            });
         }
     }
 
@@ -54,7 +79,7 @@ authService.factory('authInterceptor', ['$location', '$q', 'authToken', function
         if (token) {
             config.headers['x-access-token'] = token;
         }
-        return config
+        return config;
     }
 
     interceptorFactory.responseError = function(response) {

@@ -1,5 +1,6 @@
 var bcrypt = require('bcrypt-nodejs');
 var db = require('../db');
+var requireAuth = require('../middlewares/middleware').requireAuth;
 
 module.exports = function(app, express) {
     var auth = express.Router();
@@ -12,6 +13,8 @@ module.exports = function(app, express) {
                 error: "Invalid data format!"
             });
         }
+
+
         //Create user if not existed
         db.user.findOrCreate({
             where: {
@@ -73,6 +76,10 @@ module.exports = function(app, express) {
 
     auth.get('/signout', function(req, res) {
 
+    });
+
+    auth.get('/me', requireAuth, function(req, res) {
+        res.json(req.decoded);
     });
     return auth;
 }

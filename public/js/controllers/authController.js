@@ -4,12 +4,14 @@ authController.controller('signInController', ['$scope', '$location', 'auth', fu
 
     $scope.username = '';
     $scope.password = '';
+    $scope.error = '';
+
     $scope.signIn = function() {
         console.log($scope.username + ' ' + $scope.password);
         auth.signIn($scope.username, $scope.password).success(function(response) {
             $location.path('/');
-        }).error(function(error) {
-            console.log(error);
+        }).error(function(err) {
+            $scope.error = err.error;
         });
     }
 }]);
@@ -20,8 +22,13 @@ authController.controller('signUpController', ['$scope', '$location', 'auth', fu
     $scope.username = '';
     $scope.email = '';
     $scope.password = '';
+    $scope.error = '';
 
     $scope.signUp = function() {
-        console.log($scope.name + ' ' + $scope.username + ' ' + $scope.email + ' ' + $scope.password);
+        auth.signUp($scope.name, $scope.username, $scope.email, $scope.password).success(function(response) {
+            $location.path('/');
+        }).error(function(err) {
+            $scope.error = err.error;
+        });
     }
 }]);

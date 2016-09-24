@@ -1,8 +1,8 @@
 var Sequelize = require('sequelize');
 var sequelize = new Sequelize('coders', 'root', '123456', {
-  host: 'localhost',
-  port: 3306,
-  dialect: 'mysql'
+    host: 'localhost',
+    port: 3306,
+    dialect: 'mysql'
 });
 
 var db = {};
