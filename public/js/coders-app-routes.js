@@ -15,6 +15,13 @@ angular.module('codersAppRoutes', ['ngRoute'])
             templateUrl: '../views/register.html',
             controller: 'signUpController'
 
+        })
+        .when('/questions', {
+            templateUrl: '../views/questions.html',
+            controller: 'questionsController'
+        })
+        .otherwise({
+            redirectTo: "/"
         });
 
     //$locationProvider.html5Mode(true);

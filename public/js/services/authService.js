@@ -84,6 +84,10 @@ authService.factory('authInterceptor', ['$location', '$q', 'authToken', function
 
     interceptorFactory.responseError = function(response) {
         if (response.status == 403) {
+            if (authToken.getToken()) {
+                //token is expired
+                authToken.setToken();
+            }
             $location.path('/login');
         }
         return $q.reject(response);

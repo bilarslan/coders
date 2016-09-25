@@ -9,7 +9,7 @@ mainController.controller('navController', ['$scope', '$rootScope', 'auth', func
         auth.getUser().then(function(response) {
             $scope.loggedIn = true;
             $scope.username = response.data.username;
-            console.log($scope.username);
+            //console.log($scope.username);
         });
 
     });

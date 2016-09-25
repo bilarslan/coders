@@ -14,6 +14,7 @@
     <!-- Controllers -->
     <script type="text/javascript" src="./js/controllers/authController.js"></script>
     <script type="text/javascript" src="./js/controllers/mainController.js"></script>
+    <script type="text/javascript" src="./js/controllers/questionController.js"></script>
     <!-- JS -->
     <script type="text/javascript" src="./js/coders-app-routes.js"></script>
     <script type="text/javascript" src="./js/coders-app.js"></script>
@@ -25,6 +26,12 @@
             <p>Hey, {{username}}!</p>
             <button ng-click="signOut()">Sign Out!</button>
         </div>
+
+        <div ng-show="!loggedIn">
+          <a href="#/login">Login</a><br>
+          <a href="#/register">Register</a>
+        </div>
+          <a href="#/questions">Questions</a>
     </div>
     <div ng-view></div>
 </body>
