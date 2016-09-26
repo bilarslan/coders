@@ -7,7 +7,7 @@ module.exports = function(sequelize, DataTypes) {
             type: DataTypes.STRING,
             allowNull: false,
             validate: {
-                len: [5, 50]
+                len: [3, 50]
             }
         },
         username: {
@@ -15,7 +15,7 @@ module.exports = function(sequelize, DataTypes) {
             allowNull: false,
             unique: true,
             validate: {
-                len: [5, 50]
+                len: [3, 50]
             }
         },
         email: {
@@ -30,7 +30,7 @@ module.exports = function(sequelize, DataTypes) {
             type: DataTypes.STRING,
             allowNull: false,
             validate: {
-                len: [5, 100]
+                len: [6, 100]
             },
             set: function(value) {
                 var hash = bcrypt.hashSync(value);

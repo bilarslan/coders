@@ -2,9 +2,9 @@ var mainController = angular.module('mainController', []);
 
 mainController.controller('navController', ['$scope', '$rootScope', 'auth', function($scope, $rootScope, auth) {
 
-    $scope.loggedIn = auth.isLoggedIn();
+    $scope.loggedIn = false;
     $scope.username = '';
-    console.log($scope.loggedIn);
+
     $rootScope.$on('$routeChangeStart', function() {
         auth.getUser().then(function(response) {
             $scope.loggedIn = true;
