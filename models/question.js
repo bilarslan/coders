@@ -5,21 +5,21 @@ module.exports = function(sequelize, DataTypes) {
             type: DataTypes.STRING,
             allowNull: false,
             validate: {
-                len: [5, 50]
+                len: [3, 50]
             }
         },
         content: {
             type: DataTypes.STRING,
             allowNull: false,
             validate: {
-                len: [5, 500]
+                len: [3, 500]
             }
         },
         tags: {
             type: DataTypes.STRING,
             allowNull: true,
             validate: {
-                len: [3, 100]
+                len: [1, 100]
             }
         }
     });

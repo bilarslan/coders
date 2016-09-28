@@ -4,19 +4,66 @@ var requireAuth = require('../middlewares/middleware').requireAuth;
 module.exports = function(app, express) {
     var question = express.Router();
 
-    question.get('/all', function(req, res) {
+    question.get('/', function(req, res) {
 
+        db.question.findAll({
+            attributes: ['id', 'title', 'content', 'tags', 'createdAt'],
+            include: [{
+                model: db.user,
+                attributes: ['id', 'username']
+            }]
+        }).then(function(questions) {
+            res.send(questions);
+        }, function() {
+            res.status(500).send();
+        });
 
     });
 
     question.get('/:id', function(req, res) {
 
+        var id = parseInt(req.params.id, 10);
+
+        db.question.findOne({
+            where: {
+                id: id
+            },
+            attributes: ['id', 'title', 'content', 'tags', 'createdAt'],
+            include: [{
+                model: db.user,
+                attributes: ['id', 'username']
+            }]
+        }).then(function(question) {
+            if (question) {
+                res.send(question);
+            } else {
+                res.status(404).send();
+            }
+        }, function() {
+            res.status(500).send();
+        });
 
     });
 
     question.post('/create', requireAuth, function(req, res) {
 
+        if (typeof req.body.title !== 'string' || typeof req.body.content !== 'string' || typeof req.body.tags !== 'string') {
+            //400
+            return res.status(400).json({
+                error: 'Invalid data format!'
+            });
+        }
 
+        db.question.create({
+            title: req.body.title,
+            content: req.body.content,
+            tags: req.body.tags,
+            userId: req.decoded.id
+        }).then(function(question) {
+            res.send().json({});
+        }, function() {
+            res.status(500).send();
+        });
     });
 
     question.post('/update', requireAuth, function(req, res) {

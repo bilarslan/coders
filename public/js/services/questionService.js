@@ -5,7 +5,14 @@ questionService.factory('questionCRUDService', ['$http', '$q', function($http, $
 
     var questionCRUDFactory = {};
 
-    questionCRUDFactory.getQuestion = function(id) {}
+    questionCRUDFactory.getQuestion = function(id) {
+        if (id) {
+            return $http.get('/question/' + id);
+        } else {
+            return $http.get('/question');
+        }
+
+    }
 
     questionCRUDFactory.createQuestion = function(question) {}
 
