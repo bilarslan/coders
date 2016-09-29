@@ -14,7 +14,18 @@ questionService.factory('questionCRUDService', ['$http', '$q', function($http, $
 
     }
 
-    questionCRUDFactory.createQuestion = function(question) {}
+    questionCRUDFactory.createQuestion = function(question) {
+
+        if (question) {
+            return $http.post('/question/create', {
+                title: question.title,
+                content: question.content,
+                tags: question.tags
+            });
+        } else {
+            return null;
+        }
+    }
 
     questionCRUDFactory.updateQuestion = function(question) {}
 

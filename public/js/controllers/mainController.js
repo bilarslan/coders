@@ -10,8 +10,7 @@ mainController.controller('navController', ['$scope', '$rootScope', 'auth', func
             $scope.loggedIn = true;
             $scope.username = response.data.username;
             //console.log($scope.username);
-        });
-
+        })
     });
 
     $scope.signOut = function() {

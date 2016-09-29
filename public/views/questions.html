@@ -1,1 +1,10 @@
-Questions view
+<a href="#/question/new">Create New Question</a>
+
+<div ng-repeat="question in questions | orderBy:'-id'">
+<a ng-href="#/question/{{question.id}}">{{question.id}}</a><br>
+{{question.title}} <br>
+{{question.content}} <br>
+{{question.tags}} <br>
+{{question.createdAt}} <br>
+{{question.user.username}}<br><br>
+</div>

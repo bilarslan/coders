@@ -60,8 +60,8 @@ module.exports = function(app, express) {
             tags: req.body.tags,
             userId: req.decoded.id
         }).then(function(question) {
-            res.send().json({});
-        }, function() {
+            res.send(question);
+        }, function(err) {
             res.status(500).send();
         });
     });

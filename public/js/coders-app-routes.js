@@ -20,6 +20,14 @@ angular.module('codersAppRoutes', ['ngRoute'])
             templateUrl: '../views/questions.html',
             controller: 'questionsController'
         })
+        .when('/question/new', {
+            templateUrl: '../views/newquestion.html',
+            controller: 'newQuestionController'
+        })
+        .when('/question/:id', {
+            templateUrl: '../views/question.html',
+            controller: 'questionAnswersController'
+        })
         .otherwise({
             redirectTo: "/"
         });

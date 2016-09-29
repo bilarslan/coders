@@ -1,13 +1,56 @@
-var questionController = angular.module('questionController', []);
+var questionController = angular.module('questionController', ['ngRoute']);
 
 questionController.controller('questionsController', ['$scope', 'questionCRUDService', function($scope, questionCRUDService) {
 
     $scope.questions = [];
-
+    //Get all questions
     questionCRUDService.getQuestion().success(function(response) {
-        console.log(response);
+        $scope.questions = response;
     }).error(function(err) {
         console.log(err);
     });
 
+}]);
+
+questionController.controller('questionAnswersController', ['$scope', '$routeParams', 'auth', 'questionCRUDService', function($scope, $routeParams, auth, questionCRUDService) {
+
+    //Get id of question from url params
+    var id = $routeParams.id;
+    $scope.question = {};
+    $scope.answers = [];
+
+    //Get question and answers
+    questionCRUDService.getQuestion(id).success(function(response) {
+      $scope.question = response;
+    }).error(function(err) {
+        console.log(err);
+    });
+
+
+}]);
+
+questionController.controller('newQuestionController', ['$scope', '$location', 'auth', 'questionCRUDService', function($scope, $location, auth, questionCRUDService) {
+
+    $scope.title = '';
+    $scope.content = '';
+    $scope.tags = '';
+    $scope.error = '';
+
+    //Require auth
+    auth.getUser().then(function(response) {}, function(err) {
+        $location.path('/login');
+    });
+
+    //Create a question
+    $scope.createQuestion = function() {
+        questionCRUDService.createQuestion({
+            title: $scope.title,
+            content: $scope.content,
+            tags: $scope.tags
+        }).success(function(response) {
+            $location.path('/questions');
+        }).error(function(err) {
+            $scope.error = 'Please, filll all bla bla and try again!';
+        });
+    }
 }]);
