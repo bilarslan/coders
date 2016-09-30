@@ -15,13 +15,15 @@ questionService.factory('questionCRUDService', ['$http', '$q', function($http, $
     }
 
     questionCRUDFactory.createQuestion = function(question) {
-
         if (question) {
-            return $http.post('/question/create', {
-                title: question.title,
-                content: question.content,
-                tags: question.tags
-            });
+            return $http.post('/question/create', question);
+        } else {
+            return null;
+        }
+    }
+    questionCRUDFactory.createAnswer = function(answer) {
+        if (answer) {
+            return $http.post('/question/answer', answer);
         } else {
             return null;
         }

@@ -23,12 +23,12 @@
 
 <body>
     <div ng-controller="navController">
-        <div ng-show="loggedIn">
+        <div ng-show="isLoggedIn">
             <p>Hey, {{username}}!</p>
             <button ng-click="signOut()">Sign Out!</button>
         </div>
 
-        <div ng-show="!loggedIn">
+        <div ng-show="!isLoggedIn">
           <a href="#/login">Login</a><br>
           <a href="#/register">Register</a>
         </div>

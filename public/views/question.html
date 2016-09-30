@@ -5,3 +5,21 @@
 {{question.user.username}}<br><br>
 
 Answers:<br>
+<div ng-repeat ="answer in question.answers">
+  {{answer.content}} <br>
+  {{answer.createdAt}} <br>
+  {{answer.user.id}} - {{answer.user.username}} <br><br>
+</div>
+
+<div ng-show="isLoggedIn">
+<div class="answer">
+    <h4>Create a new answer:</h4>
+    <form method="post" ng-submit="answerQuestion()">
+        <p><input type="text" name="content" value="" placeholder="Answer.." ng-model="answer.content"></p>
+        <p class="submit"><input type="submit" name="commit" value="Answer!"></p>
+        <p>{{error}}</p>
+    </form>
+    <a href="#/">Home Page</a><br>
+</div>
+
+</div>

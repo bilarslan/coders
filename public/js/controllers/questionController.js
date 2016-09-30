@@ -12,21 +12,35 @@ questionController.controller('questionsController', ['$scope', 'questionCRUDSer
 
 }]);
 
-questionController.controller('questionAnswersController', ['$scope', '$routeParams', 'auth', 'questionCRUDService', function($scope, $routeParams, auth, questionCRUDService) {
+questionController.controller('questionAnswersController', ['$scope', '$routeParams', '$location', 'auth', 'questionCRUDService', function($scope, $routeParams, $location, auth, questionCRUDService) {
 
     //Get id of question from url params
     var id = $routeParams.id;
+    $scope.isLoggedIn = false;
     $scope.question = {};
-    $scope.answers = [];
+    $scope.answer = {
+        questionId: id
+    };
+
+    auth.getUser().then(function(response) {
+        $scope.isLoggedIn = true;
+    }, function(err) {});
 
     //Get question and answers
     questionCRUDService.getQuestion(id).success(function(response) {
-      $scope.question = response;
+        $scope.question = response;
     }).error(function(err) {
         console.log(err);
     });
 
-
+    //Answer the question
+    $scope.answerQuestion = function() {
+        questionCRUDService.createAnswer($scope.answer).success(function(response) {
+            console.log(response);
+        }).error(function(err) {
+            console.log(err);
+        });
+    }
 }]);
 
 questionController.controller('newQuestionController', ['$scope', '$location', 'auth', 'questionCRUDService', function($scope, $location, auth, questionCRUDService) {

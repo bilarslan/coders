@@ -32,6 +32,13 @@ module.exports = function(app, express) {
             include: [{
                 model: db.user,
                 attributes: ['id', 'username']
+            }, {
+                model: db.answer,
+                attributes: ['id', 'content', 'createdAt'],
+                include: [{
+                    model: db.user,
+                    attributes: ['id', 'username']
+                }]
             }]
         }).then(function(question) {
             if (question) {
@@ -40,6 +47,27 @@ module.exports = function(app, express) {
                 res.status(404).send();
             }
         }, function() {
+            res.status(500).send();
+        });
+
+    });
+
+    question.post('/answer', requireAuth, function(req, res) {
+
+        if (typeof req.body.content !== 'string' || typeof req.body.questionId !== 'string') {
+            return res.status(400).json({
+                error: 'Invalid data format!'
+            });
+        }
+
+        db.answer.create({
+            content: req.body.content,
+            questionId: req.body.questionId,
+            userId: req.decoded.id
+        }).then(function(answer) {
+            res.send(answer)
+        }, function(err) {
+            console.log(err);
             res.status(500).send();
         });
 
