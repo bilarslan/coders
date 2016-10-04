@@ -1,6 +1,6 @@
 var authService = angular.module('authService', []);
 
-authService.factory('auth', ['$http', '$q', 'authToken', function($http, $q, authToken) {
+authService.factory('auth', ['$http', '$q', '$location', 'authToken', function($http, $q, $location, authToken) {
     var authFactory = {};
 
     authFactory.signUp = function(name, username, email, password) {
@@ -32,6 +32,8 @@ authService.factory('auth', ['$http', '$q', 'authToken', function($http, $q, aut
 
     authFactory.signOut = function() {
         authToken.setToken();
+        $location.path('/');
+
     }
 
     authFactory.isLoggedIn = function() {

@@ -36,7 +36,8 @@ questionController.controller('questionAnswersController', ['$scope', '$routePar
     //Answer the question
     $scope.answerQuestion = function() {
         questionCRUDService.createAnswer($scope.answer).success(function(response) {
-            console.log(response);
+            $scope.question = response;
+            $scope.answer.content = '';
         }).error(function(err) {
             console.log(err);
         });

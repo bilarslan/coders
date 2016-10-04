@@ -65,7 +65,34 @@ module.exports = function(app, express) {
             questionId: req.body.questionId,
             userId: req.decoded.id
         }).then(function(answer) {
-            res.send(answer)
+            //return the question
+            db.question.findOne({
+                where: {
+                    id: answer.get('questionId')
+                },
+                attributes: ['id', 'title', 'content', 'tags', 'createdAt'],
+                include: [{
+                    model: db.user,
+                    attributes: ['id', 'username']
+                }, {
+                    model: db.answer,
+                    attributes: ['id', 'content', 'createdAt'],
+                    include: [{
+                        model: db.user,
+                        attributes: ['id', 'username']
+                    }]
+                }]
+            }).then(function(question) {
+                if (question) {
+                    res.send(question);
+                } else {
+                    res.status(404).send();
+                }
+            }, function() {
+                res.status(500).send();
+            });
+
+
         }, function(err) {
             console.log(err);
             res.status(500).send();

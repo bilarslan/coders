@@ -7,7 +7,6 @@ authController.controller('signInController', ['$scope', '$location', 'auth', fu
     $scope.error = '';
 
     $scope.signIn = function() {
-        console.log($scope.username + ' ' + $scope.password);
         auth.signIn($scope.username, $scope.password).success(function(response) {
             $location.path('/');
         }).error(function(err) {
