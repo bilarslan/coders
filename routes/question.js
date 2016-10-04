@@ -11,6 +11,9 @@ module.exports = function(app, express) {
             include: [{
                 model: db.user,
                 attributes: ['id', 'username']
+            }, {
+                model: db.questionRate,
+                attributes: ['userId', 'rate']
             }]
         }).then(function(questions) {
             res.send(questions);
@@ -48,6 +51,20 @@ module.exports = function(app, express) {
             }
         }, function() {
             res.status(500).send();
+        });
+
+    });
+
+    question.get('/like/:id', requireAuth, function(req, res) {
+
+        var id = parseInt(req.params.id, 10);
+
+        db.questionRate.create({
+            userId: req.decoded.id,
+            questionId: id,
+            rate: true
+        }).then(function(){
+          res.status(200).send();
         });
 
     });

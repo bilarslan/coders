@@ -29,6 +29,22 @@ questionService.factory('questionCRUDService', ['$http', '$q', function($http, $
         }
     }
 
+    questionCRUDFactory.like = function(id) {
+        if (id) {
+            return $http.get('/question/like/' + id);
+        } else {
+            return null;
+        }
+    }
+
+    questionCRUDFactory.dislike = function(id) {
+        if (id) {
+            return $http.get('/question/dislike/' + id);
+        } else {
+            return null;
+        }
+    }
+
     questionCRUDFactory.updateQuestion = function(question) {}
 
     questionCRUDFactory.deleteQuestion = function(id) {}

@@ -5,10 +5,44 @@ questionController.controller('questionsController', ['$scope', 'questionCRUDSer
     $scope.questions = [];
     //Get all questions
     questionCRUDService.getQuestion().success(function(response) {
+
+        response.forEach(function(question) {
+            var likeDislike = 0;
+            question.questionRates.forEach(function(rating) {
+                if (rating.rate === true) {
+                    likeDislike++;
+                } else if (rating.rate === false) {
+                    likeDislike--;
+                }
+            });
+            question.likeDislike = likeDislike;
+        });
         $scope.questions = response;
+        console.log(response);
     }).error(function(err) {
         console.log(err);
     });
+
+    $scope.like = function(id) {
+        questionCRUDService.like(id).success(function(response) {
+          for(var i =0;i<$scope.questions.length;i++){
+            var question = $scope.questions[i];
+            if(question.id == id){
+              question.likeDislike++;
+              break;
+            }
+          }
+
+        }).error(function(err) {
+            console.log(err);
+        });
+    }
+
+    $scope.dislike = function(id) {
+        questionCRUDService.dislike(id).success(function(response) {}).error(function(err) {
+            console.log(err);
+        });
+    }
 
 }]);
 
