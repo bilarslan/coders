@@ -56,19 +56,89 @@ module.exports = function(app, express) {
     });
 
     question.get('/like/:id', requireAuth, function(req, res) {
-
         var id = parseInt(req.params.id, 10);
-
-        db.questionRate.create({
-            userId: req.decoded.id,
-            questionId: id,
-            rate: true
-        }).then(function(){
-          res.status(200).send();
+        db.questionRate.findOrCreate({
+            where: {
+                userId: req.decoded.id,
+                questionId: id
+            },
+            defaults: {
+                userId: req.decoded.id,
+                questionId: id,
+                rate: 1
+            }
+        }).spread(function(questionRate, created) {
+            if (created) {
+                res.status(200).json({
+                    message: 1
+                });
+            } else {
+                //Update the rate of the question
+                //Inc or dec
+                var value = questionRate.getDataValue('rate');
+                var inc, rate;
+                if (value == 1) {
+                    rate = 0;
+                    inc = -1;
+                } else if (value == 0) {
+                    rate = 1;
+                    inc = 1;
+                } else if (value == -1) {
+                    rate = 1;
+                    inc = 2;
+                }
+                questionRate.update({
+                    rate: rate
+                }).then(function() {
+                    res.status(200).json({
+                        message: inc
+                    });
+                });
+            }
         });
-
     });
-
+    question.get('/dislike/:id', requireAuth, function(req, res) {
+        var id = parseInt(req.params.id, 10);
+        db.questionRate.findOrCreate({
+            where: {
+                userId: req.decoded.id,
+                questionId: id
+            },
+            defaults: {
+                userId: req.decoded.id,
+                questionId: id,
+                rate: -1
+            }
+        }).spread(function(questionRate, created) {
+            if (created) {
+                res.status(200).json({
+                    message: -1
+                });
+            } else {
+                //Update the rate of the question
+                //Inc or dec
+                var value = questionRate.getDataValue('rate');
+                var inc, rate;
+                if (value == 1) {
+                    rate = -1;
+                    inc = -2;
+                } else if (value == 0) {
+                    rate = -1;
+                    inc = -1;
+                } else if (value == -1) {
+                    rate = 0;
+                    inc = 1;
+                }
+                questionRate.update({
+                    rate: rate
+                }).then(function() {
+                    res.status(200).json({
+                        message: inc
+                    });
+                });
+            }
+        });
+    });
     question.post('/answer', requireAuth, function(req, res) {
 
         if (typeof req.body.content !== 'string' || typeof req.body.questionId !== 'string') {

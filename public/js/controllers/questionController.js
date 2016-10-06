@@ -9,29 +9,28 @@ questionController.controller('questionsController', ['$scope', 'questionCRUDSer
         response.forEach(function(question) {
             var likeDislike = 0;
             question.questionRates.forEach(function(rating) {
-                if (rating.rate === true) {
+                if (rating.rate == 1) {
                     likeDislike++;
-                } else if (rating.rate === false) {
+                } else if (rating.rate == -1) {
                     likeDislike--;
                 }
             });
             question.likeDislike = likeDislike;
         });
         $scope.questions = response;
-        console.log(response);
     }).error(function(err) {
         console.log(err);
     });
 
     $scope.like = function(id) {
         questionCRUDService.like(id).success(function(response) {
-          for(var i =0;i<$scope.questions.length;i++){
-            var question = $scope.questions[i];
-            if(question.id == id){
-              question.likeDislike++;
-              break;
+            for (var i = 0; i < $scope.questions.length; i++) {
+                var question = $scope.questions[i];
+                if (question.id == id) {
+                    question.likeDislike += response.message;
+                    break;
+                }
             }
-          }
 
         }).error(function(err) {
             console.log(err);
@@ -39,7 +38,16 @@ questionController.controller('questionsController', ['$scope', 'questionCRUDSer
     }
 
     $scope.dislike = function(id) {
-        questionCRUDService.dislike(id).success(function(response) {}).error(function(err) {
+        questionCRUDService.dislike(id).success(function(response) {
+            for (var i = 0; i < $scope.questions.length; i++) {
+                var question = $scope.questions[i];
+                if (question.id == id) {
+                  console.log(response.message);
+                    question.likeDislike += response.message;
+                    break;
+                }
+            }
+        }).error(function(err) {
             console.log(err);
         });
     }
