@@ -8,6 +8,10 @@
 {{question.createdAt}} <br>
 {{question.user.username}}<br>
 Rate : {{question.likeDislike}}<br>
-<button type="button" ng-click="like(question.id)">Like!</button> - <button type="button" ng-click="dislike(question.id)">Dislike!</button>
+L : {{question.rateLike}}<br>
+D : {{question.rateDislike}}<br>
+<br>
+L<input type="radio" name="{{question.id}}" id="radio1" ng-checked="question.rateLike" ng-click="like(question.id)">
+D<input type="radio" name="{{question.id}}" id="radio2" ng-checked="question.rateDislike" ng-click="dislike(question.id)">
 <br><br>
 </div>

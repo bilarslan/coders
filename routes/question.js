@@ -13,7 +13,11 @@ module.exports = function(app, express) {
                 attributes: ['id', 'username']
             }, {
                 model: db.questionRate,
-                attributes: ['userId', 'rate']
+                attributes: ['userId', 'rate'],
+                include:[{
+                  model: db.user,
+                  attributes: ['username']
+                }]
             }]
         }).then(function(questions) {
             res.send(questions);

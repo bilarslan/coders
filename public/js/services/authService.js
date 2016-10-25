@@ -54,6 +54,14 @@ authService.factory('auth', ['$http', '$q', '$location', 'authToken', function($
         }
     }
 
+    authFactory.userName = function(username){
+        if(username){
+          this.username = username;
+        }else{
+          return this.username;
+        }
+    }
+
     return authFactory;
 }]);
 

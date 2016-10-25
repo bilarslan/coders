@@ -1,21 +1,32 @@
 var questionController = angular.module('questionController', ['ngRoute']);
 
-questionController.controller('questionsController', ['$scope', 'questionCRUDService', function($scope, questionCRUDService) {
+questionController.controller('questionsController', ['$scope', 'questionCRUDService', 'auth', function($scope, questionCRUDService, auth) {
 
     $scope.questions = [];
+    var username = auth.userName();
     //Get all questions
     questionCRUDService.getQuestion().success(function(response) {
-
         response.forEach(function(question) {
+            var rateLike = false;
+            var rateDislike = false;
             var likeDislike = 0;
             question.questionRates.forEach(function(rating) {
                 if (rating.rate == 1) {
+                    if (username == rating.user.username) {
+                      rateLike = true;
+                    }
                     likeDislike++;
                 } else if (rating.rate == -1) {
+                    if (username == rating.user.username) {
+                      rateDislike = true;
+                    }
                     likeDislike--;
                 }
             });
             question.likeDislike = likeDislike;
+            question.rateLike = rateLike;
+            question.rateDislike = rateDislike;
+
         });
         $scope.questions = response;
     }).error(function(err) {
@@ -28,6 +39,13 @@ questionController.controller('questionsController', ['$scope', 'questionCRUDSer
                 var question = $scope.questions[i];
                 if (question.id == id) {
                     question.likeDislike += response.message;
+                    if(response.message < 0){
+                      question.rateLike = false;
+                      question.rateDislike = false;
+                    }else{
+                        question.rateLike = true;
+                        question.rateDislike = false;
+                    }
                     break;
                 }
             }
@@ -42,8 +60,14 @@ questionController.controller('questionsController', ['$scope', 'questionCRUDSer
             for (var i = 0; i < $scope.questions.length; i++) {
                 var question = $scope.questions[i];
                 if (question.id == id) {
-                  console.log(response.message);
                     question.likeDislike += response.message;
+                    if(response.message < 0){
+                      question.rateDislike = true;
+                      question.rateLike = false;
+                    }else{
+                      question.rateDislike = false;
+                      question.rateLike = false;
+                    }
                     break;
                 }
             }

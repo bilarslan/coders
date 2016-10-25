@@ -8,6 +8,7 @@ mainController.controller('navController', ['$scope', '$rootScope', 'auth', func
     $rootScope.$on('$routeChangeStart', function() {
         auth.getUser().then(function(response) {
             $scope.isLoggedIn = true;
+            auth.userName(response.data.username);
             $scope.username = response.data.username;
             //console.log($scope.username);
         })
