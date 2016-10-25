@@ -1,0 +1,16 @@
+<form name='contactForm' ng-submit='createContact()' novalidate >
+<input type='text' name='cname' placeholder='name' ng-model='contact.cname' ng-required='true'/>
+<div ng-show='contactForm.cname.$invalid && contactForm.cname.$touched'>
+    <small style='color:red; display:block; text-align:center'>Please a enter valid name</small>
+</div>
+<input type='text' name='cemail' placeholder='e-mail' ng-model='contact.cemail' ng-required='true'>
+<div ng-show='contactForm.cemail.$invalid && contactForm.cemail.$touched'>
+  <small style='color:red; display:block; text-align:center'>Please a enter valid e-mail like example@gmail.com</small>
+</div>
+<div>
+  <textarea name='cmessage' rows='8' cols='40' placeholder='Your Message' ng-model='contact.cmessage' ng-required='true'></textarea>
+</div>
+<div>
+  <input type='submit' value='send' ng-disabled='contactForm.$invalid'>
+</div>
+</form>

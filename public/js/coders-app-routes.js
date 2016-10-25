@@ -28,6 +28,10 @@ angular.module('codersAppRoutes', ['ngRoute'])
             templateUrl: '../views/question.html',
             controller: 'questionAnswersController'
         })
+        .when('/contact',{
+          templateUrl:'../views/contact.html',
+          controller:'createContactController'
+        })
         .otherwise({
             redirectTo: "/"
         });

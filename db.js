@@ -11,6 +11,7 @@ db.user = sequelize.import(__dirname + '/models/user.js');
 db.question = sequelize.import(__dirname + '/models/question.js');
 db.questionRate = sequelize.import(__dirname + '/models/questionRate.js');
 db.answer = sequelize.import(__dirname + '/models/answer.js');
+db.contact = sequelize.import(__dirname + '/models/contact.js');
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;

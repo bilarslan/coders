@@ -2,6 +2,7 @@ angular.module('coders-app', ['codersAppRoutes',
     'authController',
     'mainController',
     'questionController',
+    'contactController',
     'authService',
     'questionService'
 ])
