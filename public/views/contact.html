@@ -1,4 +1,4 @@
-<form name='contactForm' ng-submit='createContact()' novalidate >
+<form class='contact' name='contactForm' ng-submit='createContact()' novalidate >
 <input type='text' name='cname' placeholder='name' ng-model='contact.cname' ng-required='true'/>
 <div ng-show='contactForm.cname.$invalid && contactForm.cname.$touched'>
     <small style='color:red; display:block; text-align:center'>Please a enter valid name</small>
@@ -11,6 +11,7 @@
   <textarea name='cmessage' rows='8' cols='40' placeholder='Your Message' ng-model='contact.cmessage' ng-required='true'></textarea>
 </div>
 <div>
-  <input type='submit' value='send' ng-disabled='contactForm.$invalid'>
+  <input type='submit' value='Send' ng-disabled='contactForm.$invalid'>
+  <input type="button" value="Back" onclick="history.go(-1);return true;">
 </div>
 </form>
