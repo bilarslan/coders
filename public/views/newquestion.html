@@ -4,7 +4,7 @@ Hello form new question view
     <h1>Ask a question!</h1>
     <form method="post" ng-submit="createQuestion()">
         <p><input type="text" name="title" value="" placeholder="Title" ng-model="title"></p>
-        <p><input type="text" name="content" value="" placeholder="Content" ng-model="content"></p>
+        <p><textarea name="content" rows="5" cols="25" placeholder="Content" ng-model="content"></textarea></p>
         <p><input type="text" name="tags" value="" placeholder="Tags" ng-model="tags"></p>
        <p class="submit"><input type="submit" name="commit" value="ASK"></p>
         <p>{{error}}</p>
