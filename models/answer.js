@@ -8,6 +8,7 @@ module.exports = function(sequelize, DataTypes) {
                 len: [3, 500]
             }
         }
+
     });
     return answer;
 }

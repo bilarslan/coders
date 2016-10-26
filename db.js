@@ -12,6 +12,7 @@ db.question = sequelize.import(__dirname + '/models/question.js');
 db.questionRate = sequelize.import(__dirname + '/models/questionRate.js');
 db.answer = sequelize.import(__dirname + '/models/answer.js');
 db.contact = sequelize.import(__dirname + '/models/contact.js');
+db.answerRate = sequelize.import(__dirname + '/models/answerRate.js');
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
@@ -28,5 +29,11 @@ db.questionRate.belongsTo(db.user);
 db.questionRate.belongsTo(db.question);
 db.user.hasMany(db.questionRate);
 db.question.hasMany(db.questionRate);
+db.answerRate.belongsTo(db.user);
+db.answerRate.belongsTo(db.answer);
+db.user.hasMany(db.answerRate);
+db.answer.hasMany(db.answerRate);
+
+
 
 module.exports = db;
