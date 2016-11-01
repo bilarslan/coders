@@ -88,12 +88,36 @@ questionController.controller('questionAnswersController', ['$scope', '$routePar
         questionId: id
     };
 
+   var username = auth.userName();
+
     auth.getUser().then(function(response) {
         $scope.isLoggedIn = true;
     }, function(err) {});
 
     //Get question and answers
     questionCRUDService.getQuestion(id).success(function(response) {
+        console.log(response);
+        response.answers.forEach(function(answer) {
+            var rateLike = false;
+            var rateDislike = false;
+            var likeDislike = 0;
+            answer.answerRates.forEach(function(rating) {
+                if (rating.rate == 1) {
+                    if (username == rating.user.username) {
+                      rateLike = true;
+                    }
+                    likeDislike++;
+                } else if (rating.rate == -1) {
+                    if (username == rating.user.username) {
+                      rateDislike = true;
+                    }
+                    likeDislike--;
+                }
+            });
+            answer.likeDislike = likeDislike;
+            answer.rateLike = rateLike;
+            answer.rateDislike = rateDislike;
+        });
         $scope.question = response;
     }).error(function(err) {
         console.log(err);
@@ -107,6 +131,50 @@ questionController.controller('questionAnswersController', ['$scope', '$routePar
         }).error(function(err) {
             console.log(err);
         });
+    }
+
+    $scope.likeAnswer = function(id) {
+        questionCRUDService.likeAnswer(id).success(function(response) {
+        console.log(response);
+            for (var i = 0; i < $scope.question.answers.length; i++) {
+                var answer = $scope.question.answers[i];
+                if (answer.id == id) {
+                    answer.likeDislike += response.message;
+                    if(response.message < 0){
+                      answer.rateLike = false;
+                      answer.rateDislike = false;
+                    }else{
+                        answer.rateLike = true;
+                        answer.rateDislike = false;
+                    }
+                    break;
+                }
+            }
+
+        }).error(function(err) {
+            console.log(err);
+        });
+    }
+
+    $scope.dislikeAnswer = function(id){
+      questionCRUDService.dislikeAnswer(id).success(function(response) {
+          for (var i = 0; i < $scope.question.answers.length; i++) {
+              var answer = $scope.question.answers[i];
+              if (answer.id == id) {
+                  answer.likeDislike += response.message;
+                  if(response.message < 0){
+                    answer.rateDislike = true;
+                    answer.rateLike = false;
+                  }else{
+                    answer.rateDislike = false;
+                    answer.rateLike = false;
+                  }
+                  break;
+              }
+          }
+      }).error(function(err) {
+          console.log(err);
+      });
     }
 }]);
 

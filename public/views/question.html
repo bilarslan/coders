@@ -8,7 +8,13 @@ Answers:<br>
 <div ng-repeat ="answer in question.answers">
   {{answer.content}} <br>
   {{answer.createdAt}} <br>
-  {{answer.user.id}} - {{answer.user.username}} <br><br>
+  {{answer.user.id}} - {{answer.user.username}}<br>
+  Rate : {{answer.likeDislike}}<br>
+  L : {{answer.rateLike}}<br>
+  D : {{answer.rateDislike}}<br>
+  L<input type="radio" name="{{answer.id}}" id="radio1" ng-checked="answer.rateLike" ng-click="likeAnswer(answer.id)">
+  D<input type="radio" name="{{answer.id}}" id="radio2" ng-checked="answer.rateDislike" ng-click="dislikeAnswer(answer.id)">
+<br><br>
 </div>
 
 <div ng-show="isLoggedIn">

@@ -21,6 +21,7 @@ questionService.factory('questionCRUDService', ['$http', '$q', function($http, $
             return null;
         }
     }
+
     questionCRUDFactory.createAnswer = function(answer) {
         if (answer) {
             return $http.post('/question/answer', answer);
@@ -43,6 +44,24 @@ questionService.factory('questionCRUDService', ['$http', '$q', function($http, $
         } else {
             return null;
         }
+    }
+
+    questionCRUDFactory.likeAnswer = function(id) {
+        if (id) {
+            return $http.get('/question/like_answer/' + id);
+        } else {
+            return null;
+        }
+
+    }
+
+    questionCRUDFactory.dislikeAnswer = function(id) {
+        if (id) {
+            return $http.get('/question/dislike_answer/' + id);
+        } else {
+            return null;
+        }
+
     }
 
     questionCRUDFactory.updateQuestion = function(question) {}
