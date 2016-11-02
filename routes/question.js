@@ -39,7 +39,14 @@ module.exports = function(app, express) {
             include: [{
                 model: db.user,
                 attributes: ['id', 'username']
-            }, {
+            },{
+                model:db.questionRate,
+                attributes:['userId', 'rate'],
+                include:[{
+                  model:db.user,
+                  attributes: ['id', 'username']
+                }]
+            },{
                 model: db.answer,
                 attributes: ['id', 'content', 'createdAt'],
                 include: [{

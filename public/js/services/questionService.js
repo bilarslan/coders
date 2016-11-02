@@ -30,17 +30,47 @@ questionService.factory('questionCRUDService', ['$http', '$q', function($http, $
         }
     }
 
-    questionCRUDFactory.like = function(id) {
+    questionCRUDFactory.like = function(id, questions) {
         if (id) {
-            return $http.get('/question/like/' + id);
+            $http.get('/question/like/' + id).success(function(response) {
+                for (var i = 0; i < questions.length; i++) {
+                    var question = questions[i];
+                    if (question.id == id) {
+                        question.likeDislike += response.message;
+                        if (response.message < 0) {
+                            question.rateLike = false;
+                            question.rateDislike = false;
+                        } else {
+                            question.rateLike = true;
+                            question.rateDislike = false;
+                        }
+                        break;
+                    }
+                }
+            });
         } else {
             return null;
         }
     }
 
-    questionCRUDFactory.dislike = function(id) {
+    questionCRUDFactory.dislike = function(id, questions) {
         if (id) {
-            return $http.get('/question/dislike/' + id);
+            $http.get('/question/dislike/' + id).success(function(response) {
+                for (var i = 0; i < questions.length; i++) {
+                    var question = questions[i];
+                    if (question.id == id) {
+                        question.likeDislike += response.message;
+                        if (response.message < 0) {
+                            question.rateDislike = true;
+                            question.rateLike = false;
+                        } else {
+                            question.rateDislike = false;
+                            question.rateLike = false;
+                        }
+                        break;
+                    }
+                }
+            });
         } else {
             return null;
         }

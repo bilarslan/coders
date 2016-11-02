@@ -2,8 +2,14 @@
 {{question.content}} <br>
 {{question.tags}} <br>
 {{question.createdAt}} <br>
-{{question.user.username}}<br><br>
+{{question.user.username}}<br>
 
+Rate : {{question.likeDislike}}<br>
+L : {{question.rateLike}}<br>
+D : {{question.rateDislike}}<br>
+L<input type="radio" name="{{question.id}}" id="radio1" ng-checked="question.rateLike" ng-click="like(question.id)">
+D<input type="radio" name="{{question.id}}" id="radio2" ng-checked="question.rateDislike" ng-click="dislike(question.id)">
+<br><br>
 Answers:<br>
 <div ng-repeat ="answer in question.answers">
   {{answer.content}} <br>

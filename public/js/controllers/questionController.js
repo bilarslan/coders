@@ -34,46 +34,11 @@ questionController.controller('questionsController', ['$scope', 'questionCRUDSer
     });
 
     $scope.like = function(id) {
-        questionCRUDService.like(id).success(function(response) {
-            for (var i = 0; i < $scope.questions.length; i++) {
-                var question = $scope.questions[i];
-                if (question.id == id) {
-                    question.likeDislike += response.message;
-                    if(response.message < 0){
-                      question.rateLike = false;
-                      question.rateDislike = false;
-                    }else{
-                        question.rateLike = true;
-                        question.rateDislike = false;
-                    }
-                    break;
-                }
-            }
-
-        }).error(function(err) {
-            console.log(err);
-        });
+        questionCRUDService.like(id, $scope.questions);
     }
 
     $scope.dislike = function(id) {
-        questionCRUDService.dislike(id).success(function(response) {
-            for (var i = 0; i < $scope.questions.length; i++) {
-                var question = $scope.questions[i];
-                if (question.id == id) {
-                    question.likeDislike += response.message;
-                    if(response.message < 0){
-                      question.rateDislike = true;
-                      question.rateLike = false;
-                    }else{
-                      question.rateDislike = false;
-                      question.rateLike = false;
-                    }
-                    break;
-                }
-            }
-        }).error(function(err) {
-            console.log(err);
-        });
+          questionCRUDService.dislike(id, $scope.questions);
     }
 
 }]);
@@ -96,7 +61,27 @@ questionController.controller('questionAnswersController', ['$scope', '$routePar
 
     //Get question and answers
     questionCRUDService.getQuestion(id).success(function(response) {
-        console.log(response);
+        var rateLike = false;
+        var rateDislike = false;
+        var likeDislike = 0;
+
+        response.questionRates.forEach(function(rating) {
+            if (rating.rate == 1) {
+                if (username == rating.user.username) {
+                  rateLike = true;
+                }
+                likeDislike++;
+            } else if (rating.rate == -1) {
+                if (username == rating.user.username) {
+                  rateDislike = true;
+                }
+                likeDislike--;
+            }
+        });
+        response.likeDislike = likeDislike;
+        response.rateLike = rateLike;
+        response.rateDislike = rateDislike;
+
         response.answers.forEach(function(answer) {
             var rateLike = false;
             var rateDislike = false;
@@ -131,6 +116,18 @@ questionController.controller('questionAnswersController', ['$scope', '$routePar
         }).error(function(err) {
             console.log(err);
         });
+    }
+
+    $scope.like = function(id){
+      var questions = [];
+      questions.push($scope.question);
+      questionCRUDService.like(id, questions);
+    }
+
+    $scope.dislike = function(id){
+      var questions = [];
+      questions.push($scope.question);
+      questionCRUDService.dislike(id, questions);
     }
 
     $scope.likeAnswer = function(id) {
