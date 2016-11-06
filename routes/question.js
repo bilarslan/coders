@@ -13,11 +13,10 @@ module.exports = function(app, express) {
                 attributes: ['id', 'username']
             }, {
                 model: db.questionRate,
-                attributes: ['userId', 'rate'],
-                include: [{
-                    model: db.user,
-                    attributes: ['username']
-                }]
+                attributes: ['rate']
+            }, {
+                model: db.answer,
+                attributes: ['id']
             }]
         }).then(function(questions) {
             res.send(questions);
@@ -39,26 +38,26 @@ module.exports = function(app, express) {
             include: [{
                 model: db.user,
                 attributes: ['id', 'username']
-            },{
-                model:db.questionRate,
-                attributes:['userId', 'rate'],
-                include:[{
-                  model:db.user,
-                  attributes: ['id', 'username']
+            }, {
+                model: db.questionRate,
+                attributes: ['userId', 'rate'],
+                include: [{
+                    model: db.user,
+                    attributes: ['id', 'username']
                 }]
-            },{
+            }, {
                 model: db.answer,
                 attributes: ['id', 'content', 'createdAt'],
                 include: [{
                     model: db.user,
                     attributes: ['id', 'username']
-                },{
-                  model: db.answerRate,
-                  attributes: ['userId', 'rate'],
-                  include:[{
-                    model:db.user,
-                    attributes: ['id', 'username']
-                  }]
+                }, {
+                    model: db.answerRate,
+                    attributes: ['userId', 'rate'],
+                    include: [{
+                        model: db.user,
+                        attributes: ['id', 'username']
+                    }]
                 }]
             }]
         }).then(function(question) {
@@ -160,91 +159,91 @@ module.exports = function(app, express) {
     });
 
     question.get('/like_answer/:id', requireAuth, function(req, res) {
-      var id = parseInt(req.params.id, 10);
-      db.answerRate.findOrCreate({
-          where: {
-              userId: req.decoded.id,
-              answerId: id
-          },
-          defaults: {
-              userId: req.decoded.id,
-              answerId: id,
-              rate: 1
-          }
-      }).spread(function(answerRate, created) {
-          if (created) {
-              res.status(200).json({
-                  message: 1
-              });
-          } else {
-              //Update the rate of the question
-              //Inc or dec
-              var value = answerRate.getDataValue('rate');
-              var inc, rate;
-              if (value == 1) {
-                  rate = 0;
-                  inc = -1;
-              } else if (value == 0) {
-                  rate = 1;
-                  inc = 1;
-              } else if (value == -1) {
-                  rate = 1;
-                  inc = 2;
-              }
-              answerRate.update({
-                  rate: rate
-              }).then(function() {
-                  res.status(200).json({
-                      message: inc
-                  });
-              });
-          }
-      });
+        var id = parseInt(req.params.id, 10);
+        db.answerRate.findOrCreate({
+            where: {
+                userId: req.decoded.id,
+                answerId: id
+            },
+            defaults: {
+                userId: req.decoded.id,
+                answerId: id,
+                rate: 1
+            }
+        }).spread(function(answerRate, created) {
+            if (created) {
+                res.status(200).json({
+                    message: 1
+                });
+            } else {
+                //Update the rate of the question
+                //Inc or dec
+                var value = answerRate.getDataValue('rate');
+                var inc, rate;
+                if (value == 1) {
+                    rate = 0;
+                    inc = -1;
+                } else if (value == 0) {
+                    rate = 1;
+                    inc = 1;
+                } else if (value == -1) {
+                    rate = 1;
+                    inc = 2;
+                }
+                answerRate.update({
+                    rate: rate
+                }).then(function() {
+                    res.status(200).json({
+                        message: inc
+                    });
+                });
+            }
+        });
 
     });
 
-    question.get('/dislike_answer/:id', requireAuth, function(req, res){
+    question.get('/dislike_answer/:id', requireAuth, function(req, res) {
 
-      var id = parseInt(req.params.id, 10);
-      db.answerRate.findOrCreate({
-          where: {
-              userId: req.decoded.id,
-              answerId: id
-          },
-          defaults: {
-              userId: req.decoded.id,
-              answerId: id,
-              rate: -1
-          }
-      }).spread(function(answerRate, created) {
-          if (created) {
-              res.status(200).json({
-                  message: -1
-              });
-          } else {
-              //Update the rate of the question
-              //Inc or dec
-              var value = answerRate.getDataValue('rate');
-              var inc, rate;
-              if (value == 1) {
-                  rate = -1;
-                  inc = -2;
-              } else if (value == 0) {
-                  rate = -1;
-                  inc = -1;
-              } else if (value == -1) {
-                  rate = 0;
-                  inc = 1;
-              }
-              answerRate.update({
-                  rate: rate
-              }).then(function() {
-                  res.status(200).json({
-                      message: inc
-                  });
-              });
-          }
-      });
+        var id = parseInt(req.params.id, 10);
+        db.answerRate.findOrCreate({
+            where: {
+                userId: req.decoded.id,
+                answerId: id
+            },
+            defaults: {
+                userId: req.decoded.id,
+                answerId: id,
+                rate: -1
+            }
+        }).spread(function(answerRate, created) {
+            if (created) {
+                res.status(200).json({
+                    message: -1
+                });
+            } else {
+                //Update the rate of the question
+                //Inc or dec
+                var value = answerRate.getDataValue('rate');
+                var inc, rate;
+                if (value == 1) {
+                    rate = -1;
+                    inc = -2;
+                } else if (value == 0) {
+                    rate = -1;
+                    inc = -1;
+                } else if (value == -1) {
+                    rate = 0;
+                    inc = 1;
+                }
+                answerRate.update({
+                    rate: rate
+                }).then(function() {
+                    res.status(200).json({
+                        message: inc
+                    });
+                });
+            }
+        });
     });
 
     question.post('/answer', requireAuth, function(req, res) {
@@ -261,7 +260,10 @@ module.exports = function(app, express) {
             userId: req.decoded.id
         }).then(function(answer) {
             //return the question
-            db.question.findOne({
+
+            res.send(answer);
+
+            /*db.question.findOne({
                 where: {
                     id: answer.get('questionId')
                 },
@@ -285,7 +287,7 @@ module.exports = function(app, express) {
                 }
             }, function() {
                 res.status(500).send();
-            });
+            });*/
 
 
         }, function(err) {
