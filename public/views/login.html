@@ -1,11 +1,32 @@
-<div class="login">
-    <h1>Login</h1>
-    <form method="post" ng-submit="signIn()">
-        <p><input type="text" name="login" value="" placeholder="Username or Email" ng-model="username"></p>
-        <p><input type="password" name="password" value="" placeholder="Password" ng-model ="password"></p>
-        <p class="submit"><input type="submit" name="commit" value="Login"></p>
-        <p>{{error}}</p>
-    </form>
-    <a href="#/">Home Page</a><br>
-    <a href="#/register">Create an account!</a><br>
+<div class="offset-lg-4 offset-md-4 offset-sm-4 col-lg-4 col-md-4 col-sm-4" style="margin-top: 5%; border: solid 1px #bdc3c7; border-radius: 3px; box-shadow: 0px 0px 30px -10px rgba(0,0,0,0.75);
+Copy Text">
+    <div class="container-fluid" style="padding-bottom: 15px">
+        <div class="row">
+            <h4 style="margin: 10px 0 0 0">Login</h4>
+            <hr style="margin-top: 10px" />
+
+            <div class="alert alert-danger" role="alert" ng-show="error">
+              <i class="fa fa-exclamation-circle" aria-hidden="true"></i> {{error}}
+            </div>
+        </div>
+
+        <div class="row">
+            <form method="post" ng-submit="signIn()">
+                <div class="input-group">
+                    <span class="input-group-addon" id="basic-addon1"><i class="fa fa-fw fa-user"></i></span>
+                    <input type="text" class="form-control" placeholder="Username" maxlength="10" aria-describedby="basic-addon1" name="login" value="" ng-model="username" ng-required="true">
+                </div>
+                <div class="input-group" style="margin-top: 5px">
+                    <span class="input-group-addon" id="basic-addon1"><i class="fa fa-fw fa-key"></i></span>
+                    <input type="password" class="form-control" placeholder="Password" maxlength="10" aria-describedby="basic-addon1" name="login" value="" ng-model="password" ng-required="true">
+                </div>
+                <div class="checkbox pull-left" style="margin-top: 5px;">
+                    <label><input type="checkbox" style="margin-top: 7px; float: left" value="">
+                      <div style="font-size:13px; line-height: 13px; display: inline-block; margin-left: 3px; "> Remember me.</div></label>
+                </div>
+                <input type="submit" style="margin-top: 5px" class="btn btn-primary pull-right" value="Login" />
+
+            </form>
+        </div>
+    </div>
 </div>

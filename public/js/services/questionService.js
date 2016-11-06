@@ -22,6 +22,54 @@ questionService.factory('questionCRUDService', ['$http', '$q', function($http, $
         }
     }
 
+    questionCRUDFactory.setModals = function(response, username) {
+
+        var rateLike = false;
+        var rateDislike = false;
+        var likeDislike = 0;
+
+        response.questionRates.forEach(function(rating) {
+            if (rating.rate == 1) {
+                if (username == rating.user.username) {
+                    rateLike = true;
+                }
+                likeDislike++;
+            } else if (rating.rate == -1) {
+                if (username == rating.user.username) {
+                    rateDislike = true;
+                }
+                likeDislike--;
+            }
+        });
+        response.likeDislike = likeDislike;
+        response.rateLike = rateLike;
+        response.rateDislike = rateDislike;
+
+        response.answers.forEach(function(answer) {
+            var rateLike = false;
+            var rateDislike = false;
+            var likeDislike = 0;
+            answer.answerRates.forEach(function(rating) {
+                if (rating.rate == 1) {
+                    if (username == rating.user.username) {
+                        rateLike = true;
+                    }
+                    likeDislike++;
+                } else if (rating.rate == -1) {
+                    if (username == rating.user.username) {
+                        rateDislike = true;
+                    }
+                    likeDislike--;
+                }
+            });
+            answer.likeDislike = likeDislike;
+            answer.rateLike = rateLike;
+            answer.rateDislike = rateDislike;
+        });
+
+        return $q.resolve(response);
+    }
+
     questionCRUDFactory.createAnswer = function(answer) {
         if (answer) {
             return $http.post('/question/answer', answer);

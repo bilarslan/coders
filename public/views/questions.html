@@ -1,17 +1,259 @@
-<a href="#/question/new">Create New Question</a>
+<style>
+    .body-right-container {
+        position: absolute;
+        right: 0;
+        height: calc(100vh - 149px);
+        width: 400px;
+        overflow: auto;
+        margin-top: 43px;
+    }
 
-<div ng-repeat="question in questions | orderBy:'-id'">
-<a ng-href="#/question/{{question.id}}">{{question.id}}</a><br>
-{{question.title}} <br>
-{{question.content}} <br>
-{{question.tags}} <br>
-{{question.createdAt}} <br>
-{{question.user.username}}<br>
-Rate : {{question.likeDislike}}<br>
-L : {{question.rateLike}}<br>
-D : {{question.rateDislike}}<br>
-<br>
-L<input type="radio" name="{{question.id}}" id="radio1" ng-checked="question.rateLike" ng-click="like(question.id)">
-D<input type="radio" name="{{question.id}}" id="radio2" ng-checked="question.rateDislike" ng-click="dislike(question.id)">
-<br><br>
+    .body-left-container {
+        margin-right: 400px;
+        height: calc(100vh - 106px);
+        display: block;
+    }
+
+    .question-box {
+        border-bottom: solid 1px #bdc3c7;
+        display: block;
+        margin: 15px 3% 15px 10%;
+        height: 150px;
+        max-height: 150px;
+    }
+
+    .question-topbar {
+        display: block;
+        height: 50px;
+        padding: 10px;
+        border-bottom: solid 1px #f7f7f9;
+    }
+
+    .question-create {
+        cursor: pointer;
+        user-select: none;
+    }
+
+    a:hover {
+        text-decoration: none;
+    }
+
+    .question-item-list {
+        padding-top: 15px;
+        display: block;
+        height: calc(100% - 50px);
+        overflow: hidden;
+    }
+
+    .question-item-list:hover {
+        overflow: auto;
+    }
+
+    .question-box-statistics-column {
+        height: inherit;
+        width: 75px;
+    }
+
+    .question-box-content-column {
+        display: block;
+        height: inherit;
+        margin-left: 75px;
+        margin-top: -150px;
+    }
+
+    .number-of-answers {
+        display: block;
+        height: 50%;
+        text-align: center;
+    }
+
+    .question-tag {
+        display: inline-block;
+        padding: 3px;
+        margin: 3px;
+        background-color: #edf3ff;
+        color: #478dff;
+    }
+
+    .question-user-info {
+        display: inline-block;
+        height: inherit;
+        float: right;
+        text-align: right;
+        line-height: 18px
+    }
+
+    .question-tag-container {
+        float: left;
+        display: inline-block;
+    }
+
+    .username {
+        display: block;
+    }
+
+    .user-info {
+        display: inline-block;
+    }
+
+    .profile-picture {
+        display: inline-block;
+        float: right;
+        background-image: url("/img/default_avatar.png");
+        background-size: cover;
+        background-repeat: no-repeat;
+        width: 39px;
+        height: 39px;
+        margin-left: 7px;
+    }
+</style>
+
+<div class="container-fluid">
+    <div class="body-right-container">
+        <div style="padding: 7px 30px 7px 0">
+            <div class="card">
+                <div class="card-header">
+                    Top rated questions
+                </div>
+                <div class="card-block">
+                    <blockquote class="card-blockquote">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+                        <footer>Someone famous in <cite title="Source Title">Source Title</cite></footer>
+                    </blockquote>
+                </div>
+            </div>
+        </div>
+
+        <div style="padding: 7px 30px 7px 0">
+            <div class="card">
+                <div class="card-header">
+                    Top rated questions
+                </div>
+                <div class="card-block">
+                    <blockquote class="card-blockquote">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+                        <footer>Someone famous in <cite title="Source Title">Source Title</cite></footer>
+                    </blockquote>
+                </div>
+            </div>
+        </div><div style="padding: 7px 30px 7px 0">
+            <div class="card">
+                <div class="card-header">
+                    Top rated questions
+                </div>
+                <div class="card-block">
+                    <blockquote class="card-blockquote">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+                        <footer>Someone famous in <cite title="Source Title">Source Title</cite></footer>
+                    </blockquote>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="body-left-container">
+        <div class="question-topbar">
+            <a href="#/question/new">
+                <div class="question-create">
+                    <i class="fa fa-fw fa-plus"></i> Create New Question
+                </div>
+            </a>
+        </div>
+        <div class="question-item-list">
+
+            <div class="question-box">
+                <div class="question-box-statistics-column">
+                    <div class="number-of-answers">
+                        <h4 style="margin-top: 0; margin-bottom: -2px">0</h4>
+                        <small>votes</small>
+                    </div>
+                    <div class="number-of-answers">
+                        <h4 style="margin-top: -10px; margin-bottom: -2px">0</h4>
+                        <small>answers</small>
+                    </div>
+                </div>
+                <div class="question-box-content-column">
+                    <div class="container-fluid">
+                        <div class="row" style="height: 24px; min-height: 24px; max-height: 24">
+                            <a href="">Yinelenen bir sayfa içeriğinin..</a>
+                        </div>
+                        <div class="row" style="margin-bottom: 10px; height: 65px; max-height: 65px; min-height: 65px; overflow: hidden">
+                            <small>Yinelenen bir sayfa içeriğinin okuyucunun dikkatini dağıttığı bilinen bir gerçektir. Lorem Ipsum kullanmanın amacı, sürekli 'buraya metin gelecek, buraya metin gelecek' yazmaya kıyasla.</small>
+                        </div>
+                        <div class="row">
+                            <div class="question-tag-container">
+                                <div class="question-tag">
+                                    <small>Java</small>
+                                </div>
+                                <div class="question-tag">
+                                    <small>Python</small>
+                                </div>
+                                <div class="question-tag">
+                                    <small>C++</small>
+                                </div>
+                            </div>
+
+                            <div class="question-user-info">
+                                <div class="user-info">
+                                    <div class="username">
+                                        <small>Username</small>
+                                    </div>
+                                    <div class="username" style="font-style: italic">
+                                        <small><small>14.02.2016 14:36</small></small>
+                                    </div>
+                                </div>
+
+                                <div class="profile-picture"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="question-box" ng-repeat="question in questions | orderBy:'-id'">
+                <div class="question-box-statistics-column">
+                    <div class="number-of-answers">
+                        <h4 style="margin-top: 0; margin-bottom: -2px">{{question.voteCount}}</h4>
+                        <small>votes</small>
+                    </div>
+                    <div class="number-of-answers">
+                        <h4 style="margin-top: -10px; margin-bottom: -2px">{{question.answerCount}}</h4>
+                        <small>answers</small>
+                    </div>
+                </div>
+                <div class="question-box-content-column">
+                    <div class="container-fluid">
+                        <div class="row" style="height: 24px; min-height: 24px; max-height: 24">
+                            <a href="#/question/{{question.id}}">{{question.title}}</a>
+                        </div>
+                        <div class="row" style="margin-bottom: 10px; height: 65px; max-height: 65px; min-height: 65px; overflow: hidden">
+                            <small>{{question.content}}</small>
+                        </div>
+                        <div class="row">
+                            <div class="question-tag-container">
+                                <div class="question-tag" ng-repeat="tag in question.tags">
+                                    <small>{{tag}}</small>
+
+                                </div>
+                            </div>
+
+                            <div class="question-user-info">
+                                <div class="user-info">
+                                    <div class="username">
+                                        <small>{{question.user.username}}</small>
+                                    </div>
+                                    <div class="username" style="font-style: italic">
+                                        <small><small>{{question.createdAt}}</small></small>
+                                    </div>
+                                </div>
+
+                                <div class="profile-picture"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
 </div>
