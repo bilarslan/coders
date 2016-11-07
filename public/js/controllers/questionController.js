@@ -141,7 +141,8 @@ questionController.controller('newQuestionController', ['$scope', '$location', '
 
     //Create a question
     $scope.createQuestion = function() {
-        questionCRUDService.createQuestion({
+        console.log($scope.content);
+        /*questionCRUDService.createQuestion({
             title: $scope.title,
             content: $scope.content,
             tags: $scope.tags
@@ -150,5 +151,7 @@ questionController.controller('newQuestionController', ['$scope', '$location', '
         }).error(function(err) {
             $scope.error = 'Please, filll all bla bla and try again!';
         });
+        */
+
     }
 }]);

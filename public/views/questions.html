@@ -158,6 +158,10 @@
                     <i class="fa fa-fw fa-plus"></i> Create New Question
                 </div>
             </a>
+
+            <input class="form-control" type="text" placeholder="Search" ng-model="search">
+
+
         </div>
         <div class="question-item-list">
 
@@ -210,7 +214,7 @@
                 </div>
             </div>
 
-            <div class="question-box" ng-repeat="question in questions | orderBy:'-id'">
+            <div class="question-box" ng-repeat="question in questions | orderBy:'-id' | filter: search">
                 <div class="question-box-statistics-column">
                     <div class="number-of-answers">
                         <h4 style="margin-top: 0; margin-bottom: -2px">{{question.voteCount}}</h4>
