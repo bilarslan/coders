@@ -54,11 +54,11 @@ authService.factory('auth', ['$http', '$q', '$location', 'authToken', function($
         }
     }
 
-    authFactory.userName = function(username){
-        if(username){
-          this.username = username;
-        }else{
-          return this.username;
+    authFactory.userName = function(username) {
+        if (username) {
+            this.username = username;
+        } else {
+            return this.username;
         }
     }
 
@@ -103,4 +103,12 @@ authService.factory('authInterceptor', ['$location', '$q', 'authToken', function
         return $q.reject(response);
     }
     return interceptorFactory;
+}]);
+
+authService.factory('authUserProfile', ['$http', function($http) {
+    var userProfileFactory = {};
+    userProfileFactory.getUser = function(username) {
+        return $http.get('/auth/profile/' + username);
+    }
+    return userProfileFactory;
 }]);

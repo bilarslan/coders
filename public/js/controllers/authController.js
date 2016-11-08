@@ -31,3 +31,19 @@ authController.controller('signUpController', ['$scope', '$location', 'auth', fu
         });
     }
 }]);
+
+authController.controller('profileController', ['$scope', '$routeParams', 'authUserProfile', function($scope, $routeParams, authUserProfile) {
+    var username = $routeParams.username.toString();
+
+    $scope.username = '';
+    $scope.questions = [];
+    $scope.answers = [];
+
+    authUserProfile.getUser(username).success(function(response){
+      console.log(response);
+      $scope.username = username;
+    })
+    .error(function(err){
+      console.log(err);
+    });
+}])

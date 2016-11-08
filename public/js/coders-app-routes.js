@@ -31,8 +31,13 @@ angular.module('codersAppRoutes', ['ngRoute'])
         .when('/contact',{
           templateUrl:'../views/contact.html',
           controller:'createContactController'
-        }).when('/contact-success',{
+        })
+        .when('/contact-success',{
           templateUrl:'../views/contact-success.html'
+        })
+        .when('/profile/:username',{
+          templateUrl:'../views/profile.html',
+          controller:'profileController'
         })
         .otherwise({
             redirectTo: "/"
