@@ -81,5 +81,31 @@ module.exports = function(app, express) {
     auth.get('/me', requireAuth, function(req, res) {
         res.json(req.decoded);
     });
+
+    auth.get('/profile/:username', function(req, res){
+        var username = req.params.username.toString();
+
+        db.user.findOne({
+            where:{
+              username: username
+            },
+            attributes:['id','username','createdAt'],
+            include:[{
+              model: db.question,
+              attributes:['id','title','content','tags','createdAt']
+            },
+            {
+              model:db.answer,
+              attributes:['id','content','createdAt','questionId']
+            }]
+        }).then(function(user){
+          if(user){
+            res.send(user);
+          }else{
+            res.status(404).send({message:'User Not Found!'});
+          }
+        });
+
+    });
     return auth;
 }
