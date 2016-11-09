@@ -1,7 +1,7 @@
 var questionService = angular.module('questionService', []);
 
 
-questionService.factory('questionCRUDService', ['$http', '$q', function($http, $q) {
+questionService.factory('questionCRUDService', ['$http', '$q','$sce', function($http, $q,$sce) {
 
     var questionCRUDFactory = {};
 
@@ -28,6 +28,7 @@ questionService.factory('questionCRUDService', ['$http', '$q', function($http, $
         var rateDislike = false;
         var likeDislike = 0;
 
+        response.content = $sce.trustAsHtml(response.content);
         response.questionRates.forEach(function(rating) {
             if (rating.rate == 1) {
                 if (username == rating.user.username) {
@@ -49,6 +50,7 @@ questionService.factory('questionCRUDService', ['$http', '$q', function($http, $
             var rateLike = false;
             var rateDislike = false;
             var likeDislike = 0;
+            answer.content = $sce.trustAsHtml(answer.content);
             answer.answerRates.forEach(function(rating) {
                 if (rating.rate == 1) {
                     if (username == rating.user.username) {
@@ -72,6 +74,7 @@ questionService.factory('questionCRUDService', ['$http', '$q', function($http, $
 
     questionCRUDFactory.createAnswer = function(answer) {
         if (answer) {
+            answer.content = answer.content.replace(/\r\n|\r|\n/g,"<br />")
             return $http.post('/question/answer', answer);
         } else {
             return null;

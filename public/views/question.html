@@ -1,5 +1,5 @@
 {{question.title}} <br>
-{{question.content}} <br>
+<p ng-bind-html="question.content"></p>
 {{question.tags}} <br>
 {{question.createdAt}} <br>
 {{question.user.username}}<br>
@@ -12,7 +12,7 @@ D<input type="radio" name="{{question.id}}" id="radio2" ng-checked="question.rat
 <br><br>
 Answers:<br>
 <div ng-repeat ="answer in question.answers">
-  {{answer.content}} <br>
+<p ng-bind-html="answer.content"></p> <br>
   {{answer.createdAt}} <br>
   {{answer.user.id}} - {{answer.user.username}}<br>
   Rate : {{answer.likeDislike}}<br>
@@ -27,7 +27,7 @@ Answers:<br>
 <div class="answer">
     <h4>Create a new answer:</h4>
     <form method="post" ng-submit="answerQuestion()">
-        <p><input type="text" name="content" value="" placeholder="Answer.." ng-model="answer.content"></p>
+        <p><textarea name="content" value="" placeholder="Answer.." ng-model="answer.content"></textarea></p>
         <p class="submit"><input type="submit" name="commit" value="Answer!"></p>
         <p>{{error}}</p>
     </form>

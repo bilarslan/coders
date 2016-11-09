@@ -34,7 +34,7 @@ questionController.controller('questionsController', ['$scope', 'questionCRUDSer
 
 }]);
 
-questionController.controller('questionAnswersController', ['$scope', '$routeParams', '$location', 'auth', 'questionCRUDService', function($scope, $routeParams, $location, auth, questionCRUDService) {
+questionController.controller('questionAnswersController', ['$scope', '$routeParams', '$location','$sce', 'auth', 'questionCRUDService', function($scope, $routeParams, $location,$sce, auth, questionCRUDService) {
 
     //Get id of question from url params
     var id = $routeParams.id;
@@ -59,12 +59,16 @@ questionController.controller('questionAnswersController', ['$scope', '$routePar
     //Answer the question
     $scope.answerQuestion = function() {
         questionCRUDService.createAnswer($scope.answer).success(function(response) {
+
+            //Load the page again and set the modals
             questionCRUDService.getQuestion(id).success(function(response) {
                 questionCRUDService.setModals(response, username).then(function(data) {
                   $scope.answer = '';
                     $scope.question = data;
                 });
             });
+
+
         }).error(function(err) {
             console.log(err);
         });
