@@ -113,13 +113,10 @@
         <div style="padding: 7px 30px 7px 0">
             <div class="card">
                 <div class="card-header">
-                    Top rated questions
+                    <i class="fa fa-comments" aria-hidden="true"></i> Top Answered Questions
                 </div>
-                <div class="card-block">
-                    <blockquote class="card-blockquote">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
-                        <footer>Someone famous in <cite title="Source Title">Source Title</cite></footer>
-                    </blockquote>
+                <div class="card-block" class="list-group">
+                  <div ng-repeat="question in questions | orderBy:'-answerCount' | limitTo: 5"><a href="#/question/{{question.id}}" class="list-group-item">{{question.answerCount }} - {{question.title}}</a></div>
                 </div>
             </div>
         </div>
@@ -127,30 +124,15 @@
         <div style="padding: 7px 30px 7px 0">
             <div class="card">
                 <div class="card-header">
-                    Top rated questions
+                    <i class="fa fa-star" aria-hidden="true"></i> Top Rated Questions
                 </div>
-                <div class="card-block">
-                    <blockquote class="card-blockquote">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
-                        <footer>Someone famous in <cite title="Source Title">Source Title</cite></footer>
-                    </blockquote>
-                </div>
-            </div>
-        </div><div style="padding: 7px 30px 7px 0">
-            <div class="card">
-                <div class="card-header">
-                    Top rated questions
-                </div>
-                <div class="card-block">
-                    <blockquote class="card-blockquote">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
-                        <footer>Someone famous in <cite title="Source Title">Source Title</cite></footer>
-                    </blockquote>
+                <div class="card-block" class="list-group">
+                  <div ng-repeat="question in questions | orderBy:'-voteCount' | limitTo: 5"><a href="#/question/{{question.id}}" class="list-group-item">{{question.voteCount }} - {{question.title}}</a></div>
                 </div>
             </div>
         </div>
-
     </div>
+
     <div class="body-left-container">
         <div class="question-topbar">
             <a href="#/question/new">
