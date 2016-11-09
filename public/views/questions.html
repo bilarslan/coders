@@ -33,7 +33,6 @@
         cursor: pointer;
         user-select: none;
     }
-
     a:hover {
         text-decoration: none;
     }
@@ -44,7 +43,6 @@
         height: calc(100% - 50px);
         overflow: hidden;
     }
-
     .question-item-list:hover {
         overflow: auto;
     }
@@ -80,7 +78,7 @@
         height: inherit;
         float: right;
         text-align: right;
-        line-height: 18px
+        line-height: 18px;
     }
 
     .question-tag-container {
@@ -106,6 +104,7 @@
         height: 39px;
         margin-left: 7px;
     }
+
 </style>
 
 <div class="container-fluid">
@@ -113,22 +112,32 @@
         <div style="padding: 7px 30px 7px 0">
             <div class="card">
                 <div class="card-header">
-                    <i class="fa fa-comments" aria-hidden="true"></i> Top Answered Questions
+                    <i class="fa fa-comments" aria-hidden="true"></i>
+                    Top Answered Questions
                 </div>
-                <div class="card-block" class="list-group">
-                  <div ng-repeat="question in questions | orderBy:'-answerCount' | limitTo: 5"><a href="#/question/{{question.id}}" class="list-group-item">{{question.answerCount }} - {{question.title}}</a></div>
-                </div>
+                <ul class="list-group">
+                    <li class="list-group-item" ng-repeat="question in questions | orderBy:'-answerCount' | limitTo: 5">
+                        <a href="#/question/{{question.id}}">
+                            <span class="tag tag-default tag-pill float-xs-right">{{question.answerCount}}</span>{{question.title}}
+                        </a>
+                    </li>
+                </ul>
             </div>
         </div>
 
         <div style="padding: 7px 30px 7px 0">
             <div class="card">
                 <div class="card-header">
-                    <i class="fa fa-star" aria-hidden="true"></i> Top Rated Questions
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    Top Rated Questions
                 </div>
-                <div class="card-block" class="list-group">
-                  <div ng-repeat="question in questions | orderBy:'-voteCount' | limitTo: 5"><a href="#/question/{{question.id}}" class="list-group-item">{{question.voteCount }} - {{question.title}}</a></div>
-                </div>
+                <ul class="list-group">
+                    <li class="list-group-item" ng-repeat="question in questions | orderBy:'-voteCount' | limitTo: 5">
+                        <a href="#/question/{{question.id}}">
+                            <span class="tag tag-default tag-pill float-xs-right">{{question.voteCount}}</span>{{question.title}}
+                        </a>
+                    </li>
+                </ul>
             </div>
         </div>
     </div>
@@ -137,12 +146,12 @@
         <div class="question-topbar">
             <a href="#/question/new">
                 <div class="question-create">
-                    <i class="fa fa-fw fa-plus"></i> Create New Question
+                    <i class="fa fa-fw fa-plus"></i>
+                    Create New Question
                 </div>
             </a>
 
             <input class="form-control" type="text" placeholder="Search" ng-model="search">
-
 
         </div>
         <div class="question-item-list">
@@ -185,7 +194,9 @@
                                         <small>Username</small>
                                     </div>
                                     <div class="username" style="font-style: italic">
-                                        <small><small>14.02.2016 14:36</small></small>
+                                        <small>
+                                            <small>14.02.2016 14:36</small>
+                                        </small>
                                     </div>
                                 </div>
 
@@ -226,10 +237,14 @@
                             <div class="question-user-info">
                                 <div class="user-info">
                                     <div class="username">
-                                        <small><a href="#/profile/{{question.user.username}}">{{question.user.username}}</a></small>
+                                        <small>
+                                            <a href="#/profile/{{question.user.username}}">{{question.user.username}}</a>
+                                        </small>
                                     </div>
                                     <div class="username" style="font-style: italic">
-                                        <small><small>{{question.createdAt}}</small></small>
+                                        <small>
+                                            <small>{{question.createdAt}}</small>
+                                        </small>
                                     </div>
                                 </div>
 
