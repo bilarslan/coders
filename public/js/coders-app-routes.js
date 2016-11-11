@@ -14,7 +14,6 @@ angular.module('codersAppRoutes', ['ngRoute'])
         .when('/register', {
             templateUrl: '../views/register.html',
             controller: 'signUpController'
-
         })
         .when('/questions', {
             templateUrl: '../views/questions.html',
