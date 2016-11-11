@@ -2,9 +2,11 @@ angular.module('coders-app', ['codersAppRoutes',
     'authController',
     'mainController',
     'questionController',
+    'videoController',
     'contactController',
     'authService',
-    'questionService'
+    'questionService',
+    'videoService'
 ])
 
 .config(['$httpProvider', function($httpProvider) {

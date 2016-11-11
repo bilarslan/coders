@@ -11,7 +11,8 @@ var db = require('./db');
 var auth = require('./routes/auth')(app, express);
 var main = require('./routes/main')(app, express);
 var question = require('./routes/question')(app, express);
-var contact= require('./routes/contact')(app,express);
+var video = require('./routes/video')(app, express);
+var contact = require('./routes/contact')(app, express);
 
 app.use(morgan('dev'));
 app.use(bodyParser.json());
@@ -20,7 +21,8 @@ app.use(express.static(__dirname + '/public'));
 app.use('/auth', auth);
 app.use('/api', main);
 app.use('/question', question);
-app.use('/contact',contact);
+app.use('/video', video);
+app.use('/contact', contact);
 
 db.sequelize.sync({
     force: false

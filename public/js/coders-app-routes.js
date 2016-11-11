@@ -28,6 +28,10 @@ angular.module('codersAppRoutes', ['ngRoute'])
             templateUrl: '../views/question.html',
             controller: 'questionAnswersController'
         })
+        .when('/videos',{
+          templateUrl: '../views/videos.html',
+          controller: 'videosController'
+        })
         .when('/contact',{
           templateUrl:'../views/contact.html',
           controller:'createContactController'
