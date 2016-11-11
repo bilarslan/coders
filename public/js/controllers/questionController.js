@@ -17,7 +17,7 @@ questionController.controller('questionsController', ['$scope', 'questionCRUDSer
             question.voteCount = voteCount;
             question.answerCount = question.answers.length;
             question.tags = question.tags.split(', ');
-            question.createdAt = new Date(question.createdAt);
+            question.createdAt = new Date(question.createdAt).toLocaleString();
         });
         $scope.questions = response;
     }).error(function(err) {

@@ -36,6 +36,15 @@ module.exports = function(sequelize, DataTypes) {
                 var hash = bcrypt.hashSync(value);
                 this.setDataValue('password', hash);
             }
+        },
+        imgUrl: {
+            type: DataTypes.STRING,
+            allowNull: true,
+            unique: false,
+            defaultValue:'./img/avatar/default_avatar.png',
+            validate: {
+                len: [3, 250]
+            }
         }
     }, {
         hooks: {

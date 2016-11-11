@@ -1,7 +1,27 @@
 var bcrypt = require('bcrypt-nodejs');
 var db = require('../db');
 var requireAuth = require('../middlewares/middleware').requireAuth;
+var multer = require('multer');
 
+var storage = multer.diskStorage({
+    destination: function(req, file, cb) {
+        cb(null, './public/img/avatar/');
+    },
+    filename: function(req, file, cb) {
+        var extension = file.mimetype.toString().split('/');
+        extension = extension[1];
+        if(extension !== 'jpg' &&  extension !== 'jpeg' && extension !== 'png'){
+          return;
+        }
+        cb(null, Date.now() + '.' + extension);
+    }
+});
+var upload = multer({
+    storage: storage,
+    limits: {
+        fileSize: 500000
+    }
+});
 module.exports = function(app, express) {
     var auth = express.Router();
 
@@ -82,30 +102,50 @@ module.exports = function(app, express) {
         res.json(req.decoded);
     });
 
-    auth.get('/profile/:username', function(req, res){
+    auth.get('/profile/:username', function(req, res) {
         var username = req.params.username.toString();
 
         db.user.findOne({
-            where:{
-              username: username
+            where: {
+                username: username
             },
-            attributes:['id','username','createdAt'],
-            include:[{
-              model: db.question,
-              attributes:['id','title','content','tags','createdAt']
-            },
-            {
-              model:db.answer,
-              attributes:['id','content','createdAt','questionId']
+            attributes: ['id', 'username', 'imgUrl', 'createdAt'],
+            include: [{
+                model: db.question,
+                attributes: ['id', 'title', 'content', 'tags', 'createdAt']
+            }, {
+                model: db.answer,
+                attributes: ['id', 'content', 'createdAt', 'questionId']
             }]
-        }).then(function(user){
-          if(user){
-            res.send(user);
-          }else{
-            res.status(404).send({message:'User Not Found!'});
-          }
+        }).then(function(user) {
+            if (user) {
+                res.send(user);
+            } else {
+                res.status(404).send({
+                    message: 'User Not Found!'
+                });
+            }
         });
 
+    });
+
+    auth.post('/updatepic', requireAuth, upload.single('file'), function(req, res) {
+        console.log(req.file);
+        var path = './img/avatar/' + req.file.filename;
+
+        db.user.find({
+            where: {
+                id: req.decoded.id
+            }
+        }).then(function(user) {
+            user.update({
+                imgUrl: path
+            }).then(function(user) {
+                res.json({
+                  imgUrl: user.imgUrl
+                });
+            });
+        });
     });
     return auth;
 }

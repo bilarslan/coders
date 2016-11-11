@@ -1,3 +1,8 @@
 USER PROFILE<br>
 
-<h2>{{username}}<h2>
+<h2>{{user.username}}</h2>
+<img ng-src="{{user.imgUrl}}" height="60" width="60">
+<div ng-show='isLoggedIn'>
+    <input type="file" file-model="myFile" accept=".jpg,.jpeg,.png"/><br><br>
+    <button ng-click=" uploadFile()">Upload</button>
+</div>

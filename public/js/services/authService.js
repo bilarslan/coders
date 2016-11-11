@@ -110,5 +110,15 @@ authService.factory('authUserProfile', ['$http', function($http) {
     userProfileFactory.getUser = function(username) {
         return $http.get('/auth/profile/' + username);
     }
+
+    userProfileFactory.updateProfilePic = function(fd){
+          return $http.post('/auth/updatepic', fd, {
+              transformRequest: angular.identity,
+              headers: {
+                  'Content-Type': undefined
+              }
+          });
+    }
+
     return userProfileFactory;
 }]);

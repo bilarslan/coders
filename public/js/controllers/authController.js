@@ -32,18 +32,60 @@ authController.controller('signUpController', ['$scope', '$location', 'auth', fu
     }
 }]);
 
-authController.controller('profileController', ['$scope', '$routeParams', 'authUserProfile', function($scope, $routeParams, authUserProfile) {
-    var username = $routeParams.username.toString();
+authController.controller('profileController', ['$scope', '$routeParams', 'authUserProfile', 'auth', function($scope, $routeParams, authUserProfile, auth) {
 
-    $scope.username = '';
+    var name = $routeParams.username.toString();
+
+    var username = auth.userName();
+
+    auth.getUser().then(function(response) {
+        if (name == username) {
+            $scope.isLoggedIn = true;
+        }
+    }, function(err) {});
+
+    $scope.user = {};
     $scope.questions = [];
     $scope.answers = [];
 
-    authUserProfile.getUser(username).success(function(response){
-      console.log(response);
-      $scope.username = username;
-    })
-    .error(function(err){
-      console.log(err);
-    });
-}])
+    authUserProfile.getUser(name).success(function(response) {
+            console.log(response);
+            $scope.user = response;
+        })
+        .error(function(err) {
+            console.log(err);
+        });
+
+    $scope.uploadFile = function() {
+        var file = $scope.myFile;
+        if (file.size > 500000) {
+            console.log('500KB den buyuk');
+        }
+
+        var fd = new FormData();
+        fd.append('file', $scope.myFile);
+
+      authUserProfile.updateProfilePic(fd).success(function(response){
+          $scope.user.imgUrl = response.imgUrl;
+      });
+
+
+    }
+
+}]);
+
+authController.directive('fileModel', ['$parse', function($parse) {
+    return {
+        restrict: 'A',
+        link: function(scope, element, attrs) {
+            var model = $parse(attrs.fileModel);
+            var modelSetter = model.assign;
+
+            element.bind('change', function() {
+                scope.$apply(function() {
+                    modelSetter(scope, element[0].files[0]);
+                });
+            });
+        }
+    };
+}]);
