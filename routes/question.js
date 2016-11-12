@@ -10,7 +10,7 @@ module.exports = function(app, express) {
                 attributes: ['id', 'title', 'content', 'tags', 'createdAt'],
                 include: [{
                     model: db.user,
-                    attributes: ['id', 'username']
+                    attributes: ['id', 'username','imgUrl']
                 }, {
                     model: db.questionRate,
                     attributes: ['rate']

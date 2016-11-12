@@ -5,7 +5,6 @@
         height: calc(100vh - 149px);
         width: 400px;
         overflow: auto;
-        margin-top: 43px;
     }
 
     .body-left-container {
@@ -24,12 +23,14 @@
 
     .question-topbar {
         display: block;
-        height: 50px;
+        height: auto;
         padding: 10px;
         border-bottom: solid 1px #f7f7f9;
     }
 
     .question-create {
+        display: inline-block;
+        line-height: 30px;
         cursor: pointer;
         user-select: none;
     }
@@ -97,7 +98,6 @@
     .profile-picture {
         display: inline-block;
         float: right;
-        background-image: url("/img/default_avatar.png");
         background-size: cover;
         background-repeat: no-repeat;
         width: 39px;
@@ -109,7 +109,7 @@
 
 <div class="container-fluid">
     <div class="body-right-container">
-        <div style="padding: 7px 30px 7px 0">
+        <div style="padding: 10px 30px 7px 0">
             <div class="card">
                 <div class="card-header">
                     <i class="fa fa-comments" aria-hidden="true"></i>
@@ -125,7 +125,7 @@
             </div>
         </div>
 
-        <div style="padding: 7px 30px 7px 0">
+        <div style="padding: 10px 30px 7px 0">
             <div class="card">
                 <div class="card-header">
                     <i class="fa fa-star" aria-hidden="true"></i>
@@ -144,15 +144,19 @@
 
     <div class="body-left-container">
         <div class="question-topbar">
-            <a href="#/question/new">
-                <div class="question-create">
+            <div class="container-fluid">
+                <a href="#/question/new" class="btn btn-secondary pull-left" style="margin-right: 15px">
                     <i class="fa fa-fw fa-plus"></i>
                     Create New Question
+                </a>
+
+                <div class="input-group" style="width: auto;">
+                    <span class="input-group-addon" id="basic-addon1">
+                        <i class="fa fa-fw fa-search"></i>
+                    </span>
+                    <input class="form-control" type="text" placeholder="Search" ng-model="search">
                 </div>
-            </a>
-
-            <input class="form-control" type="text" placeholder="Search" ng-model="search">
-
+            </div>
         </div>
         <div class="question-item-list">
 
@@ -248,7 +252,7 @@
                                     </div>
                                 </div>
 
-                                <div class="profile-picture"></div>
+                                <img class="profile-picture" ng-src="{{question.user.imgUrl}}" alt="" />
                             </div>
                         </div>
                     </div>
