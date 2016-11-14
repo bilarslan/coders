@@ -1,37 +1,258 @@
-{{question.title}} <br>
-<p ng-bind-html="question.content"></p>
-{{question.tags}} <br>
-{{question.createdAt}} <br>
-{{question.user.username}}<br>
+<style>
+    a:hover {
+        text-decoration: none;
+    }
 
-Rate : {{question.likeDislike}}<br>
-L : {{question.rateLike}}<br>
-D : {{question.rateDislike}}<br>
-L<input type="radio" name="{{question.id}}" id="radio1" ng-checked="question.rateLike" ng-click="like(question.id)">
-D<input type="radio" name="{{question.id}}" id="radio2" ng-checked="question.rateDislike" ng-click="dislike(question.id)">
-<br><br>
-Answers:<br>
-<div ng-repeat ="answer in question.answers">
-<p ng-bind-html="answer.content"></p> <br>
-  {{answer.createdAt}} <br>
-  {{answer.user.id}} - {{answer.user.username}}<br>
-  Rate : {{answer.likeDislike}}<br>
-  L : {{answer.rateLike}}<br>
-  D : {{answer.rateDislike}}<br>
-  L<input type="radio" name="{{answer.id}}" id="radio1" ng-checked="answer.rateLike" ng-click="likeAnswer(answer.id)">
-  D<input type="radio" name="{{answer.id}}" id="radio2" ng-checked="answer.rateDislike" ng-click="dislikeAnswer(answer.id)">
-<br><br>
+    .question-tag {
+        display: inline-block;
+        padding: 3px;
+        margin: 3px;
+        background-color: #edf3ff;
+        color: #478dff;
+    }
+
+    .question-tag-container {
+        float: left;
+        display: inline-block;
+    }
+
+    .question-user-info {
+        display: inline-block;
+        height: inherit;
+        float: right;
+        text-align: right;
+        line-height: 18px;
+    }
+
+    .username {
+        display: block;
+    }
+
+    .user-info {
+        display: inline-block;
+    }
+
+    .profile-picture {
+        display: inline-block;
+        float: right;
+        background-size: cover;
+        background-repeat: no-repeat;
+        width: 39px;
+        height: 39px;
+        margin-left: 7px;
+    }
+    /*style="border: solid 1px whitesmoke; display: inline-block; padding: 5px 5px 0 5px"*/
+
+</style>
+
+<div class="container-fluid" style="padding-top: 15px">
+    <div class="col-lg-9 col-md-9 col-sm-9">
+        <div class="container-fluid" style="border-bottom: solid 1px #bdc3c7; padding: 10px; box-shadow: 0px 32px 30px -36px rgba(0,0,0,0.75); margin-bottom: 20px">
+            <div class="row">
+                <div class="col-lg-1 col-md-1 col-sm-1" style="padding-top: 7px">
+                    <div class="row" style="text-align: center; cursor: pointer">
+                        <label style="cursor: pointer" ng-class="question.rateLike ? 'text-success' : ''">
+                            <i class="fa fa-2x fa-sort-up"></i>
+                            <input type="radio" name="{{question.id}}" id="radio1" ng-checked="question.rateLike" ng-click="like(question.id)" style="display: none">
+                        </label>
+                    </div>
+                    <div class="row text-center" style="text-align: center">
+                        <h4>{{question.likeDislike}}</h4>
+                    </div>
+                    <div class="row text-center" style="text-align: center; cursor: pointer">
+                        <label style="cursor: pointer" ng-class="question.rateDislike ? 'text-danger' : ''">
+                            <i class="fa fa-2x fa-sort-desc"></i>
+                            <input type="radio" name="{{question.id}}" id="radio2" ng-checked="question.rateDislike" ng-click="dislike(question.id)" style="display: none"/>
+                        </label>
+                    </div>
+
+                </div>
+                <div class="col-lg-11 col-md-11 col-sm-11">
+
+                    <div class="container-fluid">
+
+                        <div class="row">
+
+                            <div class="col-lg-10 col-md-10 col-sm-10">
+                                <div class="row">
+                                    <a href="#">
+                                        <h4>
+                                            <small>{{question.title}}</small>
+                                        </h4>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-2 col-md-2 col-sm-2">
+                                <button class="btn btn-outline-primary btn-sm btn-block" ng-show="isLoggedIn" data-toggle="modal" data-target=".bd-example-modal-lg">
+                                    <i class="fa fa-fw fa-hashtag"></i>
+                                    Answer</button>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <small>
+                                <p ng-bind-html="question.content"></p>
+                            </small>
+                        </div>
+                        <div class="row" style="margin-top: 10px;">
+                            <div style="display: inline-block; padding-left: 15px">
+                                <div class="row">
+                                    <div class="question-tag-container">
+                                        <div class="question-tag" ng-repeat="tag in question.tags">
+                                            <small>{{tag}}</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="display: inline-block; min-width: 155px; float: right; padding-right: 15px">
+                                <div class="row">
+                                    <div class="question-user-info">
+                                        <div class="user-info">
+                                            <div class="username">
+                                                <small>
+                                                    <a href="#/profile/bilarslan" class="ng-binding">{{question.user.username}}</a>
+                                                </small>
+                                            </div>
+                                            <div class="username" style="font-style: italic">
+                                                <small>
+                                                    <small class="ng-binding">11.11.2016 19:05:53</small>
+                                                </small>
+                                            </div>
+                                        </div>
+                                        <img class="profile-picture" ng-src="{{question.user.imgUrl}}">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="offset-lg-1 offset-md-1 offset-sm-1 col-lg-11 col-md-11 col-sm-11" ng-repeat="answer in question.answers">
+            <div class="row">
+
+                <div class="container-fluid" style="border-bottom: solid 1px #bdc3c7; padding: 10px; margin-bottom: 20px">
+
+                    <div class="row">
+                        <div class="col-lg-1 col-md-1 col-sm-1" style="padding-top: 7px">
+                            <div class="row" style="text-align: center; cursor: pointer">
+                                <label style="cursor: pointer" ng-class="answer.rateLike ? 'text-success' : ''">
+                                    <i class="fa fa-lg fa-sort-up"></i>
+                                    <input type="radio" name="{{answer.id}}" id="radio3" ng-checked="answer.rateLike" ng-click="likeAnswer(answer.id)" style="display: none">
+                                </label>
+                            </div>
+                            <div class="row text-center" style="text-align: center">
+                                <h4>
+                                    <small>{{answer.likeDislike}}</small>
+                                </h4>
+                            </div>
+                            <div class="row text-center" style="text-align: center; cursor: pointer">
+                                <label style="cursor: pointer" ng-class="answer.rateDislike ? 'text-danger' : ''">
+                                    <i class="fa fa-lg fa-sort-desc"></i>
+                                    <input type="radio" name="{{answer.id}}" id="radio4" ng-checked="answer.rateDislike" ng-click="dislikeAnswer(answer.id)" style="display: none"/>
+                                </label>
+                            </div>
+
+                        </div>
+                        <div class="col-lg-11 col-md-11 col-sm-11" style="padding-top: 30px">
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <small>
+                                        <p ng-bind-html="answer.content"></p>
+                                    </small>
+                                </div>
+                                <div class="row" style="margin-top: 10px;">
+                                    <div style="display: inline-block; padding-left: 15px"></div>
+                                    <div style="display: inline-block; min-width: 155px; float: right; padding-right: 15px">
+                                        <div class="row">
+                                            <div class="question-user-info">
+                                                <div class="user-info">
+                                                    <div class="username">
+                                                        <small>
+                                                            <a href="#/profile/bilarslan" class="ng-binding">{{answer.user.username}}</a>
+                                                        </small>
+                                                    </div>
+                                                    <div class="username" style="font-style: italic">
+                                                        <small>
+                                                            <small class="ng-binding">11.11.2016 19:05:53</small>
+                                                        </small>
+                                                    </div>
+                                                </div>
+
+                                                <img class="profile-picture" ng-src="{{answer.user.imgUrl}}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-3 col-sm-3">
+        <small>
+            <div class="card">
+                <div class="card-header">
+                    <i class="fa fa-comments" aria-hidden="true"></i>
+                    Top Answered Questions
+                </div>
+
+                <ul class="list-group">
+                    <!-- ngRepeat: question in questions | orderBy:'-answerCount' | limitTo: 5 -->
+                    <li class="list-group-item ng-scope">
+                        <a href="#/question/1" class="ng-binding">
+                            <span class="tag tag-default tag-pill float-xs-right ng-binding">1</span>help me pls
+                        </a>
+                    </li>
+                    <li class="list-group-item ng-scope">
+                        <a href="#/question/1" class="ng-binding">
+                            <span class="tag tag-default tag-pill float-xs-right ng-binding">1</span>help me pls
+                        </a>
+                    </li>
+                    <li class="list-group-item ng-scope">
+                        <a href="#/question/1" class="ng-binding">
+                            <span class="tag tag-default tag-pill float-xs-right ng-binding">1</span>help me pls
+                        </a>
+                    </li>
+                    <li class="list-group-item ng-scope">
+                        <a href="#/question/1" class="ng-binding">
+                            <span class="tag tag-default tag-pill float-xs-right ng-binding">1</span>help me pls
+                        </a>
+                    </li>
+                    <!-- end ngRepeat: question in questions | orderBy:'-answerCount' | limitTo: 5 -->
+                </ul>
+            </div>
+        </small>
+    </div>
+
 </div>
 
-<div ng-show="isLoggedIn">
-<div class="answer">
-    <h4>Create a new answer:</h4>
-    <form method="post" ng-submit="answerQuestion()">
-        <p><textarea name="content" value="" placeholder="Answer.." ng-model="answer.content"></textarea></p>
-        <p class="submit"><input type="submit" name="commit" value="Answer!"></p>
-        <p>{{error}}</p>
-    </form>
-    <a href="#/">Home Page</a><br>
-</div>
+<div id="modal-answer" class="modal fade bd-example-modal-lg" role="dialog" aria-labelledby="myLargeModalLabel" style="display: none;" aria-hidden="true" ng-show="isLoggedIn">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
 
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+                <h4 class="modal-title" id="myLargeModalLabel">Answer the question</h4>
+            </div>
+            <div class="modal-body">
+                <div class="alert alert-danger" role="alert" ng-show="error">
+                    <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+                    {{error}}
+                </div>
+                <form method="post" ng-submit="answerQuestion()">
+                    <script type="text/javascript" src="./ckeditor/ckeditor.js"></script>
+                    <textarea ng-model="answer.content" data-ck-editor></textarea>
+                    <input type="submit" class="btn btn-outline-danger btn-lg btn-block" style="margin-top: 7px" name="commit" value="Answer!"/>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>

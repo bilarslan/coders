@@ -74,7 +74,7 @@ questionService.factory('questionCRUDService', ['$http', '$q','$sce', function($
 
     questionCRUDFactory.createAnswer = function(answer) {
         if (answer) {
-            answer.content = answer.content.replace(/\r\n|\r|\n/g,"<br />")
+            //answer.content = answer.content.replace(/\r\n|\r|\n/g,"<br />")
             return $http.post('/question/answer', answer);
         } else {
             return null;

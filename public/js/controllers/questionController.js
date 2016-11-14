@@ -34,7 +34,7 @@ questionController.controller('questionsController', ['$scope', 'questionCRUDSer
 
 }]);
 
-questionController.controller('questionAnswersController', ['$scope', '$routeParams', '$location','$sce', 'auth', 'questionCRUDService', function($scope, $routeParams, $location,$sce, auth, questionCRUDService) {
+questionController.controller('questionAnswersController', ['$scope', '$routeParams', '$location', '$sce', 'auth', 'questionCRUDService', function($scope, $routeParams, $location, $sce, auth, questionCRUDService) {
 
     //Get id of question from url params
     var id = $routeParams.id;
@@ -52,6 +52,7 @@ questionController.controller('questionAnswersController', ['$scope', '$routePar
 
     questionCRUDService.getQuestion(id).success(function(response) {
         questionCRUDService.setModals(response, username).then(function(data) {
+            data.tags = data.tags.split(', ');
             $scope.question = data;
         });
     });
@@ -63,14 +64,20 @@ questionController.controller('questionAnswersController', ['$scope', '$routePar
             //Load the page again and set the modals
             questionCRUDService.getQuestion(id).success(function(response) {
                 questionCRUDService.setModals(response, username).then(function(data) {
-                  $scope.answer = '';
+                  $scope.answer = {
+                      questionId: id,
+                      content:''
+                  };
+                    data.tags = data.tags.split(', ');
                     $scope.question = data;
                 });
             });
 
+            //Close answer creation dialog.
+            $('#modal-answer').modal("hide");
 
         }).error(function(err) {
-            console.log(err);
+          $scope.error = 'Please, filll all bla bla and try again!';
         });
     }
 
@@ -157,3 +164,32 @@ questionController.controller('newQuestionController', ['$scope', '$location', '
         });
     }
 }]);
+
+questionController.directive('ckEditor', function() {
+    return {
+        require: '?ngModel',
+        link: function(scope, elm, attr, ngModel) {
+            var ck = CKEDITOR.replace(elm[0]);
+            if (!ngModel) return;
+            ck.on('instanceReady', function() {
+                ck.setData(ngModel.$viewValue);
+            });
+
+            function updateModel() {
+                scope.$apply(function() {
+                    ngModel.$setViewValue(ck.getData());
+                });
+            }
+
+            ck.on('change', updateModel);
+            ck.on('key', updateModel);
+            ck.on('dataReady', updateModel);
+
+            if (ngModel.$viewValue) {
+                ngModel.$render = function(value) {
+                    ck.setData(ngModel.$viewValue);
+                };
+            }
+        }
+    };
+});

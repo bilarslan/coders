@@ -19,6 +19,7 @@
         margin: 15px 3% 15px 10%;
         height: 150px;
         max-height: 150px;
+        min-width: 500px;
     }
 
     .question-topbar {
@@ -107,9 +108,91 @@
 
 </style>
 
-<div class="container-fluid">
-    <div class="body-right-container">
-        <div style="padding: 10px 30px 7px 0">
+<div class="container-fluid" style="padding: 15px 0 0 0">
+    <div class="col-lg-9 col-md-9 col-sm-9">
+        <nav class="navbar navbar-light bg-faded">
+            <a href="#/question/new" class="btn btn-secondary btn-sm pull-left" style="margin-right: 15px">
+                <i class="fa fa-fw fa-plus"></i>
+                Create New Question
+            </a>
+            <div class="input-group" style="width: auto;">
+                <span class="input-group-addon form-control-sm" id="basic-addon1">
+                    <i class="fa fa-fw fa-search"></i>
+                </span>
+                <input class="form-control form-control-sm" type="text" placeholder="Search" ng-model="search">
+            </div>
+        </nav>
+
+        <div class="container-fluid" ng-repeat="question in questions | orderBy:'-id' | filter: search" style="padding: 15px 50px 0 50px">
+            <div class="container-fluid" style="border-bottom: solid 1px #bdc3c7; padding: 10px; margin-bottom: 20px">
+                <div class="row">
+                    <div class="col-lg-1 col-md-1 col-sm-1" style="padding-top: 7px">
+                        <div class="row" style="text-align: center; cursor: pointer">
+                            <h4 style="margin: 0">{{question.voteCount}}</h4>
+                            <small>votes</small>
+                        </div>
+                        <div class="row text-center" style="text-align: center; cursor: pointer; margin-top: 15px">
+                            <h4 style="margin: 0">{{question.answerCount}}</h4>
+                            <small>answers</small>
+                        </div>
+
+                    </div>
+                    <div class="col-lg-11 col-md-11 col-sm-11">
+
+                        <div class="container-fluid">
+
+                            <div class="row">
+                                <a href="#/question/{{question.id}}">
+                                    <h4>
+                                        <small>{{question.title}}</small>
+                                    </h4>
+                                </a>
+                            </div>
+                            <div class="row" style="margin-bottom: 15px">
+                                <small>{{question.content}}</small>
+                            </div>
+                            <div class="row" style="margin-top: 10px;">
+                                <div style="display: inline-block; padding-left: 15px">
+                                    <div class="row">
+                                        <div class="question-tag-container">
+                                            <div class="question-tag" ng-repeat="tag in question.tags">
+                                                <small>{{tag}}</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div style="display: inline-block; min-width: 155px; float: right; padding-right: 15px">
+                                    <div class="row">
+                                        <div class="question-user-info">
+                                            <div class="user-info">
+                                                <div class="username">
+                                                    <small>
+                                                        <a href="#/profile/{{question.user.username}}" class="ng-binding">{{question.user.username}}</a>
+                                                    </small>
+                                                </div>
+                                                <div class="username" style="font-style: italic">
+                                                    <small>
+                                                        <small class="ng-binding">11.11.2016 19:05:53</small>
+                                                    </small>
+                                                </div>
+                                            </div>
+
+                                            <img class="profile-picture" ng-src="{{question.user.imgUrl}}">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-3 col-md-3 col-sm-3">
+        <small>
             <div class="card">
                 <div class="card-header">
                     <i class="fa fa-comments" aria-hidden="true"></i>
@@ -123,9 +206,6 @@
                     </li>
                 </ul>
             </div>
-        </div>
-
-        <div style="padding: 10px 30px 7px 0">
             <div class="card">
                 <div class="card-header">
                     <i class="fa fa-star" aria-hidden="true"></i>
@@ -139,77 +219,14 @@
                     </li>
                 </ul>
             </div>
-        </div>
+        </small>
     </div>
 
-    <div class="body-left-container">
-        <div class="question-topbar">
-            <div class="container-fluid">
-                <a href="#/question/new" class="btn btn-secondary pull-left" style="margin-right: 15px">
-                    <i class="fa fa-fw fa-plus"></i>
-                    Create New Question
-                </a>
+    <!--  <div class="body-left-container">
 
-                <div class="input-group" style="width: auto;">
-                    <span class="input-group-addon" id="basic-addon1">
-                        <i class="fa fa-fw fa-search"></i>
-                    </span>
-                    <input class="form-control" type="text" placeholder="Search" ng-model="search">
-                </div>
-            </div>
-        </div>
         <div class="question-item-list">
 
-            <div class="question-box">
-                <div class="question-box-statistics-column">
-                    <div class="number-of-answers">
-                        <h4 style="margin-top: 0; margin-bottom: -2px">0</h4>
-                        <small>votes</small>
-                    </div>
-                    <div class="number-of-answers">
-                        <h4 style="margin-top: -10px; margin-bottom: -2px">0</h4>
-                        <small>answers</small>
-                    </div>
-                </div>
-                <div class="question-box-content-column">
-                    <div class="container-fluid">
-                        <div class="row" style="height: 24px; min-height: 24px; max-height: 24">
-                            <a href="">Yinelenen bir sayfa içeriğinin..</a>
-                        </div>
-                        <div class="row" style="margin-bottom: 10px; height: 65px; max-height: 65px; min-height: 65px; overflow: hidden">
-                            <small>Yinelenen bir sayfa içeriğinin okuyucunun dikkatini dağıttığı bilinen bir gerçektir. Lorem Ipsum kullanmanın amacı, sürekli 'buraya metin gelecek, buraya metin gelecek' yazmaya kıyasla.</small>
-                        </div>
-                        <div class="row">
-                            <div class="question-tag-container">
-                                <div class="question-tag">
-                                    <small>Java</small>
-                                </div>
-                                <div class="question-tag">
-                                    <small>Python</small>
-                                </div>
-                                <div class="question-tag">
-                                    <small>C++</small>
-                                </div>
-                            </div>
 
-                            <div class="question-user-info">
-                                <div class="user-info">
-                                    <div class="username">
-                                        <small>Username</small>
-                                    </div>
-                                    <div class="username" style="font-style: italic">
-                                        <small>
-                                            <small>14.02.2016 14:36</small>
-                                        </small>
-                                    </div>
-                                </div>
-
-                                <div class="profile-picture"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
             <div class="question-box" ng-repeat="question in questions | orderBy:'-id' | filter: search">
                 <div class="question-box-statistics-column">
@@ -252,13 +269,11 @@
                                     </div>
                                 </div>
 
-                                <img class="profile-picture" ng-src="{{question.user.imgUrl}}" alt="" />
+                                <img class="profile-picture" ng-src="{{question.user.imgUrl}}" alt=""/>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-
-        </div>
-    </div>
+-->
 </div>

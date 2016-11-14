@@ -37,7 +37,7 @@ module.exports = function(app, express) {
                 attributes: ['id', 'title', 'content', 'tags', 'createdAt'],
                 include: [{
                     model: db.user,
-                    attributes: ['id', 'username']
+                    attributes: ['id', 'username','imgUrl']
                 }, {
                     model: db.questionRate,
                     attributes: ['userId', 'rate'],
@@ -50,7 +50,7 @@ module.exports = function(app, express) {
                     attributes: ['id', 'content', 'createdAt'],
                     include: [{
                         model: db.user,
-                        attributes: ['id', 'username']
+                        attributes: ['id', 'username','imgUrl']
                     }, {
                         model: db.answerRate,
                         attributes: ['userId', 'rate'],

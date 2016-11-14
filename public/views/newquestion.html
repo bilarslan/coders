@@ -1,13 +1,29 @@
-Hello form new question view
+<div class="col-lg-8 col-md-8 col-sm-8 offset-lg-2 offset-md-2 offset-sm-2">
+    <div class="container-fluid">
+        <h1>Ask a question!</h1>
+        <hr/>
+    </div>
+    <form method="post" class="container-fluid" ng-submit="createQuestion()">
+        <div class="alert alert-danger" role="alert" ng-show="error">
+            <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+            {{error}}
+        </div>
 
-<div class="newquestion">
-    <h1>Ask a question!</h1>
-    <form method="post" ng-submit="createQuestion()">
-        <p><input type="text" name="title" value="" placeholder="Title" ng-model="title"></p>
-        <p><textarea name="content" rows="5" cols="25" placeholder="Content" ng-model="content"></textarea></p>
-        <p><input type="text" name="tags" value="" placeholder="Tags" ng-model="tags"></p>
-        <p class="submit"><input type="submit" name="commit" value="ASK"></p>
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+                <input type="text" name="title" class="form-control" value="" placeholder="Question Title" ng-model="title"/>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+                <input type="text" name="tags" class="form-control" value="" placeholder="Tag1/Tag2/.." ng-model="tags"/>
+            </div>
+        </div>
+
+        <hr/>
+
+        <script type="text/javascript" src="./ckeditor/ckeditor.js"></script>
+        <textarea ng-model="content" data-ck-editor></textarea>
+
+        <input type="submit" style="margin-top: 10px" class="btn btn-primary btn-block" name="commit" value="ASK">
         <p>{{error}}</p>
     </form>
-    <a href="#/">Home Page</a><br>
 </div>
