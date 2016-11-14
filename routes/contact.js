@@ -5,7 +5,7 @@ module.exports=function(app,express){
 
   contact.post('/new',function(req,res){
 
-  if(typeof req.body.cname !=='string' || typeof req.body.cemail!=='string'|| typeof req.body.cmessage!=='string' ){
+  if(typeof req.body.cname !=='string' || typeof req.body.cemail!=='string'|| typeof req.body.cmessage!=='string'){
 
     return res.status(401).json({
       error : " Your message did not send"
@@ -16,6 +16,7 @@ module.exports=function(app,express){
 db.contact.create({
   contactName: req.body.cname,
   contactMail: req.body.cemail,
+  contactSubject: req.body.csubject,
   contactMessage: req.body.cmessage
 }).then(function(){
   res.json({

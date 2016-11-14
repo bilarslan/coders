@@ -4,6 +4,7 @@ contactController.controller('createContactController', ['$scope', '$http','$loc
 $scope.contact = {
   cname:'',
   cemail:'',
+  csubject:'',
   cmessage:''
 }
 $scope.createContact= function () {

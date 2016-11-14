@@ -1,17 +1,33 @@
-<form class='contact' name='contactForm' ng-submit='createContact()' novalidate >
-<input type='text' name='cname' placeholder='name' ng-model='contact.cname' ng-required='true'/>
-<div ng-show='contactForm.cname.$invalid && contactForm.cname.$touched'>
-    <small style='color:red; display:block; text-align:center'>Please a enter valid name</small>
-</div>
-<input type='text' name='cemail' placeholder='e-mail' ng-model='contact.cemail' ng-required='true'>
-<div ng-show='contactForm.cemail.$invalid && contactForm.cemail.$touched'>
-  <small style='color:red; display:block; text-align:center'>Please a enter valid e-mail like example@gmail.com</small>
-</div>
-<div>
-  <textarea name='cmessage' rows='8' cols='40' placeholder='Your Message' ng-model='contact.cmessage' ng-required='true'></textarea>
-</div>
-<div>
-  <input type='submit' value='Send' ng-disabled='contactForm.$invalid'>
-  <input type="button" value="Back" onclick="history.go(-1);return true;">
-</div>
-</form>
+<div class="container">
+    <div class="col-md-5">
+        <div class="form-area">
+            <br style="clear:both">
+            <h3 style="margin-bottom:25px; text-align:center;">Contact Us</h3>
+            <form class='contact' name='contactForm' ng-submit='createContact()' novalidate>
+                <div class="form-group">
+                    <input type='text' class="form-control" name='cname' placeholder='Name' ng-model='contact.cname' ng-required='true' />
+                    <div ng-show='contactForm.cname.$invalid && contactForm.cname.$touched'>
+                    <small style='color:red; display:block; text-align:center'><h6>Please a enter valid name<h6></small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <input type='text' class="form-control" name='cemail' placeholder='E-mail' ng-model='contact.cemail' ng-required='true'/>
+                    <div ng-show='contactForm.cemail.$invalid && contactForm.cemail.$touched'>
+                        <small style='color:red; display:block; text-align:center'><h6>Please a enter valid e-mail like example@gmail.com</h6></small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" name='csubject' placeholder='Subject' ng-model='contact.csubject' ng-required='true' />
+                    </div>
+                    <div class="form-group">
+                        <textarea name='cmessage' class="form-control" type="textarea" maxlength="140" rows="8" placeholder='Please enter your Message' ng-model='contact.cmessage' ng-required='true'></textarea>
+                    </div>
+                    <div>
+                        <div class="form-group">
+                            <input type='submit' class="btn btn-primary pull-left" style="margin-right:7px;" value='Send' ng-disabled='contactForm.$invalid'>
+                            <input type="button" class="btn btn-primary pull-left" value="Back" onclick="history.go(-1);return true;">
+                        </div>
+                    </div>
+                </div>
+        </div>
+        </form>

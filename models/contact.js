@@ -9,6 +9,10 @@ module.exports = function (sequelize,DataTypes) {
       type : DataTypes.STRING,
       allowNull:false
     },
+    contactSubject: {
+      type: DataTypes.STRING,
+      allowNull:false
+    },
     contactMessage:{
       type : DataTypes.STRING,
       allowNull:false,
