@@ -1,1 +1,234 @@
-<h1>VIDEOS</h1>
+<style>
+    .body-right-container {
+        position: absolute;
+        right: 0;
+        height: calc(100vh - 149px);
+        width: 400px;
+        overflow: auto;
+    }
+
+    .body-left-container {
+        margin-right: 400px;
+        height: calc(100vh - 106px);
+        display: block;
+    }
+
+    .question-box {
+        border-bottom: solid 1px #bdc3c7;
+        display: block;
+        margin: 15px 3% 15px 10%;
+        height: 150px;
+        max-height: 150px;
+        min-width: 500px;
+    }
+
+    .question-topbar {
+        display: block;
+        height: auto;
+        padding: 10px;
+        border-bottom: solid 1px #f7f7f9;
+    }
+
+    .question-create {
+        display: inline-block;
+        line-height: 30px;
+        cursor: pointer;
+        user-select: none;
+    }
+    a:hover {
+        text-decoration: none;
+    }
+
+    .question-item-list {
+        padding-top: 15px;
+        display: block;
+        height: calc(100% - 50px);
+        overflow: hidden;
+    }
+    .question-item-list:hover {
+        overflow: auto;
+    }
+
+    .question-box-statistics-column {
+        height: inherit;
+        width: 75px;
+    }
+
+    .question-box-content-column {
+        display: block;
+        height: inherit;
+        margin-left: 75px;
+        margin-top: -150px;
+    }
+
+    .number-of-answers {
+        display: block;
+        height: 50%;
+        text-align: center;
+    }
+
+    .question-tag {
+        display: inline-block;
+        padding: 3px;
+        margin: 3px;
+        background-color: #edf3ff;
+        color: #478dff;
+    }
+
+    .question-user-info {
+        display: inline-block;
+        height: inherit;
+        float: right;
+        text-align: right;
+        line-height: 18px;
+    }
+
+    .question-tag-container {
+        float: left;
+        display: inline-block;
+    }
+
+    .username {
+        display: block;
+    }
+
+    .user-info {
+        display: inline-block;
+    }
+
+    .profile-picture {
+        display: inline-block;
+        float: right;
+        background-size: cover;
+        background-repeat: no-repeat;
+        width: 39px;
+        height: 39px;
+        margin-left: 7px;
+    }
+
+</style>
+
+<div class="container-fluid" style="padding: 15px 0 0 0">
+    <div class="col-lg-9 col-md-9 col-sm-9">
+        <nav class="navbar navbar-light bg-faded">
+            <a href="#/question/new" class="btn btn-secondary btn-sm pull-left" style="margin-right: 15px">
+                <i class="fa fa-fw fa-list-alt"></i>
+                Create New Video Playlist
+            </a>
+            <div class="input-group" style="width: auto;">
+                <span class="input-group-addon form-control-sm" id="basic-addon1">
+                    <i class="fa fa-fw fa-search"></i>
+                </span>
+                <input class="form-control form-control-sm" type="text" placeholder="Search" ng-model="search">
+            </div>
+        </nav>
+
+        <div class="card" style="max-width:318px; display:inline-block">
+            <img class="card-img-top" src="./img/covers/java.jpg" width="316" height="180" alt="Card image cap">
+            <div class="card-block">
+                <a href ="#/video/1"></rb><h4 class="card-title">Java Beginner Programming Tutorial</h4></a>
+                <p class="card-text">Introductin To Java Programming</p>
+            </div>
+            <div class="card-block">
+                <a href="#" class="card-link">malukah</a>
+            </div>
+        </div>
+
+        <div class="card" style="max-width:318px; display:inline-block">
+            <img class="card-img-top" src="./img/covers/android.jpg" width="316" height="180" alt="Card image cap">
+            <div class="card-block">
+                <a href="#/video/1"><h4 class="card-title">Introduction To Android Programming</h4></a>
+                <p class="card-text">Develop Android Applications</p>
+            </div>
+            <div class="card-block">
+                <a href="#" class="card-link">Snow</a>
+            </div>
+        </div>
+
+        <div class="card" style="max-width:318px; display:inline-block">
+            <img class="card-img-top" src="./img/covers/android_2.jpg" width="316" height="180" alt="Card image cap">
+            <div class="card-block">
+                <a href="#/video/1"><h4 class="card-title">Advanced Android Programming</h4></a>
+                <p class="card-text">Android Applications</p>
+            </div>
+            <div class="card-block">
+                <a href="#" class="card-link">malukah</a>
+            </div>
+        </div>
+
+        <div class="card" style="max-width:318px; display:inline-block">
+            <img class="card-img-top" src="./img/covers/apple.jpg" width="316" height="180" alt="Card image cap">
+            <div class="card-block">
+                <a href="#/video/1"><h4 class="card-title">iOS Programming Tutorial</h4></a>
+                <p class="card-text">Introductin To iOS Programming</p>
+            </div>
+            <div class="card-block">
+                <a href="#" class="card-link">jobs</a>
+            </div>
+        </div>
+
+        <div class="card" style="max-width:318px; display:inline-block">
+            <img class="card-img-top" src="./img/covers/nodes.jpg" width="316" height="180" alt="Card image cap">
+            <div class="card-block">
+                <a href="#/video/1"><h4 class="card-title">NodeJS Programming Tutorials</h4></a>
+                <p class="card-text">Web Applications with NodeJS</p>
+            </div>
+            <div class="card-block">
+                <a href="#" class="card-link">bilarslan</a>
+            </div>
+        </div>
+
+        <div class="card" style="max-width:318px; display:inline-block">
+            <img class="card-img-top" src="./img/covers/angular.jpg" width="316" height="180" alt="Card image cap">
+            <div class="card-block">
+                <a href="#/video/1"><h4 class="card-title">Introduction To AngularJS Tutorials</h4></a>
+                <p class="card-text">Single Page Applications</p>
+            </div>
+            <div class="card-block">
+                <a href="#" class="card-link">yca</a>
+            </div>
+        </div>
+
+        <div class="card" style="max-width:318px; display:inline-block">
+            <img class="card-img-top" src="./img/covers/seq.jpg" width="316" height="180" alt="Card image cap">
+            <div class="card-block">
+                <a href="#/video/1"><h4 class="card-title">SequelizeJS Object-Relational Mapping</h4></a>
+                <p class="card-text">Single Page Applications</p>
+            </div>
+            <div class="card-block">
+                <a href="#" class="card-link">oktay</a>
+            </div>
+        </div>
+
+        <div class="card" style="max-width:318px; display:inline-block">
+            <img class="card-img-top" src="./img/covers/game.jpg" width="316" height="180" alt="Card image cap">
+            <div class="card-block">
+                <a href="#/video/1"><h4 class="card-title">Javascript Game Programming</h4></a>
+                <p class="card-text">Develop Flappy Bird Clone Game</p>
+            </div>
+            <div class="card-block">
+                <a href="#" class="card-link">fdagli</a>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="col-lg-3 col-md-3 col-sm-3">
+        <small>
+            <div class="card">
+                <div class="card-header">
+                    <i class="fa fa-youtube-play" aria-hidden="true"></i>
+                    Top List
+                </div>
+                <ul class="list-group">
+                  <a href=""><li class="list-group-item"><i class="fa fa-play-circle" aria-hidden="true"></i> NodeJS Programming Tutorials</li></a>
+
+                  <a href=""><li class="list-group-item"><i class="fa fa-play-circle" aria-hidden="true"></i> Introduction To AngularJS Tutorials</li></a>
+                  <a href=""><li class="list-group-item"><i class="fa fa-play-circle" aria-hidden="true"></i> SequelizeJS Object-Relational Mapping</li></a>
+                  <a href=""><li class="list-group-item"><i class="fa fa-play-circle" aria-hidden="true"></i> Javascript Game Programming</li></a>
+                  <a href=""><li class="list-group-item"><i class="fa fa-play-circle" aria-hidden="true"></i> Introduction To Android Programming</li></a>
+                </ul>
+            </div>
+        </small>
+    </div>
+</div>

@@ -31,6 +31,9 @@ angular.module('codersAppRoutes', ['ngRoute'])
           templateUrl: '../views/videos.html',
           controller: 'videosController'
         })
+        .when('/video/:id/',{
+          templateUrl: '../views/video.html'
+        })
         .when('/contact',{
           templateUrl:'../views/contact.html',
           controller:'createContactController'
