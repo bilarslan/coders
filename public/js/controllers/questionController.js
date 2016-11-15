@@ -1,6 +1,6 @@
 var questionController = angular.module('questionController', ['ngRoute']);
 
-questionController.controller('questionsController', ['$scope', 'questionCRUDService', 'auth', function($scope, questionCRUDService, auth) {
+questionController.controller('questionsController', ['$scope', '$sce', 'questionCRUDService', 'auth', function($scope, $sce, questionCRUDService, auth) {
 
     $scope.questions = [];
     var username = auth.userName();
@@ -14,6 +14,7 @@ questionController.controller('questionsController', ['$scope', 'questionCRUDSer
                     voteCount++;
                 }
             });
+            question.content = $sce.trustAsHtml(question.content);
             question.voteCount = voteCount;
             question.answerCount = question.answers.length;
             question.tags = question.tags.split(', ');
@@ -64,10 +65,10 @@ questionController.controller('questionAnswersController', ['$scope', '$routePar
             //Load the page again and set the modals
             questionCRUDService.getQuestion(id).success(function(response) {
                 questionCRUDService.setModals(response, username).then(function(data) {
-                  $scope.answer = {
-                      questionId: id,
-                      content:''
-                  };
+                    $scope.answer = {
+                        questionId: id,
+                        content: ''
+                    };
                     data.tags = data.tags.split(', ');
                     $scope.question = data;
                 });
@@ -77,7 +78,7 @@ questionController.controller('questionAnswersController', ['$scope', '$routePar
             $('#modal-answer').modal("hide");
 
         }).error(function(err) {
-          $scope.error = 'Please, filll all bla bla and try again!';
+            $scope.error = 'Please, filll all bla bla and try again!';
         });
     }
 
