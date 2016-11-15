@@ -1,7 +1,7 @@
 module.exports = function(sequelize, DataTypes) {
 
     var video = sequelize.define('video', {
-        name: {
+        title: {
             type: DataTypes.STRING,
             allowNull: false,
             validate: {

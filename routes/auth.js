@@ -5,7 +5,9 @@ var multer = require('multer');
 
 var storage = multer.diskStorage({
     destination: function(req, file, cb) {
+      if(file.mimetype.split('/')[0] == 'image'){
         cb(null, './public/img/avatar/');
+      }
     },
     filename: function(req, file, cb) {
         var extension = file.mimetype.toString().split('/');
@@ -22,6 +24,8 @@ var upload = multer({
         fileSize: 500000
     }
 });
+
+
 module.exports = function(app, express) {
     var auth = express.Router();
 

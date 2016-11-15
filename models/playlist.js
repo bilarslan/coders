@@ -1,7 +1,7 @@
 module.exports = function(sequelize, DataTypes) {
 
     var playlist = sequelize.define('playlist', {
-        name: {
+        title: {
             type: DataTypes.STRING,
             allowNull: false,
             validate: {
@@ -30,6 +30,6 @@ module.exports = function(sequelize, DataTypes) {
             }
         }
     });
-    
+
     return playlist;
 }
