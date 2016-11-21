@@ -30,6 +30,7 @@ build/Release
 node_modules
 jspm_packages
 public/img/avatar
+public/img/covers
 
 # Optional npm cache directory
 .npm

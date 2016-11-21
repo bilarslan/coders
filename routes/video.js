@@ -30,7 +30,7 @@ module.exports = function(app, express) {
     video.get('/', function(req, res) {
 
         db.playlist.findAll({
-            attributes: ['id', 'title', 'description', 'imgUrl', 'tags', 'createdAt'],
+            attributes: ['id', 'title', 'description', 'imgUrl', 'createdAt'],
             include: [{
                 model: db.user,
                 attributes: ['id', 'username']
@@ -48,7 +48,7 @@ module.exports = function(app, express) {
             where: {
                 id: id
             },
-            attributes: ['id', 'title', 'description', 'imgUrl', 'tags', 'createdAt'],
+            attributes: ['id', 'title', 'description', 'imgUrl', 'createdAt'],
             include: [{
                 model: db.user,
                 attributes: ['id', 'username']
@@ -66,10 +66,11 @@ module.exports = function(app, express) {
 
     });
 
-    //requireAuth
     video.post('/create', requireAuth, upload.single('file'), function(req, res) {
 
-        if (typeof req.body.title !== 'string' || typeof req.body.description !== 'string' || typeof req.body.tags !== 'string') {
+        console.log('CREATE REQUEST');
+
+        if (typeof req.body.title !== 'string' || typeof req.body.description !== 'string') {
             //400
             return res.status(400).json({
                 error: 'Invalid data format!'
@@ -77,13 +78,14 @@ module.exports = function(app, express) {
         }
 
         var path = './img/covers/' + req.file.filename;
+
         db.playlist.create({
             title: req.body.title,
             description: req.body.description,
-            tags: req.body.tags,
             imgUrl: path,
             userId: req.decoded.id
         }).then(function(playlist) {
+            console.log(playlist);
             res.send(playlist);
         });
 

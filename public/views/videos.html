@@ -111,10 +111,10 @@
 <div class="container-fluid" style="padding: 15px 0 0 0">
     <div class="col-lg-9 col-md-9 col-sm-9">
         <nav class="navbar navbar-light bg-faded">
-            <a href="#/question/new" class="btn btn-secondary btn-sm pull-left" style="margin-right: 15px">
+            <div class="btn btn-secondary btn-sm pull-left" style="margin-right: 15px" data-toggle="modal" data-target=".bd-example-modal-lg">
                 <i class="fa fa-fw fa-list-alt"></i>
                 Create New Video Playlist
-            </a>
+            </div>
             <div class="input-group" style="width: auto;">
                 <span class="input-group-addon form-control-sm" id="basic-addon1">
                     <i class="fa fa-fw fa-search"></i>
@@ -131,85 +131,22 @@
             </div>
             <div class="card-block">
                 <a href="#" class="card-link">malukah</a>
+                <button type="button" class="btn btn-danger">Danger</button>
             </div>
         </div>
 
-        <div class="card" style="max-width:318px; display:inline-block">
-            <img class="card-img-top" src="./img/covers/android.jpg" width="316" height="180" alt="Card image cap">
+        <div class="card" style="max-width:318px; display:inline-block" ng-repeat="video in videos">
+            <img class="card-img-top" ng-src="{{video.imgUrl}}" width="316" height="180" alt="Card image cap">
             <div class="card-block">
-                <a href="#/video/1"><h4 class="card-title">Introduction To Android Programming</h4></a>
-                <p class="card-text">Develop Android Applications</p>
+                <a href="#/video/{{video.id}}"><h4 class="card-title">{{video.title}}</h4></a>
+                <p class="card-text">{{video.description}}</p>
             </div>
             <div class="card-block">
-                <a href="#" class="card-link">Snow</a>
-            </div>
-        </div>
-
-        <div class="card" style="max-width:318px; display:inline-block">
-            <img class="card-img-top" src="./img/covers/android_2.jpg" width="316" height="180" alt="Card image cap">
-            <div class="card-block">
-                <a href="#/video/1"><h4 class="card-title">Advanced Android Programming</h4></a>
-                <p class="card-text">Android Applications</p>
-            </div>
-            <div class="card-block">
-                <a href="#" class="card-link">malukah</a>
+                <a href="#/profile/{{video.user.username}}" class="card-link">{{video.user.username}}</a>
             </div>
         </div>
 
-        <div class="card" style="max-width:318px; display:inline-block">
-            <img class="card-img-top" src="./img/covers/apple.jpg" width="316" height="180" alt="Card image cap">
-            <div class="card-block">
-                <a href="#/video/1"><h4 class="card-title">iOS Programming Tutorial</h4></a>
-                <p class="card-text">Introductin To iOS Programming</p>
-            </div>
-            <div class="card-block">
-                <a href="#" class="card-link">jobs</a>
-            </div>
-        </div>
 
-        <div class="card" style="max-width:318px; display:inline-block">
-            <img class="card-img-top" src="./img/covers/nodes.jpg" width="316" height="180" alt="Card image cap">
-            <div class="card-block">
-                <a href="#/video/1"><h4 class="card-title">NodeJS Programming Tutorials</h4></a>
-                <p class="card-text">Web Applications with NodeJS</p>
-            </div>
-            <div class="card-block">
-                <a href="#" class="card-link">bilarslan</a>
-            </div>
-        </div>
-
-        <div class="card" style="max-width:318px; display:inline-block">
-            <img class="card-img-top" src="./img/covers/angular.jpg" width="316" height="180" alt="Card image cap">
-            <div class="card-block">
-                <a href="#/video/1"><h4 class="card-title">Introduction To AngularJS Tutorials</h4></a>
-                <p class="card-text">Single Page Applications</p>
-            </div>
-            <div class="card-block">
-                <a href="#" class="card-link">yca</a>
-            </div>
-        </div>
-
-        <div class="card" style="max-width:318px; display:inline-block">
-            <img class="card-img-top" src="./img/covers/seq.jpg" width="316" height="180" alt="Card image cap">
-            <div class="card-block">
-                <a href="#/video/1"><h4 class="card-title">SequelizeJS Object-Relational Mapping</h4></a>
-                <p class="card-text">Single Page Applications</p>
-            </div>
-            <div class="card-block">
-                <a href="#" class="card-link">oktay</a>
-            </div>
-        </div>
-
-        <div class="card" style="max-width:318px; display:inline-block">
-            <img class="card-img-top" src="./img/covers/game.jpg" width="316" height="180" alt="Card image cap">
-            <div class="card-block">
-                <a href="#/video/1"><h4 class="card-title">Javascript Game Programming</h4></a>
-                <p class="card-text">Develop Flappy Bird Clone Game</p>
-            </div>
-            <div class="card-block">
-                <a href="#" class="card-link">fdagli</a>
-            </div>
-        </div>
 
     </div>
 
@@ -230,5 +167,46 @@
                 </ul>
             </div>
         </small>
+    </div>
+</div>
+
+<div id="modal-answer" class="modal fade bd-example-modal-lg" role="dialog" aria-labelledby="myLargeModalLabel" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+                <h4 class="modal-title" id="myLargeModalLabel">New Playlist!</h4>
+            </div>
+            <div class="modal-body">
+                <div class="alert alert-danger" role="alert" ng-show="error">
+                    <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+                    {{error}}
+                </div>
+                <form method="post" ng-submit="createPlayList()">
+
+                  <div class="input-group" style="width: auto;">
+                      <span class="input-group-addon form-control-sm" id="basic-addon1">
+                          <i class="fa fa-fw fa-search"></i>
+                      </span>
+                      <input class="form-control form-control-sm" type="text" placeholder="Title" ng-model="title" ng-required="true">
+                  </div>
+
+                  <div class="input-group" style="width: auto;">
+                      <span class="input-group-addon form-control-sm" id="basic-addon1">
+                          <i class="fa fa-fw fa-search"></i>
+                      </span>
+                      <input class="form-control form-control-sm" type="text" placeholder="Description" ng-model="description" ng-required="true">
+                  </div>
+
+                  <input type="file" file-model="myFile" accept=".jpg,.jpeg,.png" ng-required="true"/>
+
+
+
+                    <input type="submit" class="btn btn-outline-danger btn-lg btn-block" style="margin-top: 7px" name="commit" value="Create!"/>
+                </form>
+            </div>
+        </div>
     </div>
 </div>

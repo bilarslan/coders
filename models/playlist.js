@@ -21,13 +21,6 @@ module.exports = function(sequelize, DataTypes) {
             validate: {
                 len: [3, 300]
             }
-        },
-        tags: {
-            type: DataTypes.STRING,
-            allowNull: false,
-            validate: {
-                len: [3, 100]
-            }
         }
     });
 
