@@ -16,14 +16,16 @@ videoController.controller('videosController', ['$scope', 'videoCRUDService', 'a
 
     $scope.title = '';
     $scope.description = '';
-
+    $scope.error = '';
     $scope.createPlayList = function() {
-        console.log($scope.title + ' ' + $scope.description);
-        console.log($scope.myFile);
+        //console.log($scope.title + ' ' + $scope.description);
+        //console.log($scope.myFile);
 
         var file = $scope.myFile;
         if (file.size > 500000) {
             console.log('500KB den buyuk');
+            $scope.error = 'File is not bigger than 500KB'
+            return;
         }
 
         var fd = new FormData();
@@ -34,9 +36,10 @@ videoController.controller('videosController', ['$scope', 'videoCRUDService', 'a
         videoCRUDService.createPlayList(fd)
             .success(function(res) {
                 $scope.videos.push(res);
+                 $('#modal-answer').modal("hide");
             })
             .error(function(err) {
-                console.log(err);
+                 $scope.error = err;
             });
 
     }
