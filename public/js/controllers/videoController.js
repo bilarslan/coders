@@ -24,7 +24,7 @@ videoController.controller('videosController', ['$scope', 'videoCRUDService', 'a
         var file = $scope.myFile;
         if (file.size > 500000) {
             console.log('500KB den buyuk');
-            $scope.error = 'File is not bigger than 500KB'
+            $scope.error = 'File size is not bigger than 500KB'
             return;
         }
 
@@ -45,6 +45,9 @@ videoController.controller('videosController', ['$scope', 'videoCRUDService', 'a
     }
 
 }]);
+
+
+//videoController.controller('',[]);
 
 
 videoController.directive('fileModel', ['$parse', function($parse) {
