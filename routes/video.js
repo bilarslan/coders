@@ -18,12 +18,12 @@ var storage = multer.diskStorage({
     }
 });
 
-/*var upload = multer({
+var upload = multer({
     storage: storage,
     limits: {
-        fileSize: 500000
+        fileSize: 1048576
     }
-});*/
+});
 
 module.exports = function (app, express) {
     var video = express.Router();
