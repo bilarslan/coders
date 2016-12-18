@@ -3,12 +3,12 @@ var requireAuth = require('../middlewares/middleware').requireAuth;
 var multer = require('multer');
 
 var storage = multer.diskStorage({
-    destination: function(req, file, cb) {
+    destination: function (req, file, cb) {
         if (file.mimetype.split('/')[0] == 'image') {
             cb(null, './public/img/covers/');
         }
     },
-    filename: function(req, file, cb) {
+    filename: function (req, file, cb) {
         var extension = file.mimetype.toString().split('/');
         extension = extension[1];
         if (extension !== 'jpg' && extension !== 'jpeg' && extension !== 'png') {
@@ -17,17 +17,19 @@ var storage = multer.diskStorage({
         cb(null, Date.now() + '.' + extension);
     }
 });
-var upload = multer({
+
+/*var upload = multer({
     storage: storage,
     limits: {
         fileSize: 500000
     }
-});
+});*/
 
-module.exports = function(app, express) {
+module.exports = function (app, express) {
     var video = express.Router();
 
-    video.get('/', function(req, res) {
+    //Video Playlist
+    video.get('/', function (req, res) {
 
         db.playlist.findAll({
             attributes: ['id', 'title', 'description', 'imgUrl', 'createdAt'],
@@ -35,12 +37,12 @@ module.exports = function(app, express) {
                 model: db.user,
                 attributes: ['id', 'username']
             }]
-        }).then(function(playlists) {
+        }).then(function (playlists) {
             res.send(playlists);
         });
     });
 
-    video.get('/:id', function(req, res) {
+    video.get('/:id', function (req, res) {
 
         var id = parseInt(req.params.id, 10);
 
@@ -56,7 +58,7 @@ module.exports = function(app, express) {
                 model: db.video,
                 attributes: ['id', 'title', 'description', 'videoUrl']
             }]
-        }).then(function(playlist) {
+        }).then(function (playlist) {
             if (playlist) {
                 res.send(playlist);
             } else {
@@ -66,9 +68,7 @@ module.exports = function(app, express) {
 
     });
 
-    video.post('/create', requireAuth, upload.single('file'), function(req, res) {
-
-        console.log('CREATE REQUEST');
+    video.post('/create', requireAuth, upload.single('file'), function (req, res) {
 
         if (typeof req.body.title !== 'string' || typeof req.body.description !== 'string') {
             //400
@@ -84,12 +84,23 @@ module.exports = function(app, express) {
             description: req.body.description,
             imgUrl: path,
             userId: req.decoded.id
-        }).then(function(playlist) {
+        }).then(function (playlist) {
             console.log(playlist);
             res.send(playlist);
         });
 
     });
+
+
+
+    //Video
+    video.get('/v/:id', function (req, res) {
+
+
+
+    });
+
+    video.post('/v/create',requireAuth, upload.single('file'), function(req,res){});
 
 
     return video;
