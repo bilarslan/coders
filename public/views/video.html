@@ -49,16 +49,15 @@
             <div class="row">
                 <div class="card">
                     <div class="card-block">
-                        <h4 class="card-title">Introduction To Android Programming</h4>
-                        <h6 class="card-subtitle text-muted">Configure Android SDK</h6>
+                        <h4 class="card-title">{{selectedVideo.title}}</h4>
+                        <h6 class="card-subtitle text-muted">{{selectedVideo.description}}</h6>
                     </div>
 
-                    <video id="my-video" class="video-js" controls preload="auto" width="720" height="480" poster="http://vjs.zencdn.net/v/oceans.png" data-setup="{}">
-                        <source src="http://vjs.zencdn.net/v/oceans.mp4" type='video/mp4'>
-                        <p class="vjs-no-js">
-                            To view this video please enable JavaScript, and consider upgrading to a web browser that
-                            <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
-                        </p>
+                    <video id="my-video" class="video-js " controls preload="auto" width="720" height="480" data-setup={"customControlsOnMolile":"true"}>
+                            <p class="vjs-no-js">
+                                To view this video please enable JavaScript, and consider upgrading to a web browser that
+                                <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
+                            </p>
                     </video>
 
                     <div class="card-block">
@@ -74,43 +73,31 @@
             <div class="card">
                 <div class="card-header">
                     <i class="fa fa-list-alt" aria-hidden="true"></i>
-                    Introduction To Android Programming
+                    {{playlist.title}}
                 </div>
-
                 <ul class="list-group">
                     <li class="list-group-item ng-scope">
+                        <div ng-repeat="video in playlist.videos">
+                                <span class="tag tag-default tag-pill float-xs-right ng-binding">1:30</span>{{video.title}}
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="card" ng-show="isLoggedIn">
+                <div class="card-header">
+                    <i class="fa fa-upload" aria-hidden="true"></i>
+                    New Video
+                </div>
+                <ul class="list-group">
+                    <li class="list-group-item">
                         <a href="#" class="ng-binding">
                             <span class="tag tag-default tag-pill float-xs-right ng-binding">1:30</span>Introduction
                         </a>
                     </li>
-                    <li class="list-group-item ng-scope">
-                        <a href="#" class="ng-binding">
-                            <span class="tag tag-default tag-pill float-xs-right ng-binding">2:50</span>Configure Android SDK
-                        </a>
-                    </li>
-                    <li class="list-group-item ng-scope">
-                        <a href="#" class="ng-binding">
-                            <span class="tag tag-default tag-pill float-xs-right ng-binding">8:00</span>Create your first Android studio Project
-                        </a>
-                    </li>
-                    <li class="list-group-item ng-scope">
-                        <a href="#" class="ng-binding">
-                            <span class="tag tag-default tag-pill float-xs-right ng-binding">45:00</span>Programming
-                        </a>
-                    </li>
-                    <li class="list-group-item ng-scope">
-                        <a href="#" class="ng-binding">
-                            <span class="tag tag-default tag-pill float-xs-right ng-binding">35:00</span>Building
-                        </a>
-                    </li>
-                    <li class="list-group-item ng-scope">
-                        <a href="#" class="ng-binding">
-                            <span class="tag tag-default tag-pill float-xs-right ng-binding">16:00</span>Testing
-                        </a>
-                    </li>
-
                 </ul>
             </div>
+            
         </small>
     </div>
 </div>

@@ -43,7 +43,7 @@
                     <a class="nav-link" href="#/questions">Questions</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#/videos">Videos</a>
+                    <a class="nav-link" href="#/videoplaylists">Videos</a>
                 </li>
                 <li class="nav-item" ng-show="!isLoggedIn">
                     <a class="btn btn-outline-primary nav-link" href="#/login">Login</a>
@@ -52,8 +52,7 @@
                     <a class="btn btn-outline-success nav-link" href="#/register">Register</a>
                 </li>
                 <li class="nav-item" ng-show="isLoggedIn">
-                    <a href="/#/profile/{{username}}" class="nav-link">Hey,
-                            {{username}}!</a>
+                    <a href="/#/profile/{{username}}" class="nav-link">Hey,{{username}}!</a>
                 </li>
                 <li class="nav-item" ng-show="isLoggedIn">
                     <button class="btn btn-outline-danger" type="button" ng-click="signOut()">Sign Out!</button>

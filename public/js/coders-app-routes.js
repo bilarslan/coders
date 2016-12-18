@@ -27,12 +27,17 @@ angular.module('codersAppRoutes', ['ngRoute'])
             templateUrl: '../views/question.html',
             controller: 'questionAnswersController'
         })
-        .when('/videos',{
+        .when('/videoplaylists',{
           templateUrl: '../views/videos.html',
           controller: 'videosController'
         })
-        .when('/video/:id/',{
-          templateUrl: '../views/video.html'
+        .when('/videoplaylist/:id',{
+          templateUrl: '../views/video.html',
+          controller:'videoController'
+        })
+        .when('/videoplaylist/:id/:vid',{
+          templateUrl: '../views/video.html',
+          controller:'videoController'
         })
         .when('/contact',{
           templateUrl:'../views/contact.html',

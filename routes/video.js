@@ -91,15 +91,6 @@ module.exports = function (app, express) {
 
     });
 
-
-
-    //Video
-    video.get('/v/:id', function (req, res) {
-
-
-
-    });
-
     video.post('/v/create',requireAuth, upload.single('file'), function(req,res){});
 
 

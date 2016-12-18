@@ -139,7 +139,7 @@
         <div class="card" style="max-width:318px; display:inline-block" ng-repeat="video in videos | filter: search">
             <img class="card-img-top" ng-src="{{video.imgUrl}}" width="316" height="180" alt="Card image cap">
             <div class="card-block">
-                <a href="#/video/{{video.id}}">
+                <a href="#/videoplaylist/{{video.id}}">
                     <h4 class="card-title">{{video.title}}</h4>
                 </a>
                 <p class="card-text">{{video.description}}</p>
@@ -159,7 +159,7 @@
                 </div>
                 <ul class="list-group">
                     <div ng-repeat="video in videos | orderBy:'-id' | limitTo: 5" >
-                  <a ng-href="#/video/{{video.id}}"><li class="list-group-item"><i class="fa fa-play-circle" aria-hidden="true"></i> {{video.title}}</li></a>
+                  <a ng-href="#/videoplaylist/{{video.id}}"><li class="list-group-item"><i class="fa fa-play-circle" aria-hidden="true"></i> {{video.title}}</li></a>
                   </div>
                 </ul>
             </div>

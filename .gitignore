@@ -31,6 +31,7 @@ node_modules
 jspm_packages
 public/img/avatar
 public/img/covers
+public/videos
 
 # Optional npm cache directory
 .npm
