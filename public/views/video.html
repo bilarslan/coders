@@ -43,6 +43,7 @@
     }
     /*style="border: solid 1px whitesmoke; display: inline-block; padding: 5px 5px 0 5px"*/
 </style>
+
 <div class="container-fluid" style="padding-top: 15px">
     <div class="col-lg-9 col-md-9 col-sm-9">
         <div class="container-fluid" style="border-bottom: solid 1px #bdc3c7; padding: 10px; box-shadow: 0px 32px 30px -36px rgba(0,0,0,0.75); margin-bottom: 20px">
@@ -61,7 +62,7 @@
                     </video>
 
                     <div class="card-block">
-                        <a href="#" class="card-link">Snow</a>
+                        <a href="#" class="card-link">{{playlist.user.username}}</a>
                     </div>
                 </div>
                 <script src="http://vjs.zencdn.net/5.8.8/video.js"></script>
@@ -78,7 +79,9 @@
                 <ul class="list-group">
                     <li class="list-group-item ng-scope">
                         <div ng-repeat="video in playlist.videos">
+                                <a ng-href="#/videoplaylist/{{playlist.id}}/{{video.id}}">
                                 <span class="tag tag-default tag-pill float-xs-right ng-binding">1:30</span>{{video.title}}
+                                </a>
                         </div>
                     </li>
                 </ul>
@@ -86,18 +89,48 @@
 
             <div class="card" ng-show="isLoggedIn">
                 <div class="card-header">
-                    <i class="fa fa-upload" aria-hidden="true"></i>
-                    New Video
+                    <i class="fa fa-cog" aria-hidden="true"></i>
+                    PlayList Settings
                 </div>
-                <ul class="list-group">
-                    <li class="list-group-item">
-                        <a href="#" class="ng-binding">
-                            <span class="tag tag-default tag-pill float-xs-right ng-binding">1:30</span>Introduction
-                        </a>
-                    </li>
-                </ul>
+                    <button type="button" class="btn btn-secondary btn-block" ng-click="uploadPanel()"><i class="fa fa-upload" aria-hidden="true"></i> Upload New Video!</button>
             </div>
             
         </small>
+    </div>
+</div>
+
+<div id="modal-answer" class="modal fade bd-example-modal-lg" role="dialog" aria-labelledby="myLargeModalLabel" style="display: none;"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+                <h4 class="modal-title" id="myLargeModalLabel">New Video!</h4>
+            </div>
+            <div class="modal-body">
+                <div class="alert alert-danger" role="alert" ng-show="error">
+                    <i class="fa fa-exclamation-circle" aria-hidden="true"></i> {{error}}
+                </div>
+                <form method="post" ng-submit="createPlayList()">
+                    <div class="input-group" style="width: auto;">
+                        <span class="input-group-addon form-control-sm" id="basic-addon1">
+                          <i class="fa fa-fw fa-indent"></i>
+                      </span>
+                        <input class="form-control form-control-sm" type="text" placeholder="Title" ng-model="title" ng-required="true">
+                    </div>
+                    <div class="input-group" style="width: auto;">
+                        <span class="input-group-addon form-control-sm" id="basic-addon1">
+                          <i class="fa fa-fw fa-list-ul"></i>
+                      </span>
+                        <input class="form-control form-control-sm" type="text" placeholder="Description" ng-model="description" ng-required="true">
+                    </div>
+                    <input type="file" file-model="myFile" accept=".jpg,.jpeg,.png" ng-required="true" />
+                    <input type="submit" class="btn btn-outline-danger btn-lg btn-block" style="margin-top: 7px" name="commit" value="Upload!"
+                    />
+                </form>
+            </div>
+        </div>
     </div>
 </div>

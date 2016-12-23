@@ -54,22 +54,25 @@ videoController.controller('videoController', ['$scope', '$http', '$sce', '$rout
 
     var username = auth.userName();
     $scope.playlist = {};
-    $scope.selectedVideo = {};
+    //$scope.selectedVideo = {};
 
     $http.get('/video/' + id)
         .success(function (res) {
             $scope.playlist = res;
 
-            if (vid) {
+                if(!vid){
+                    vid = res.videos[0].id;
+                }
+
                 for (var i = 0; i < res.videos.length; i++) {
                     var video = res.videos[i];
                     if (video.id == vid) {
 
-
-
+                        $scope.selectedVideo = video;
 
                         var src = $sce.trustAsResourceUrl(video.videoUrl);
                         var myvideo = document.getElementById('my-video');
+
                         videojs(myvideo, {
                             'poster': $scope.playlist.imgUrl
                         }, function () {
@@ -82,23 +85,14 @@ videoController.controller('videoController', ['$scope', '$http', '$sce', '$rout
                         break;
                     }
                 }
-            }
+
+                if(!$scope.selectedVideo){
+                    console.log('video not found!');
+                }
 
 
-            /*$scope.selectedVideo = res.videos[0];
 
-            var src = $sce.trustAsResourceUrl($scope.selectedVideo.videoUrl);
-            var video = document.getElementById('my-video');
 
-            videojs(video, {
-                'poster': $scope.playlist.imgUrl
-            }, function () {
-                this.src([{
-                    type: 'video/mp4',
-                    src: src
-                }]);
-            });
-            */
 
             console.log($scope.playlist);
         })
@@ -114,10 +108,10 @@ videoController.controller('videoController', ['$scope', '$http', '$sce', '$rout
         });
 
 
-
-
-
-
+        $scope.uploadPanel = function(){
+            console.log('hello world');
+            $('#modal-answer').modal("show");
+        }
 }]);
 
 
