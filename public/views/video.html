@@ -92,7 +92,7 @@
                     <i class="fa fa-cog" aria-hidden="true"></i>
                     PlayList Settings
                 </div>
-                    <button type="button" class="btn btn-secondary btn-block" ng-click="uploadPanel()"><i class="fa fa-upload" aria-hidden="true"></i> Upload New Video!</button>
+                    <button type="button" class="btn btn-secondary btn-block" data-toggle="modal" data-target=".bd-example-modal-lg"><i class="fa fa-upload" aria-hidden="true"></i> Upload New Video!</button>
             </div>
             
         </small>
@@ -113,7 +113,7 @@
                 <div class="alert alert-danger" role="alert" ng-show="error">
                     <i class="fa fa-exclamation-circle" aria-hidden="true"></i> {{error}}
                 </div>
-                <form method="post" ng-submit="createPlayList()">
+                <form method="post" ng-submit="uploadVideo()">
                     <div class="input-group" style="width: auto;">
                         <span class="input-group-addon form-control-sm" id="basic-addon1">
                           <i class="fa fa-fw fa-indent"></i>
@@ -126,9 +126,10 @@
                       </span>
                         <input class="form-control form-control-sm" type="text" placeholder="Description" ng-model="description" ng-required="true">
                     </div>
-                    <input type="file" file-model="myFile" accept=".jpg,.jpeg,.png" ng-required="true" />
-                    <input type="submit" class="btn btn-outline-danger btn-lg btn-block" style="margin-top: 7px" name="commit" value="Upload!"
-                    />
+                    <input type="file" file-model="myFile" accept=".mp4" ng-required="true"/>
+                    <button type="submit" class="btn btn-outline-danger btn-lg btn-block" style="margin-top: 7px" name="commit" ng-show="!progress">Upload</button>
+                    <button class="btn btn-success btn-lg btn-block" style="margin-top: 7px" name="commit" ng-show="progress"><i class="fa fa-spinner fa-spin fa-fw"></i><br>Uploading!</button>
+                    <center></center>
                 </form>
             </div>
         </div>

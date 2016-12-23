@@ -6,12 +6,14 @@ var storage = multer.diskStorage({
     destination: function (req, file, cb) {
         if (file.mimetype.split('/')[0] == 'image') {
             cb(null, './public/img/covers/');
+        } else if (file.mimetype.split('/')[0] == 'video') {
+            cb(null, './public/videos/');
         }
     },
     filename: function (req, file, cb) {
         var extension = file.mimetype.toString().split('/');
         extension = extension[1];
-        if (extension !== 'jpg' && extension !== 'jpeg' && extension !== 'png') {
+        if (extension !== 'jpg' && extension !== 'jpeg' && extension !== 'png' && extension !== 'mp4') {
             return;
         }
         cb(null, Date.now() + '.' + extension);
@@ -21,7 +23,7 @@ var storage = multer.diskStorage({
 var upload = multer({
     storage: storage,
     limits: {
-        fileSize: 1048576
+        fileSize: 1073741824
     }
 });
 
@@ -91,8 +93,28 @@ module.exports = function (app, express) {
 
     });
 
-    video.post('/v/create',requireAuth, upload.single('file'), function(req,res){});
+    video.post('/v/create', requireAuth, upload.single('file'), function (req, res) {
 
+
+        if (typeof req.body.title !== 'string' || typeof req.body.description !== 'string' || typeof req.body.playlist !== 'string') {
+            //400
+            return res.status(400).json({
+                error: 'Invalid data format!'
+            });
+        }
+
+        var path = './videos/' + req.file.filename;
+
+        db.video.create({
+            title: req.body.title,
+            description: req.body.description,
+            videoUrl: path,
+            playlistId: req.body.playlist
+        }).then(function (playlist) {
+            console.log(playlist);
+            res.send(playlist);
+        });
+    });
 
     return video;
 }
