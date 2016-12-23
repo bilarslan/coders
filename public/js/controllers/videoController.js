@@ -89,8 +89,7 @@ videoController.controller('videoController', ['$scope', '$http', '$sce', '$rout
             if (!$scope.selectedVideo) {
                 console.log('video not found!');
             }
-
-            console.log($scope.playlist);
+            
         })
         .error(function (err) {
             console.log(err);
@@ -111,10 +110,6 @@ videoController.controller('videoController', ['$scope', '$http', '$sce', '$rout
     $scope.progress = false;
 
     $scope.uploadVideo = function () {
-
-        console.log($scope.title)
-        console.log($scope.description)
-        console.log($scope.myFile)
 
         var file = $scope.myFile;
         if (file.size > 1073741824) {

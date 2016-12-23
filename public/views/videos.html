@@ -121,20 +121,6 @@
                 <input class="form-control form-control-sm" type="text" placeholder="Search" ng-model="search">
             </div>
         </nav>
-        
-        <div class="card" style="max-width:318px; display:inline-block">
-            <img class="card-img-top" src="./img/covers/java.jpg" width="316" height="180" alt="Card image cap">
-            <div class="card-block">
-                <a href="#/video/1"></rb>
-                    <h4 class="card-title">Java Beginner Programming Tutorial</h4>
-                </a>
-                <p class="card-text">Introductin To Java Programming</p>
-            </div>
-            <div class="card-block">
-                <a href="#" class="card-link">malukah</a>
-                <button type="button" class="btn btn-danger">Danger</button>
-            </div>
-        </div>
 
         <div class="card" style="max-width:318px; display:inline-block" ng-repeat="video in videos | filter: search">
             <img class="card-img-top" ng-src="{{video.imgUrl}}" width="316" height="180" alt="Card image cap">
