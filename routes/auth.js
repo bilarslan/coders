@@ -119,7 +119,10 @@ module.exports = function(app, express) {
                 attributes: ['id', 'title', 'content', 'tags', 'createdAt']
             }, {
                 model: db.answer,
-                attributes: ['id', 'content', 'createdAt', 'questionId']
+                attributes: ['id', 'content', 'createdAt', 'questionId', 'createdAt']
+            },{
+                model: db.playlist,
+                attributes: ['id', 'title', 'description', 'imgUrl']
             }]
         }).then(function(user) {
             if (user) {
