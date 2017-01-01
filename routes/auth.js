@@ -154,5 +154,19 @@ module.exports = function(app, express) {
             });
         });
     });
+
+    auth.get('/all', function(req, res){
+
+      db.user.findAll({
+        attributes: ['id','username'],
+        include:[{
+          model: db.answer,
+          attributes:['id']
+        }]
+      }).then(function(users){
+        res.send(users)
+      });
+
+    });
     return auth;
 }

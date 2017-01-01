@@ -5,7 +5,8 @@ angular.module('codersAppRoutes', ['ngRoute'])
     $routeProvider
 
         .when('/', {
-            templateUrl: '../views/home.html'
+            templateUrl: '../views/home.html',
+            controller:'homepageController'
         })
         .when('/login', {
             templateUrl: '../views/login.html',

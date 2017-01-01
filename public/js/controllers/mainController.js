@@ -19,3 +19,37 @@ mainController.controller('navController', ['$scope', '$rootScope', 'auth', func
         auth.signOut();
     }
 }]);
+
+mainController.controller('homepageController',['$scope','$http', '$sce', 'questionCRUDService', 'auth', function($scope, $http, $sce, questionCRUDService, auth) {
+
+  $scope.questions = [];
+  $scope.playlist = [];
+  $scope.users = [];
+
+  questionCRUDService.getQuestion().success(function(response) {
+      //console.log(response);
+      response.forEach(function(question) {
+          var voteCount = 0;
+          question.questionRates.forEach(function(rating) {
+              if (rating.rate != 0) {
+                  voteCount++;
+              }
+          });
+          question.voteCount = voteCount;
+          question.answerCount = question.answers.length;
+      });
+      $scope.questions = response;
+  }).error(function(err) {
+      console.log(err);
+  }).then(function(){
+
+    $http.get('/auth/all')
+    .success(function(res){
+      $scope.users = res;
+    })
+    .error(function(err){
+      console.log(err)
+    });
+
+  });
+}]);

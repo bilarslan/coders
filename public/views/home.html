@@ -12,7 +12,7 @@
 
 </style>
 <script>
-      $('.carousel').carousel({interval: 2000});
+      $('.carousel').carousel({interval: 10000});
 </script>
 <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
     <ol class="carousel-indicators">
@@ -46,56 +46,77 @@
 
 </div>
 
+<div class="col-lg-12 col-md-12 col-sm-12">
+    <small>
+        <div class="card">
+            <div class="card-header">
+                <i class="fa fa-video-camera" style="margin-right: 7.5px" aria-hidden="true"></i>
+                {{user.username}}'s Playlist
+            </div>
+            <ul class="list-group">
+                <li class="list-group-item" ng-repeat="playlist in user.playlists">
+                    <a href="#/videoplaylist/{{playlist.id}}">
+                        {{playlist.title}}
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </small>
+</div>
 <div class="container-fluid" style="padding-top:15px ">
+
+    <div class="col-lg-4 col-md-4 col-sm-4">
+        <small>
+          <div class="card">
+              <div class="card-header">
+                  <i class="fa fa-comments" aria-hidden="true"></i>
+                  Top Answered Questions
+              </div>
+              <ul class="list-group">
+                  <li class="list-group-item" ng-repeat="question in questions | orderBy:'-answerCount' | limitTo: 10">
+                      <a href="#/question/{{question.id}}">
+                          <span class="tag tag-default tag-pill float-xs-right">{{question.answerCount}}</span>{{question.title}}
+                      </a>
+                  </li>
+              </ul>
+          </div>
+        </small>
+    </div>
+
+    <div class="col-lg-4 col-md-4 col-sm-4">
+        <small>
+          <div class="card">
+              <div class="card-header">
+                  <i class="fa fa-star" aria-hidden="true"></i>
+                  Top Rated Questions
+              </div>
+              <ul class="list-group">
+                  <li class="list-group-item" ng-repeat="question in questions | orderBy:'-voteCount' | limitTo: 10">
+                      <a href="#/question/{{question.id}}">
+                          <span class="tag tag-default tag-pill float-xs-right">{{question.voteCount}}</span>{{question.title}}
+                      </a>
+                  </li>
+              </ul>
+          </div>
+        </small>
+    </div>
+
     <div class="col-lg-4 col-md-4 col-sm-4">
         <small>
             <div class="card">
                 <div class="card-header">
-                    <i class="fa fa-question-circle" style="margin-right: 7.5px" aria-hidden="true"></i>
-                    {{user.username}}'s Questions
+                    <i class="fa fa-user" style="margin-right: 7.5px" aria-hidden="true"></i>
+                    Top Active User
                 </div>
                 <ul class="list-group">
-                    <li class="list-group-item" ng-repeat="question in user.questions">
-                        <a href="#/question/{{question.id}}">
-                            <span class="tag tag-default tag-pill float-xs-right">{{question.answerCount}}</span>{{question.title}}
-                        </a>
+                    <li class="list-group-item" ng-repeat="user in users | orderBy:'-answers.length' | limitTo: 10">
+                      <a href="#/profile/{{user.username}}">
+                          <span class="tag tag-default tag-pill float-xs-right">{{user.answers.length}}</span>{{user.username}}
+                      </a>
                     </li>
                 </ul>
             </div>
         </small>
     </div>
-    <div class="col-lg-4 col-md-4 col-sm-4">
-        <small>
-            <div class="card">
-                <div class="card-header">
-                    <i class="fa fa-comments" style="margin-right: 7.5px" aria-hidden="true"></i>
-                    {{user.username}}'s Answers
-                </div>
-                <ul class="list-group">
-                    <li class="list-group-item" ng-repeat="answer in user.answers">
-                        <a href="#/question/{{question.id}}">
-                            {{answer.content}}
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </small>
-    </div>
-    <div class="col-lg-4 col-md-4 col-sm-4">
-        <small>
-            <div class="card">
-                <div class="card-header">
-                    <i class="fa fa-video-camera" style="margin-right: 7.5px" aria-hidden="true"></i>
-                    {{user.username}}'s Playlist
-                </div>
-                <ul class="list-group">
-                    <li class="list-group-item" ng-repeat="playlist in user.playlists">
-                        <a href="#/videoplaylist/{{playlist.id}}">
-                            {{playlist.title}}
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </small>
-    </div>
+
 </div>
