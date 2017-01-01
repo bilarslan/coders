@@ -53,7 +53,7 @@ videoController.controller('videosController', ['$scope', 'videoCRUDService', 'a
 }]);
 
 
-videoController.controller('videoController', ['$scope', '$http', '$sce', '$routeParams', 'videoCRUDService', 'auth', function ($scope, $http, $sce, $routeParams, videoCRUDService, auth) {
+videoController.controller('videoController', ['$scope', '$http', '$sce', '$routeParams','$location' ,'videoCRUDService', 'auth', function ($scope, $http, $sce, $routeParams,$location ,videoCRUDService, auth) {
 
     var id = $routeParams.id;
     var vid = $routeParams.vid;
@@ -129,9 +129,7 @@ videoController.controller('videoController', ['$scope', '$http', '$sce', '$rout
         fd.append('title', $scope.title);
         fd.append('description', $scope.description);
         fd.append('playlist', id);
-
         $scope.progress = true;
-
         $http.post('/video/v/create', fd, {
                 transformRequest: angular.identity,
                 headers: {
@@ -142,6 +140,8 @@ videoController.controller('videoController', ['$scope', '$http', '$sce', '$rout
                 $('#modal-answer').modal("hide");
                 $scope.progress = false;
                 $scope.playlist.videos.push(res);
+                //var url = '/videoplaylist/' + res.playlistId +'/'+ res.id;
+                //$location.path(url);
             })
             .error(function (err) {
                 console.log(err);
