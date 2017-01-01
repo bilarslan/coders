@@ -1,8 +1,70 @@
-USER PROFILE<br>
-
-<h2>{{user.username}}</h2>
-<img ng-src="{{user.imgUrl}}" height="60" width="60">
-<div ng-show='isLoggedIn'>
-    <input type="file" file-model="myFile" accept=".jpg,.jpeg,.png"/><br><br>
-    <button ng-click=" uploadFile()">Upload</button>
+<div class="container-fluid" style="padding-top: 15px">
+    <div class="col-lg-3 col-md-3 col-sm-3">
+        <img ng-src="{{user.imgUrl}}" style="width: 100%; height: auto; border-radius: 15px" alt="">
+    </div>
+    <div class="col-lg-9 col-md-9 col-sm-9">
+        <h2>{{user.username}} <small><small>oktay@gmail.com</small></small>
+        </h2>
+        <hr/>
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+                <input type="file" file-model="myFile" accept=".jpg,.jpeg,.png" class="form-control" ng-required="true" />
+                <button class="btn btn-secondary" style="margin-top:7.5px" ng-click=" uploadFile()">Upload</button>
+            </div>
+        </div>
+    </div>
+</div>
+<hr/>
+<div class="container-fluid" style="padding-top:15px ">
+    <div class="col-lg-4 col-md-4 col-sm-4">
+        <small>
+            <div class="card">
+                <div class="card-header">
+                    <i class="fa fa-question-circle" style="margin-right: 7.5px" aria-hidden="true"></i>
+                    {{user.username}}'s Questions
+                </div>
+                <ul class="list-group">
+                    <li class="list-group-item" ng-repeat="question in user.questions">
+                        <a href="#/question/{{question.id}}">
+                            <span class="tag tag-default tag-pill float-xs-right">{{question.answerCount}}</span>{{question.title}}
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </small>
+    </div>
+    <div class="col-lg-4 col-md-4 col-sm-4">
+        <small>
+            <div class="card">
+                <div class="card-header">
+                    <i class="fa fa-comments" style="margin-right: 7.5px" aria-hidden="true"></i>
+                    {{user.username}}'s Answers
+                </div>
+                <ul class="list-group">
+                    <li class="list-group-item" ng-repeat="answer in user.answers">
+                        <a href="#/question/{{question.id}}">
+                            {{answer.content}}
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </small>
+    </div>
+    <div class="col-lg-4 col-md-4 col-sm-4">
+        <small>
+            <div class="card">
+                <div class="card-header">
+                    <i class="fa fa-video-camera" style="margin-right: 7.5px" aria-hidden="true"></i>
+                    {{user.username}}'s Playlist
+                </div>
+                <ul class="list-group">
+                    <li class="list-group-item" ng-repeat="playlist in user.playlists">
+                        <a href="#/videoplaylist/{{playlist.id}}">
+                            {{playlist.title}}
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </small>
+    </div>
 </div>

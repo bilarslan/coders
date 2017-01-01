@@ -121,20 +121,20 @@
                 <input class="form-control form-control-sm" type="text" placeholder="Search" ng-model="search">
             </div>
         </nav>
-
-        <div class="card" style="max-width:318px; display:inline-block" ng-repeat="video in videos | filter: search">
-            <img class="card-img-top" ng-src="{{video.imgUrl}}" width="316" height="180" alt="Card image cap">
-            <div class="card-block">
-                <a href="#/videoplaylist/{{video.id}}">
-                    <h4 class="card-title">{{video.title}}</h4>
-                </a>
-                <p class="card-text">{{video.description}}</p>
-            </div>
-            <div class="card-block">
-                <a href="#/profile/{{video.user.username}}" class="card-link">{{video.user.username}}</a>
+        <div class="col-lg-4 col-md-6 col-sm-6" ng-repeat="video in videos | filter: search" style="margin-top: 15px">
+            <div class="card" style="height: 375px; max-height: 375px">
+                <img class="card-img-top" ng-src="{{video.imgUrl}}" style="width: 100%; height: auto; max-height: 175px" alt="Card image cap">
+                <div class="card-block">
+                    <a href="#/videoplaylist/{{video.id}}">
+                        <h4 class="card-title">{{video.title}}</h4>
+                    </a>
+                    <p class="card-text">{{video.description}}</p>
+                </div>
+                <div class="card-block">
+                    <a href="#/profile/{{video.user.username}}" class="card-link">{{video.user.username}}</a>
+                </div>
             </div>
         </div>
-        
     </div>
     <div class="col-lg-3 col-md-3 col-sm-3">
         <small>
@@ -152,8 +152,6 @@
         </small>
     </div>
 </div>
-
-
 <div id="modal-answer" class="modal fade bd-example-modal-lg" role="dialog" aria-labelledby="myLargeModalLabel" style="display: none;"
     aria-hidden="true">
     <div class="modal-dialog modal-lg">
