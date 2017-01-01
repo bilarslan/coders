@@ -113,7 +113,7 @@ module.exports = function(app, express) {
             where: {
                 username: username
             },
-            attributes: ['id', 'username', 'imgUrl', 'createdAt'],
+            attributes: ['id', 'username','email' ,'imgUrl', 'createdAt'],
             include: [{
                 model: db.question,
                 attributes: ['id', 'title', 'content', 'tags', 'createdAt']

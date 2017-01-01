@@ -3,9 +3,10 @@
         <img ng-src="{{user.imgUrl}}" style="width: 100%; height: auto; border-radius: 15px" alt="">
     </div>
     <div class="col-lg-9 col-md-9 col-sm-9">
-        <h2>{{user.username}} <small><small>oktay@gmail.com</small></small>
+        <h2>{{user.username}} <small><small>{{user.email}}</small></small>
         </h2>
         <hr/>
+        <small>Register At: {{user.createdAt}}</small><br>
         <div class="row" ng-show='isLoggedIn'>
             <div class="col-lg-6 col-md-6 col-sm-6">
                 <input type="file" file-model="myFile" accept=".jpg,.jpeg,.png" class="form-control" ng-required="true" />
@@ -42,7 +43,7 @@
                 </div>
                 <ul class="list-group">
                     <li class="list-group-item" ng-repeat="answer in user.answers">
-                        <a href="#/question/{{question.id}}">
+                        <a href="#/question/{{answer.questionId}}">
                             {{answer.content}}
                         </a>
                     </li>

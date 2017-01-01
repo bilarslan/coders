@@ -50,6 +50,12 @@ authController.controller('profileController', ['$scope', '$routeParams', 'authU
 
     authUserProfile.getUser(name).success(function(response) {
             console.log(response);
+            response.createdAt = new Date(response.createdAt).toLocaleString();
+            response.answers.forEach(function(item){
+              var div = document.createElement("div");
+              div.innerHTML = item.content;
+              item.content = div.innerText // Hello, World
+            });
             $scope.user = response;
         })
         .error(function(err) {

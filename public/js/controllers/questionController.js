@@ -57,6 +57,7 @@ questionController.controller('questionAnswersController', ['$scope', '$routePar
             console.log(data)
             data.createdAt = new Date(data.createdAt).toLocaleString();
             data.answers.forEach(function(item){
+
               item.createdAt = new Date(item.createdAt).toLocaleString();
             });
             $scope.question = data;
