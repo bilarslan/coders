@@ -3,6 +3,8 @@ var videoController = angular.module('videoController', ['ngRoute']);
 videoController.controller('videosController', ['$scope', 'videoCRUDService', 'auth', function ($scope, videoCRUDService, auth) {
 
     $scope.videos = [];
+    var username = auth.userName();
+
     //Get all videos from server
     videoCRUDService.getVideos()
         .success(function (res) {
@@ -35,6 +37,10 @@ videoController.controller('videosController', ['$scope', 'videoCRUDService', 'a
 
         videoCRUDService.createPlayList(fd)
             .success(function (res) {
+                res.user = {
+                  id: res.userId,
+                  username: username
+                };
                 $scope.videos.push(res);
                 $('#modal-answer').modal("hide");
             })
@@ -89,7 +95,7 @@ videoController.controller('videoController', ['$scope', '$http', '$sce', '$rout
             if (!$scope.selectedVideo) {
                 console.log('video not found!');
             }
-            
+
         })
         .error(function (err) {
             console.log(err);

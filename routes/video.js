@@ -87,7 +87,7 @@ module.exports = function (app, express) {
             imgUrl: path,
             userId: req.decoded.id
         }).then(function (playlist) {
-            console.log(playlist);
+            //console.log(playlist);
             res.send(playlist);
         });
 

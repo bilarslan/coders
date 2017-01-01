@@ -2,7 +2,7 @@
     a:hover {
         text-decoration: none;
     }
-    
+
     .question-tag {
         display: inline-block;
         padding: 3px;
@@ -10,12 +10,12 @@
         background-color: #edf3ff;
         color: #478dff;
     }
-    
+
     .question-tag-container {
         float: left;
         display: inline-block;
     }
-    
+
     .question-user-info {
         display: inline-block;
         height: inherit;
@@ -23,15 +23,15 @@
         text-align: right;
         line-height: 18px;
     }
-    
+
     .username {
         display: block;
     }
-    
+
     .user-info {
         display: inline-block;
     }
-    
+
     .profile-picture {
         display: inline-block;
         float: right;
@@ -80,7 +80,7 @@
                     <li class="list-group-item ng-scope">
                         <div ng-repeat="video in playlist.videos">
                                 <a ng-href="#/videoplaylist/{{playlist.id}}/{{video.id}}">
-                                <span class="tag tag-default tag-pill float-xs-right ng-binding">1:30</span>{{video.title}}
+                                <span class="tag tag-default tag-pill float-xs-right ng-binding">PLAY</span>{{video.title}}
                                 </a>
                         </div>
                     </li>
@@ -94,7 +94,7 @@
                 </div>
                     <button type="button" class="btn btn-secondary btn-block" data-toggle="modal" data-target=".bd-example-modal-lg"><i class="fa fa-upload" aria-hidden="true"></i> Upload New Video!</button>
             </div>
-            
+
         </small>
     </div>
 </div>
