@@ -54,6 +54,11 @@ questionController.controller('questionAnswersController', ['$scope', '$routePar
     questionCRUDService.getQuestion(id).success(function(response) {
         questionCRUDService.setModals(response, username).then(function(data) {
             data.tags = data.tags.split(', ');
+            console.log(data)
+            data.createdAt = new Date(data.createdAt).toLocaleString();
+            data.answers.forEach(function(item){
+              item.createdAt = new Date(item.createdAt).toLocaleString();
+            });
             $scope.question = data;
         });
     });
@@ -78,7 +83,7 @@ questionController.controller('questionAnswersController', ['$scope', '$routePar
             $('#modal-answer').modal("hide");
 
         }).error(function(err) {
-            $scope.error = 'Please, filll all bla bla and try again!';
+            $scope.error = 'Please, try again!';
         });
     }
 
@@ -161,7 +166,7 @@ questionController.controller('newQuestionController', ['$scope', '$location', '
         }).success(function(response) {
             $location.path('/questions');
         }).error(function(err) {
-            $scope.error = 'Please, filll all bla bla and try again!';
+            $scope.error = 'Please, try again!';
         });
     }
 }]);

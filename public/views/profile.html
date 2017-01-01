@@ -6,7 +6,7 @@
         <h2>{{user.username}} <small><small>oktay@gmail.com</small></small>
         </h2>
         <hr/>
-        <div class="row">
+        <div class="row" ng-show='isLoggedIn'>
             <div class="col-lg-6 col-md-6 col-sm-6">
                 <input type="file" file-model="myFile" accept=".jpg,.jpeg,.png" class="form-control" ng-required="true" />
                 <button class="btn btn-secondary" style="margin-top:7.5px" ng-click=" uploadFile()">Upload</button>

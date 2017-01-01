@@ -110,12 +110,12 @@
                                         <div class="user-info">
                                             <div class="username">
                                                 <small>
-                                                    <a href="#/profile/bilarslan" class="ng-binding">{{question.user.username}}</a>
+                                                    <a ng-href="#/profile/{{question.user.username}}" class="ng-binding">{{question.user.username}}</a>
                                                 </small>
                                             </div>
                                             <div class="username" style="font-style: italic">
                                                 <small>
-                                                    <small class="ng-binding">11.11.2016 19:05:53</small>
+                                                    <small class="ng-binding">{{question.createdAt}}</small>
                                                 </small>
                                             </div>
                                         </div>
@@ -169,12 +169,12 @@
                                                 <div class="user-info">
                                                     <div class="username">
                                                         <small>
-                                                            <a href="#/profile/bilarslan" class="ng-binding">{{answer.user.username}}</a>
+                                                            <a ng-href="#/profile/{{answer.user.username}}" class="ng-binding">{{answer.user.username}}</a>
                                                         </small>
                                                     </div>
                                                     <div class="username" style="font-style: italic">
                                                         <small>
-                                                            <small class="ng-binding">11.11.2016 19:05:53</small>
+                                                            <small class="ng-binding">{{answer.createdAt}}</small>
                                                         </small>
                                                     </div>
                                                 </div>
@@ -198,33 +198,19 @@
         <small>
             <div class="card">
                 <div class="card-header">
-                    <i class="fa fa-comments" aria-hidden="true"></i>
-                    Top Answered Questions
+                    <i class="fa fa-info-circle" aria-hidden="true"></i>
+                    Question Information
                 </div>
-
                 <ul class="list-group">
-                    <!-- ngRepeat: question in questions | orderBy:'-answerCount' | limitTo: 5 -->
                     <li class="list-group-item ng-scope">
-                        <a href="#/question/1" class="ng-binding">
-                            <span class="tag tag-default tag-pill float-xs-right ng-binding">1</span>help me pls
-                        </a>
+                            <b>Asked By :</b> {{question.user.username}}
                     </li>
                     <li class="list-group-item ng-scope">
-                        <a href="#/question/1" class="ng-binding">
-                            <span class="tag tag-default tag-pill float-xs-right ng-binding">1</span>help me pls
-                        </a>
+                            <b>Asked At :</b> {{question.createdAt}}
                     </li>
                     <li class="list-group-item ng-scope">
-                        <a href="#/question/1" class="ng-binding">
-                            <span class="tag tag-default tag-pill float-xs-right ng-binding">1</span>help me pls
-                        </a>
+                            <b>Tags :</b> <div  ng-repeat="tag in question.tags"> {{tag}}</div>
                     </li>
-                    <li class="list-group-item ng-scope">
-                        <a href="#/question/1" class="ng-binding">
-                            <span class="tag tag-default tag-pill float-xs-right ng-binding">1</span>help me pls
-                        </a>
-                    </li>
-                    <!-- end ngRepeat: question in questions | orderBy:'-answerCount' | limitTo: 5 -->
                 </ul>
             </div>
         </small>
