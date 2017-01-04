@@ -14,6 +14,7 @@ db.answer = sequelize.import(__dirname + '/models/answer.js');
 db.answerRate = sequelize.import(__dirname + '/models/answerRate.js');
 db.playlist = sequelize.import(__dirname + '/models/playlist.js');
 db.video = sequelize.import(__dirname + '/models/video.js');
+db.videoComment = sequelize.import(__dirname + '/models/videoComment.js');
 db.contact = sequelize.import(__dirname + '/models/contact.js');
 
 
@@ -43,5 +44,12 @@ db.user.hasMany(db.playlist);
 
 db.video.belongsTo(db.playlist);
 db.playlist.hasMany(db.video);
+
+db.videoComment.belongsTo(db.video);
+db.videoComment.belongsTo(db.user);
+db.video.hasMany(db.videoComment);
+db.user.hasMany(db.videoComment);
+
+
 
 module.exports = db;

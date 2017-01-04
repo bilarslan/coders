@@ -1,5 +1,5 @@
 module.exports = function(sequelize, DataTypes) {
-    var answer = sequelize.define('answer', {
+    var videoComment = sequelize.define('videoComment', {
 
         content: {
             type: DataTypes.STRING,
@@ -8,7 +8,6 @@ module.exports = function(sequelize, DataTypes) {
                 len: [3, 1000]
             }
         }
-
     });
-    return answer;
+    return videoComment;
 }

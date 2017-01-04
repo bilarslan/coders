@@ -68,6 +68,20 @@
                 <script src="http://vjs.zencdn.net/5.8.8/video.js"></script>
             </div>
         </div>
+
+        <form method="post" class="container-fluid" ng-submit="newComment()">
+            <div class="alert alert-danger" role="alert" ng-show="error">
+                <i class="fa fa-exclamation-circle" aria-hidden="true"></i> {{cerror}}
+            </div>
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <input type="text" name="title" class="form-control" value="" placeholder="Your comment" ng-model="content" />
+                </div>
+            </div>
+            <hr/>
+             <input type="submit" style="margin-top: 10px" class="btn btn-primary btn-block" name="commit" value="Comment!">
+        </form>
+
     </div>
     <div class="col-lg-3 col-md-3 col-sm-3">
         <small>

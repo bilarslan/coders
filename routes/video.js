@@ -58,7 +58,14 @@ module.exports = function (app, express) {
                 attributes: ['id', 'username']
             }, {
                 model: db.video,
-                attributes: ['id', 'title', 'description', 'videoUrl']
+                attributes: ['id', 'title', 'description', 'videoUrl'],
+                include: [{
+                    model: db.videoComment,
+                    include:[{
+                        model: db.user,
+                        attributes:['username']
+                    }]
+                }]
             }]
         }).then(function (playlist) {
             if (playlist) {
@@ -95,7 +102,6 @@ module.exports = function (app, express) {
 
     video.post('/v/create', requireAuth, upload.single('file'), function (req, res) {
 
-
         if (typeof req.body.title !== 'string' || typeof req.body.description !== 'string' || typeof req.body.playlist !== 'string') {
             //400
             return res.status(400).json({
@@ -114,6 +120,32 @@ module.exports = function (app, express) {
             console.log(playlist);
             res.send(playlist);
         });
+    });
+
+    video.post('/comment/:id', requireAuth, function (req, res) {
+
+        var id = parseInt(req.params.id, 10);
+        if (!id) {
+            return res.status(400).json({
+                error: 'Invalid data format!'
+            });
+        }
+
+        if (typeof req.body.content !== 'string') {
+            //400
+            return res.status(400).json({
+                error: 'Invalid data format!'
+            });
+        }
+
+        db.videoComment.create({
+            content: req.body.content,
+            videoId: id,
+            userId: req.decoded.id
+        }).then(function (videoComment) {
+            res.send(videoComment);
+        });
+
     });
 
     return video;

@@ -38,8 +38,8 @@ videoController.controller('videosController', ['$scope', 'videoCRUDService', 'a
         videoCRUDService.createPlayList(fd)
             .success(function (res) {
                 res.user = {
-                  id: res.userId,
-                  username: username
+                    id: res.userId,
+                    username: username
                 };
                 $scope.videos.push(res);
                 $('#modal-answer').modal("hide");
@@ -53,7 +53,7 @@ videoController.controller('videosController', ['$scope', 'videoCRUDService', 'a
 }]);
 
 
-videoController.controller('videoController', ['$scope', '$http', '$sce', '$routeParams','$location' ,'videoCRUDService', 'auth', function ($scope, $http, $sce, $routeParams,$location ,videoCRUDService, auth) {
+videoController.controller('videoController', ['$scope', '$http', '$sce', '$routeParams', '$location', 'videoCRUDService', 'auth', function ($scope, $http, $sce, $routeParams, $location, videoCRUDService, auth) {
 
     var id = $routeParams.id;
     var vid = $routeParams.vid;
@@ -65,7 +65,7 @@ videoController.controller('videoController', ['$scope', '$http', '$sce', '$rout
     $http.get('/video/' + id)
         .success(function (res) {
             $scope.playlist = res;
-
+            console.log(res);
             if (!vid) {
                 vid = res.videos[0].id;
             }
@@ -146,6 +146,20 @@ videoController.controller('videoController', ['$scope', '$http', '$sce', '$rout
             .error(function (err) {
                 console.log(err);
                 $scope.error = err.error;
+            });
+    }
+
+    $scope.content = '';
+    $scope.cError = '';
+    $scope.newComment = function () {
+        $http.post('/video/comment/' + id, {
+                content: $scope.content
+            })
+            .success(function (res) {
+                console.log(res);
+            })
+            .error(function (err) {
+                $scope.cError = err;
             });
     }
 }]);

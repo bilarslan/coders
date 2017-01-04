@@ -7,7 +7,7 @@ module.exports = function(sequelize, DataTypes) {
             type: DataTypes.STRING,
             allowNull: false,
             validate: {
-                len: [3, 50]
+                len: [3, 100]
             }
         },
         username: {
@@ -15,7 +15,7 @@ module.exports = function(sequelize, DataTypes) {
             allowNull: false,
             unique: true,
             validate: {
-                len: [3, 50]
+                len: [3, 100]
             }
         },
         email: {
@@ -43,7 +43,7 @@ module.exports = function(sequelize, DataTypes) {
             unique: false,
             defaultValue:'./img/avatar/default_avatar.png',
             validate: {
-                len: [3, 250]
+                len: [3, 500]
             }
         }
     }, {
