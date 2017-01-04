@@ -275,6 +275,7 @@ module.exports = function(app, express) {
                 });
             });
 
+        
         question.post('/answer', requireAuth, function(req, res) {
 
                 if (typeof req.body.content !== 'string' || typeof req.body.questionId !== 'string') {
@@ -326,6 +327,7 @@ module.exports = function(app, express) {
 
             });
 
+       
         question.post('/create', requireAuth, function(req, res) {
 
                 if (typeof req.body.title !== 'string' || typeof req.body.content !== 'string' || typeof req.body.tags !== 'string') {
@@ -335,6 +337,8 @@ module.exports = function(app, express) {
                     });
                 }
 
+
+
                 db.question.create({
                     title: req.body.title,
                     content: req.body.content,
@@ -343,6 +347,7 @@ module.exports = function(app, express) {
                 }).then(function(question) {
                     res.send(question);
                 }, function(err) {
+                    console.log(err)
                     res.status(500).send();
                 });
             });

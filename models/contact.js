@@ -14,7 +14,7 @@ module.exports = function (sequelize,DataTypes) {
       allowNull:false
     },
     contactMessage:{
-      type : DataTypes.STRING,
+      type : DataTypes.STRING(1000),
       allowNull:false,
       validate:{
         len : [1,1000]

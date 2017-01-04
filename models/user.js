@@ -7,7 +7,7 @@ module.exports = function(sequelize, DataTypes) {
             type: DataTypes.STRING,
             allowNull: false,
             validate: {
-                len: [3, 100]
+                len: [3, 250]
             }
         },
         username: {
@@ -15,7 +15,7 @@ module.exports = function(sequelize, DataTypes) {
             allowNull: false,
             unique: true,
             validate: {
-                len: [3, 100]
+                len: [3, 250]
             }
         },
         email: {
@@ -30,7 +30,7 @@ module.exports = function(sequelize, DataTypes) {
             type: DataTypes.STRING,
             allowNull: false,
             validate: {
-                len: [6, 100]
+                len: [6, 255]
             },
             set: function(value) {
                 var hash = bcrypt.hashSync(value);
@@ -43,7 +43,7 @@ module.exports = function(sequelize, DataTypes) {
             unique: false,
             defaultValue:'./img/avatar/default_avatar.png',
             validate: {
-                len: [3, 500]
+                len: [3, 255]
             }
         }
     }, {

@@ -5,21 +5,21 @@ module.exports = function(sequelize, DataTypes) {
             type: DataTypes.STRING,
             allowNull: false,
             validate: {
-                len: [3, 500]
+                len: [3, 255]
             }
         },
         description: {
             type: DataTypes.STRING,
             allowNull: false,
             validate: {
-                len: [3, 500]
+                len: [3, 255]
             }
         },
         videoUrl: {
             type: DataTypes.STRING,
             allowNull: false,
             validate: {
-                len: [3, 500]
+                len: [3, 255]
             }
         }
     });
