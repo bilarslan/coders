@@ -54,7 +54,7 @@ authController.controller('profileController', ['$scope', '$routeParams', 'authU
             response.answers.forEach(function(item){
               var div = document.createElement("div");
               div.innerHTML = item.content;
-              item.content = div.innerText // Hello, World
+              item.content = div.innerText;
             });
             $scope.user = response;
         })

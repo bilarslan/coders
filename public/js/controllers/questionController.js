@@ -1,19 +1,23 @@
 var questionController = angular.module('questionController', ['ngRoute']);
 
-questionController.controller('questionsController', ['$scope', '$sce', 'questionCRUDService', 'auth', function($scope, $sce, questionCRUDService, auth) {
+questionController.controller('questionsController', ['$scope', '$sce', 'questionCRUDService', 'auth', function ($scope, $sce, questionCRUDService, auth) {
 
     $scope.questions = [];
     var username = auth.userName();
     //Get all questions
-    questionCRUDService.getQuestion().success(function(response) {
+    questionCRUDService.getQuestion().success(function (response) {
         console.log(response);
-        response.forEach(function(question) {
+        response.forEach(function (question) {
             var voteCount = 0;
-            question.questionRates.forEach(function(rating) {
+            question.questionRates.forEach(function (rating) {
                 if (rating.rate != 0) {
                     voteCount++;
                 }
             });
+
+            //var div = document.createElement("div");
+           // div.innerHTML = question.content;
+            //question.content = div.innerText;
             question.content = $sce.trustAsHtml(question.content);
             question.voteCount = voteCount;
             question.answerCount = question.answers.length;
@@ -21,21 +25,21 @@ questionController.controller('questionsController', ['$scope', '$sce', 'questio
             question.createdAt = new Date(question.createdAt).toLocaleString();
         });
         $scope.questions = response;
-    }).error(function(err) {
+    }).error(function (err) {
         console.log(err);
     });
 
-    $scope.like = function(id) {
+    $scope.like = function (id) {
         questionCRUDService.like(id, $scope.questions);
     }
 
-    $scope.dislike = function(id) {
+    $scope.dislike = function (id) {
         questionCRUDService.dislike(id, $scope.questions);
     }
 
 }]);
 
-questionController.controller('questionAnswersController', ['$scope', '$routeParams', '$location', '$sce', 'auth', 'questionCRUDService', function($scope, $routeParams, $location, $sce, auth, questionCRUDService) {
+questionController.controller('questionAnswersController', ['$scope', '$routeParams', '$location', '$sce', 'auth', 'questionCRUDService', function ($scope, $routeParams, $location, $sce, auth, questionCRUDService) {
 
     //Get id of question from url params
     var id = $routeParams.id;
@@ -47,29 +51,29 @@ questionController.controller('questionAnswersController', ['$scope', '$routePar
 
     var username = auth.userName();
 
-    auth.getUser().then(function(response) {
+    auth.getUser().then(function (response) {
         $scope.isLoggedIn = true;
-    }, function(err) {});
+    }, function (err) {});
 
-    questionCRUDService.getQuestion(id).success(function(response) {
-        questionCRUDService.setModals(response, username).then(function(data) {
+    questionCRUDService.getQuestion(id).success(function (response) {
+        questionCRUDService.setModals(response, username).then(function (data) {
             data.tags = data.tags.split(', ');
             data.createdAt = new Date(data.createdAt).toLocaleString();
-            data.answers.forEach(function(item){
+            data.answers.forEach(function (item) {
 
-              item.createdAt = new Date(item.createdAt).toLocaleString();
+                item.createdAt = new Date(item.createdAt).toLocaleString();
             });
             $scope.question = data;
         });
     });
 
     //Answer the question
-    $scope.answerQuestion = function() {
-        questionCRUDService.createAnswer($scope.answer).success(function(response) {
+    $scope.answerQuestion = function () {
+        questionCRUDService.createAnswer($scope.answer).success(function (response) {
 
             //Load the page again and set the modals
-            questionCRUDService.getQuestion(id).success(function(response) {
-                questionCRUDService.setModals(response, username).then(function(data) {
+            questionCRUDService.getQuestion(id).success(function (response) {
+                questionCRUDService.setModals(response, username).then(function (data) {
                     $scope.answer = {
                         questionId: id,
                         content: ''
@@ -82,25 +86,25 @@ questionController.controller('questionAnswersController', ['$scope', '$routePar
             //Close answer creation dialog.
             $('#modal-answer').modal("hide");
 
-        }).error(function(err) {
+        }).error(function (err) {
             $scope.error = 'Please, try again!';
         });
     }
 
-    $scope.like = function(id) {
+    $scope.like = function (id) {
         var questions = [];
         questions.push($scope.question);
         questionCRUDService.like(id, questions);
     }
 
-    $scope.dislike = function(id) {
+    $scope.dislike = function (id) {
         var questions = [];
         questions.push($scope.question);
         questionCRUDService.dislike(id, questions);
     }
 
-    $scope.likeAnswer = function(id) {
-        questionCRUDService.likeAnswer(id).success(function(response) {
+    $scope.likeAnswer = function (id) {
+        questionCRUDService.likeAnswer(id).success(function (response) {
             for (var i = 0; i < $scope.question.answers.length; i++) {
                 var answer = $scope.question.answers[i];
                 if (answer.id == id) {
@@ -116,13 +120,13 @@ questionController.controller('questionAnswersController', ['$scope', '$routePar
                 }
             }
 
-        }).error(function(err) {
+        }).error(function (err) {
             console.log(err);
         });
     }
 
-    $scope.dislikeAnswer = function(id) {
-        questionCRUDService.dislikeAnswer(id).success(function(response) {
+    $scope.dislikeAnswer = function (id) {
+        questionCRUDService.dislikeAnswer(id).success(function (response) {
             for (var i = 0; i < $scope.question.answers.length; i++) {
                 var answer = $scope.question.answers[i];
                 if (answer.id == id) {
@@ -137,13 +141,13 @@ questionController.controller('questionAnswersController', ['$scope', '$routePar
                     break;
                 }
             }
-        }).error(function(err) {
+        }).error(function (err) {
             console.log(err);
         });
     }
 }]);
 
-questionController.controller('newQuestionController', ['$scope', '$location', 'auth', 'questionCRUDService', function($scope, $location, auth, questionCRUDService) {
+questionController.controller('newQuestionController', ['$scope', '$location', 'auth', 'questionCRUDService', function ($scope, $location, auth, questionCRUDService) {
 
     $scope.title = '';
     $scope.content = '';
@@ -151,36 +155,36 @@ questionController.controller('newQuestionController', ['$scope', '$location', '
     $scope.error = '';
 
     //Require auth
-    auth.getUser().then(function(response) {}, function(err) {
+    auth.getUser().then(function (response) {}, function (err) {
         $location.path('/login');
     });
 
     //Create a question
-    $scope.createQuestion = function() {
+    $scope.createQuestion = function () {
         questionCRUDService.createQuestion({
             title: $scope.title,
             content: $scope.content,
             tags: $scope.tags
-        }).success(function(response) {
+        }).success(function (response) {
             $location.path('/questions');
-        }).error(function(err) {
+        }).error(function (err) {
             $scope.error = 'Please, try again!';
         });
     }
 }]);
 
-questionController.directive('ckEditor', function() {
+questionController.directive('ckEditor', function () {
     return {
         require: '?ngModel',
-        link: function(scope, elm, attr, ngModel) {
+        link: function (scope, elm, attr, ngModel) {
             var ck = CKEDITOR.replace(elm[0]);
             if (!ngModel) return;
-            ck.on('instanceReady', function() {
+            ck.on('instanceReady', function () {
                 ck.setData(ngModel.$viewValue);
             });
 
             function updateModel() {
-                scope.$apply(function() {
+                scope.$apply(function () {
                     ngModel.$setViewValue(ck.getData());
                 });
             }
@@ -190,7 +194,7 @@ questionController.directive('ckEditor', function() {
             ck.on('dataReady', updateModel);
 
             if (ngModel.$viewValue) {
-                ngModel.$render = function(value) {
+                ngModel.$render = function (value) {
                     ck.setData(ngModel.$viewValue);
                 };
             }
