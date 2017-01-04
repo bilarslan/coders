@@ -54,7 +54,6 @@ questionController.controller('questionAnswersController', ['$scope', '$routePar
     questionCRUDService.getQuestion(id).success(function(response) {
         questionCRUDService.setModals(response, username).then(function(data) {
             data.tags = data.tags.split(', ');
-            console.log(data)
             data.createdAt = new Date(data.createdAt).toLocaleString();
             data.answers.forEach(function(item){
 
@@ -102,7 +101,6 @@ questionController.controller('questionAnswersController', ['$scope', '$routePar
 
     $scope.likeAnswer = function(id) {
         questionCRUDService.likeAnswer(id).success(function(response) {
-            console.log(response);
             for (var i = 0; i < $scope.question.answers.length; i++) {
                 var answer = $scope.question.answers[i];
                 if (answer.id == id) {
@@ -159,7 +157,6 @@ questionController.controller('newQuestionController', ['$scope', '$location', '
 
     //Create a question
     $scope.createQuestion = function() {
-        console.log($scope.content);
         questionCRUDService.createQuestion({
             title: $scope.title,
             content: $scope.content,

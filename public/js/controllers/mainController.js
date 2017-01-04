@@ -55,6 +55,7 @@ mainController.controller('homepageController', ['$scope', '$http', '$sce', 'que
 
         $http.get('/video')
             .success(function (res) {
+                console.log(res);
                 $scope.playlists = res;
             })
             .error(function (err) {

@@ -65,7 +65,6 @@ videoController.controller('videoController', ['$scope', '$http', '$sce', '$rout
     $http.get('/video/' + id)
         .success(function (res) {
             $scope.playlist = res;
-            console.log(res);
             if (!vid) {
                 vid = res.videos[0].id;
             }
@@ -75,7 +74,10 @@ videoController.controller('videoController', ['$scope', '$http', '$sce', '$rout
                 if (video.id == vid) {
 
                     $scope.selectedVideo = video;
-
+                    $scope.selectedVideo.videoComments.forEach(function(data){
+                        data.createdAt = new Date(data.createdAt).toLocaleString();
+                    });
+                    console.log($scope.selectedVideo);
                     var src = $sce.trustAsResourceUrl(video.videoUrl);
                     var myvideo = document.getElementById('my-video');
 
@@ -98,7 +100,6 @@ videoController.controller('videoController', ['$scope', '$http', '$sce', '$rout
 
         })
         .error(function (err) {
-            console.log(err);
             $scope.error = err.error;
         }).then(function () {
             var name = $scope.playlist.user.username;
@@ -136,7 +137,6 @@ videoController.controller('videoController', ['$scope', '$http', '$sce', '$rout
                     'Content-Type': undefined
                 }
             }).success(function (res) {
-                console.log(res);
                 $('#modal-answer').modal("hide");
                 $scope.progress = false;
                 $scope.playlist.videos.push(res);
@@ -152,11 +152,15 @@ videoController.controller('videoController', ['$scope', '$http', '$sce', '$rout
     $scope.content = '';
     $scope.cError = '';
     $scope.newComment = function () {
-        $http.post('/video/comment/' + id, {
+        $http.post('/video/comment/' + $scope.selectedVideo.id, {
                 content: $scope.content
             })
             .success(function (res) {
                 console.log(res);
+                res.createdAt = new Date(res.createdAt).toLocaleString();
+                res.user = {};
+                res.user.username =  auth.userName();
+                $scope.selectedVideo.videoComments.push(res);
             })
             .error(function (err) {
                 $scope.cError = err;

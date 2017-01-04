@@ -123,7 +123,7 @@
             </div>
         </nav>
 
-        <div class="container-fluid" ng-repeat="question in questions | orderBy:'-id' | filter: search" style="padding: 15px 50px 0 50px">
+        <div class="container-fluid" ng-repeat="question in questions | orderBy:'-createdAt' | filter: search" style="padding: 15px 50px 0 50px">
             <div class="container-fluid" style="border-bottom: solid 1px #bdc3c7; padding: 10px; margin-bottom: 20px">
                 <div class="row">
                     <div class="col-lg-1 col-md-1 col-sm-1" style="padding-top: 7px">

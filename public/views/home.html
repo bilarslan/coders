@@ -54,7 +54,7 @@
                 Tutorial Playlists
             </div>
             <ul class="list-group">
-                <li class="list-group-item" ng-repeat="playlist in playlist | orderBy:'-id' | limitTo: 4">
+                <li class="list-group-item" ng-repeat="playlist in playlists | orderBy:'-createdAt' | limitTo: 4">
                     <a href="#/videoplaylist/{{playlist.id}}">
                         {{playlist.title}}
                     </a>

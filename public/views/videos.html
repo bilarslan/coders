@@ -144,7 +144,7 @@
                     New Video Top List
                 </div>
                 <ul class="list-group">
-                    <div ng-repeat="video in videos | orderBy:'-id' | limitTo: 5" >
+                    <div ng-repeat="video in videos | orderBy:'-createdAt' | limitTo: 5" >
                   <a ng-href="#/videoplaylist/{{video.id}}"><li class="list-group-item"><i class="fa fa-play-circle" aria-hidden="true"></i> {{video.title}}</li></a>
                   </div>
                 </ul>
