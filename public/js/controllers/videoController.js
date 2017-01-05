@@ -156,7 +156,8 @@ videoController.controller('videoController', ['$scope', '$http', '$sce', '$rout
                 content: $scope.content
             })
             .success(function (res) {
-                console.log(res);
+                //console.log(res);
+                    $scope.content = '';
                 res.createdAt = new Date(res.createdAt).toLocaleString();
                 res.user = {};
                 res.user.username =  auth.userName();
