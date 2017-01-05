@@ -69,12 +69,8 @@
             <div class="alert alert-danger" role="alert" ng-show="error">
                 <i class="fa fa-exclamation-circle" aria-hidden="true"></i> {{cerror}}
             </div>
-            <div class="row">
-                <div class="col-lg-6 col-md-6 col-sm-6">
-                    <input type="text" name="title" class="form-control" value="" placeholder="Your comment" ng-model="content" />
-                </div>
-            </div>
-            <input type="submit" style="margin-top: 10px" class="btn btn-primary btn-block" name="commit" value="Comment!">
+                    <input type="text" style="max-width: unset;"name="title" class="form-control" value="" placeholder="Your comment" ng-model="content" />
+            <input type="submit" style="margin-top: 10px" class="btn btn-primary pull-right" name="commit" value="Comment!">
         </form>
         <hr/>
         <div class="card card-block" style="margin-top: 5px" ng-repeat="comment in selectedVideo.videoComments | orderBy:'-createdAt'">
